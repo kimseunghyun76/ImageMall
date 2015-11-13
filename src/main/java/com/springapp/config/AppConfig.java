@@ -1,10 +1,9 @@
 package com.springapp.config;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.*;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -55,5 +54,15 @@ public class AppConfig extends WebMvcConfigurerAdapter {
             registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
         }
     }
+
+
+    @Bean(name = "multipartResolver")
+    @Scope(value = WebApplicationContext.SCOPE_SESSION,proxyMode = ScopedProxyMode.TARGET_CLASS)
+    public CommonsMultipartResolver getMultipartResolver() {
+        CommonsMultipartResolver mr = new CommonsMultipartResolver();
+        mr.setMaxUploadSize(10000);
+        return mr;
+    }
+
 
 }

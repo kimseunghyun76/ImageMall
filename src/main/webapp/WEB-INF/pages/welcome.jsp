@@ -8,16 +8,16 @@
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12 text-center">
-            <p class="lead">${user}님 반갑습니다.</p>
-            <ul class="list-unstyled">
+            <h1 id="type" class="page-header">${user}<small>님 반갑습니다.</small></h1>
+            <ul class="list-unstyled text-left">
                 <li>
                     <a href="/admin/list">회원 정보</a>
                 </li>
                 <li>
-                    <a href="/manager/write">이미지 관리</a>
+                    <a href="/imgmanager/write">이미지 관리</a>
                 </li>
                 <li>
-                    <a href="/manager/list">이미지 승인</a>
+                    <a href="/imgmanager/list">이미지 승인</a>
                 </li>
             </ul>
         </div>

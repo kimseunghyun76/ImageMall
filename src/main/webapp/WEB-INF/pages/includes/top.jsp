@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/webjars/bootstrap/3.3.4/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="<c:url value="/resources/css/styles.css" />">
+    <script src="${pageContext.request.contextPath}/webjars/jquery/2.1.3/dist/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/webjars/bootstrap/3.3.4/dist/js/bootstrap.min.js"></script>
     <title>theHyundai.com 이미지 검색</title>
 </head>
 <body>
@@ -20,7 +22,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">이미지 검색</a>
+            <a class="navbar-brand" href="/">이미지 검색</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -31,10 +33,10 @@
                     <a href="/admin/list">회원 정보</a>
                 </li>
                 <li>
-                    <a href="/manager/write">이미지 관리</a>
+                    <a href="/imgmanager/write">이미지 관리</a>
                 </li>
                 <li>
-                    <a href="/manager/list">이미지 승인</a>
+                    <a href="/imgmanager/list">이미지 승인</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

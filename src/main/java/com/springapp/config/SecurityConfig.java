@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/").access("hasRole('ADMIN')")
                 .antMatchers("/admin/**").access("hasRole('ADMIN')")
-                .antMatchers("/manager/**").access("hasRole('ADMIN') and hasRole('USER')")
+                .antMatchers("/imgmanager/**").access("hasRole('ADMIN') and hasRole('USER')")
                 .and().formLogin().loginPage("/login")
                 .usernameParameter("ssoId").passwordParameter("password")
                 .and().csrf()

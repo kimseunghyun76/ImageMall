@@ -54,7 +54,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" style="padding:8px;">
             <div class="table-responsive">
                 <table class="table table-condensed">
                     <tr class="active">

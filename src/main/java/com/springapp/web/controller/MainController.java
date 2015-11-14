@@ -59,18 +59,18 @@ public class MainController {
 
 
     //Image Upload
-    @RequestMapping(value = { "/manager", "/manager/list" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/imgmanager", "/imgmanager/list" }, method = RequestMethod.GET)
     public String manageListPage(ModelMap model) {
         return "managing/list";
     }
     //Image write
-    @RequestMapping(value = "/manager/write", method = RequestMethod.GET)
+    @RequestMapping(value = "/imgmanager/write", method = RequestMethod.GET)
     public String manageInsertPage(ModelMap model) {
         model.addAttribute("user", getPrincipal());
         return "managing/write";
     }
     //Image edit
-    @RequestMapping(value = "/manager/edit", method = RequestMethod.GET)
+    @RequestMapping(value = "/imgmanager/edit", method = RequestMethod.GET)
     public String manageUpdatePage(ModelMap model) {
         model.addAttribute("user", getPrincipal());
         return "managing/edit";

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="/include_top" flush="true" />
-
 <div class="contentwrap">
     <article class="container">
         <div class="page-header">
@@ -68,45 +68,36 @@
         </div>
         <div class="row" style="padding:8px;">
             <div class="table-responsive">
-                <table class="table table-condensed">
-                    <tr class="active">
-                        <td class="active">No</td>
-                        <td class="active">이미지 정보 </td>
-                        <td class="active">Info</td>
-                    </tr>
+                <table class="table table-striped table-bordered" >
+                    <thead>
                     <tr>
-                        <td>1</td>
-                        <td>천호점 / 나이키골프 / 최승민 / 010-7194-5488 마네킹 / URL</td>
-                        <td><a class="btn btn-default" href="/imgmanager/edit" role="button">정보수정</a></td>
+                        <th>#</th>
+                        <th>이미지 정보</th>
+                        <th>정보변경</th>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>천호점 / 나이키골프 / 최승민 / 010-7194-5488 마네킹 / URL</td>
-                        <td><a class="btn btn-default" href="/imgmanager/edit" role="button">정보수정</a></td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>천호점 / 나이키골프 / 최승민 / 010-7194-5488 마네킹 / URL</td>
-                        <td><a class="btn btn-default" href="/imgmanager/edit" role="button">정보수정</a></td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>천호점 / 나이키골프 / 최승민 / 010-7194-5488 마네킹 / URL</td>
-                        <td><a class="btn btn-default" href="/imgmanager/edit" role="button">정보수정</a></td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>천호점 / 나이키골프 / 최승민 / 010-7194-5488 마네킹 / URL</td>
-                        <td><a class="btn btn-default" href="/imgmanager/edit" role="button">정보수정</a></td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>천호점 / 나이키골프 / 최승민 / 010-7194-5488 마네킹 / URL</td>
-                        <td><a class="btn btn-default" href="/imgmanager/edit" role="button">정보수정</a></td>
-                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="info" items="${imageInfoList}">
+                        <tr>
+                            <td>${info.image_seq}</td>
+                            <td>운동용품 | 천호점 | 나이키골프 | URL : ${info.urlinfo} </td>
+                            <td>
+                                <a class="btn btn-default" href="/imgmanager/edit?image_seq=${info.image_seq}" role="button">수정</a>
+                                <a class="btn btn-default" href="/imgmanager/delete?image_seq=${info.image_seq}" role="button">삭제</a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
                 </table>
             </div>
         </div>
     </article>
 </div>
+
+<script>
+    if("${resultMessage}" != ""){
+        alert("${resultMessage}");
+        location.href="/imgmanager/list";
+    }
+</script>
 <jsp:include page="/include_bottom" flush="true" />

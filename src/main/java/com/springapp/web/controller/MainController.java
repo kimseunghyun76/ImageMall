@@ -1,11 +1,15 @@
 package com.springapp.web.controller;
 
+import com.springapp.domain.ImageInfoVo;
+import com.springapp.service.ImageInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -21,6 +25,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 public class MainController {
+
+    @Autowired
+    ImageInfoService imageInfoService;
 
     //include 포함.
     @RequestMapping(value = { "/include_top" }, method = RequestMethod.GET)
@@ -60,7 +67,8 @@ public class MainController {
 
     //Image Upload
     @RequestMapping(value = { "/imgmanager", "/imgmanager/list" }, method = RequestMethod.GET)
-    public String manageListPage(ModelMap model) {
+    public String manageListPage(@ModelAttribute("imageInfoVo") ImageInfoVo imageInfoVo,ModelMap model) throws Exception{
+        model.addAttribute("imageInfoList", imageInfoService.selectList(imageInfoVo));
         return "managing/list";
     }
     //Image write
@@ -69,12 +77,70 @@ public class MainController {
         model.addAttribute("user", getPrincipal());
         return "managing/write";
     }
+
+
+
+    //Image edit
+    @RequestMapping(value = "/imgmanager/write2", method = RequestMethod.GET)
+    public String manageInsert(@ModelAttribute("imageInfoVo") ImageInfoVo imageInfoVo,ModelMap model) throws Exception{
+
+        int result;
+        result = imageInfoService.insert(imageInfoVo);
+        if(result > 0 ) {
+            model.addAttribute("resultMessage", "정상적으로 등록이 완료되었습니다.");
+        }
+        return "managing/write";
+    }
+
     //Image edit
     @RequestMapping(value = "/imgmanager/edit", method = RequestMethod.GET)
-    public String manageUpdatePage(ModelMap model) {
+    public String manageUpdatePage(@ModelAttribute("imageInfoVo") ImageInfoVo imageInfoVo,ModelMap model) throws Exception{
         model.addAttribute("user", getPrincipal());
+        model.addAttribute("imageInfo", imageInfoService.selectInfo(imageInfoVo));
         return "managing/edit";
     }
+
+    //Image edit
+    @RequestMapping(value = "/imgmanager/edit2", method = RequestMethod.GET)
+    public String manageUpdate(@ModelAttribute("imageInfoVo") ImageInfoVo imageInfoVo,ModelMap model) throws Exception{
+        int result;
+        result = imageInfoService.update(imageInfoVo);
+        if(result > 0 ) {
+            model.addAttribute("resultMessage", "정상적으로 수정이 완료되었습니다.");
+        }
+        model.addAttribute("imageInfo", imageInfoService.selectInfo(imageInfoVo));
+        return "managing/edit";
+    }
+
+    //Image edit
+    @RequestMapping(value = "/imgmanager/delete", method = RequestMethod.GET)
+    public String manageDelete(@ModelAttribute("imageInfoVo") ImageInfoVo imageInfoVo,ModelMap model) throws Exception{
+
+        int result = 0;
+        result = imageInfoService.delete(imageInfoVo);
+        if(result > 0 ) {
+            model.addAttribute("resultMessage", "정상적으로 삭제되었습니다.");
+        }
+        model.addAttribute("imageInfoList", imageInfoService.selectList(imageInfoVo));
+        return "managing/list";
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     @RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)

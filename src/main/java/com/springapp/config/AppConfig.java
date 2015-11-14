@@ -1,7 +1,16 @@
 package com.springapp.config;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.*;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -9,6 +18,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+
+import javax.sql.DataSource;
 
 /**
  * Created by Helloworld
@@ -21,6 +32,7 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @ComponentScan({ "com.springapp.*" })
 @Import({ SecurityConfig.class })
+@MapperScan("com.springapp.persistence")
 public class AppConfig extends WebMvcConfigurerAdapter {
 
 
@@ -31,8 +43,23 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         driverManagerDataSource.setUrl("jdbc:mysql://localhost:3306/mall");
         driverManagerDataSource.setUsername("dbuser");
         driverManagerDataSource.setPassword("1212");
+
         return driverManagerDataSource;
     }
+
+    @Bean
+    public DataSourceTransactionManager transactionManager() {
+        return new DataSourceTransactionManager(dataSource());
+    }
+
+    @Bean
+    public SqlSessionFactoryBean sqlSessionFactory() throws Exception {
+        SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
+        sessionFactory.setDataSource(dataSource());
+        sessionFactory.setTypeAliasesPackage("com.springapp.domain");
+        return sessionFactory;
+    }
+
 
     @Bean
     public InternalResourceViewResolver viewResolver() {
@@ -56,13 +83,6 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     }
 
 
-    @Bean(name = "multipartResolver")
-    @Scope(value = WebApplicationContext.SCOPE_SESSION,proxyMode = ScopedProxyMode.TARGET_CLASS)
-    public CommonsMultipartResolver getMultipartResolver() {
-        CommonsMultipartResolver mr = new CommonsMultipartResolver();
-        mr.setMaxUploadSize(10000);
-        return mr;
-    }
 
 
 }

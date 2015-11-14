@@ -41,7 +41,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${user} <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong>${user}</strong> 정보 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="/admin/edit"><i class="icon-cog"></i> 정보 수정</a></li>
                         <li role="separator" class="divider"></li>

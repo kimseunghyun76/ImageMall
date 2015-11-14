@@ -29,11 +29,11 @@ public class MainController {
 
     @RequestMapping(value = { "/include_bottom" }, method = RequestMethod.GET)
     public String bottomPage(ModelMap model) {
-        return "includes/top";
+        return "includes/bottom";
     }
 
-    @RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
-    public String homePage(ModelMap model) {
+    @RequestMapping(value = { "/", "/index" }, method = RequestMethod.GET)
+    public String mainPage(ModelMap model) {
         return "welcome";
     }
 

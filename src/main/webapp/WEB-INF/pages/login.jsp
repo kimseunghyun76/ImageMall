@@ -13,7 +13,7 @@
                 </c:if>
                 <c:if test="${param.logout != null}">
                     <div class="alert alert-success">
-                        <p>로그아웃이 성공적으로 이뤄졌습니다.</p>
+                        <p>로그아웃이 정상적으로 이뤄졌습니다.</p>
                     </div>
                 </c:if>
                 <c:url var="loginUrl" value="/login" />

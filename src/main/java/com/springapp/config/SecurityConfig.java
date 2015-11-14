@@ -34,14 +34,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "select username, role from user_roles where username=?");
     }
 
-
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers().permitAll()
+                .antMatchers("/").access("hasRole('ADMIN')")
                 .antMatchers("/admin/**").access("hasRole('ADMIN')")
-                .antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('USER')")
+                .antMatchers("/manager/**").access("hasRole('ADMIN') and hasRole('USER')")
                 .and().formLogin().loginPage("/login")
                 .usernameParameter("ssoId").passwordParameter("password")
                 .and().csrf()

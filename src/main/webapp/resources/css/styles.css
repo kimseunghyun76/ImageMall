@@ -1,7 +1,7 @@
 body {
     padding-top: 40px;
     padding-bottom: 40px;
-    background-color: #eee;
+    background-color: #ffffff;
 }
 
 .form-signin {
@@ -38,3 +38,5 @@ body {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+select,input[type="file"]{height:30px;*margin-top:4px;line-height:30px;}
+select{width:220px;border:1px solid #cccccc;background-color:#ffffff;}

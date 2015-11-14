@@ -7,36 +7,14 @@
             <form class="form-horizontal" action='' method="POST">
                 <fieldset>
                     <div id="legend">
-                        <legend class="">회원 정보 등록</legend>
+                        <legend class="">회원 정보 수정</legend>
                     </div>
-                    <div class="control-group">
-                        <!-- Username -->
-                        <label class="control-label"  for="username">ID</label>
-                        <div class="controls">
-                            <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <!-- Password-->
-                        <label class="control-label" for="password">Password</label>
-                        <div class="controls">
-                            <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <!-- Password -->
-                        <label class="control-label"  for="password_confirm">Password (Confirm)</label>
-                        <div class="controls">
-                            <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="input-xlarge">
-                        </div>
-                    </div>
-
                     <div class="control-group">
                         <!-- Username -->
                         <label class="control-label"  for="username">이름</label>
                         <div class="controls">
                             <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
+                            <p class="help-block">Username can contain any letters or numbers, without spaces</p>
                         </div>
                     </div>
 
@@ -45,6 +23,7 @@
                         <label class="control-label" for="email">조직명</label>
                         <div class="controls">
                             <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
+                            <p class="help-block">Please provide your E-mail</p>
                         </div>
                     </div>
 
@@ -53,6 +32,7 @@
                         <label class="control-label" for="password">매장명</label>
                         <div class="controls">
                             <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+                            <p class="help-block">Password should be at least 4 characters</p>
                         </div>
                     </div>
 
@@ -61,6 +41,7 @@
                         <label class="control-label" for="password">카테고리</label>
                         <div class="controls">
                             <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+                            <p class="help-block">Password should be at least 4 characters</p>
                         </div>
                     </div>
 
@@ -94,4 +75,5 @@
     <!-- /.row -->
 </div>
 <!-- /.container -->
+
 <jsp:include page="/include_bottom" flush="true" />

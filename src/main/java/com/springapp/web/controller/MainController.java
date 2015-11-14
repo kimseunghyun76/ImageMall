@@ -22,44 +22,73 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class MainController {
 
+    //include 포함.
     @RequestMapping(value = { "/include_top" }, method = RequestMethod.GET)
     public String topPage(ModelMap model) {
+        model.addAttribute("user", getPrincipal());
         return "includes/top";
     }
-
     @RequestMapping(value = { "/include_bottom" }, method = RequestMethod.GET)
     public String bottomPage(ModelMap model) {
         return "includes/bottom";
     }
 
+    //메인 페이지
     @RequestMapping(value = { "/", "/index" }, method = RequestMethod.GET)
     public String mainPage(ModelMap model) {
+        model.addAttribute("user", getPrincipal());
         return "welcome";
     }
 
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public String adminPage(ModelMap model) {
+    //User List
+    @RequestMapping(value = { "/admin", "/admin/list" }, method = RequestMethod.GET)
+    public String adminListPage(ModelMap model) {
+        return "user/list";
+    }
+    //User write
+    @RequestMapping(value = "/admin/write", method = RequestMethod.GET)
+    public String adminInsertPage(ModelMap model) {
+        return "user/write";
+    }
+    //User edit
+    @RequestMapping(value = "/admin/edit", method = RequestMethod.GET)
+    public String adminUpdatetPage(ModelMap model) {
         model.addAttribute("user", getPrincipal());
-        return "admin";
+        return "user/edit";
     }
 
-    @RequestMapping(value = "/db", method = RequestMethod.GET)
-    public String dbaPage(ModelMap model) {
-        model.addAttribute("user", getPrincipal());
-        return "dba";
+
+    //Image Upload
+    @RequestMapping(value = { "/manager", "/manager/list" }, method = RequestMethod.GET)
+    public String manageListPage(ModelMap model) {
+        return "managing/list";
     }
+    //Image write
+    @RequestMapping(value = "/manager/write", method = RequestMethod.GET)
+    public String manageInsertPage(ModelMap model) {
+        model.addAttribute("user", getPrincipal());
+        return "managing/write";
+    }
+    //Image edit
+    @RequestMapping(value = "/manager/edit", method = RequestMethod.GET)
+    public String manageUpdatePage(ModelMap model) {
+        model.addAttribute("user", getPrincipal());
+        return "managing/edit";
+    }
+
 
     @RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
     public String accessDeniedPage(ModelMap model) {
-        model.addAttribute("user", getPrincipal());
         return "accessDenied";
     }
 
+    //login
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage() {
         return "login";
     }
 
+    //logout
     @RequestMapping(value="/logout", method = RequestMethod.GET)
     public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

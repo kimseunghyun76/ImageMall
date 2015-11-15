@@ -99,22 +99,12 @@
                         <label for="connection_type" class="col-sm-2 control-label">구분</label>
                         <div class="col-sm-4">
                             <select id="connection_type" name="connection_type" class="input-xlarge">
-                                <option value="1">URL</option>
                                 <option value="2">상품</option>
                             </select>
                             <p class="help-block"></p>
                         </div>
                     </div>
-                    <div class="row" id="urlview" style="display:block;padding:10px">
-                        <div class="form-group">
-                            <label for="urlinfo" class="col-sm-2 control-label">URL 정보 </label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" name="urlinfo" id="urlinfo" placeholder="URL 정보" value=" ">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row" id="productview" style="display:none;padding:10px">
+                    <div class="row" id="productview" style="padding:10px">
                         <div class="form-group">
                             <label for="product_seqname" class="col-sm-2 control-label">상품 정보</label>
                             <div class="col-sm-4">
@@ -140,6 +130,30 @@
                     </div>
                 </div>
             </div>
+
+
+            <h3 class="page-header">연결 정보</h3>
+            <div class="row" style="padding:20px">
+                <div class="row" style="padding:10px">
+                    <div class="form-group">
+                        <label for="connection_type1" class="col-sm-2 control-label">구분</label>
+                        <div class="col-sm-4">
+                            <select id="connection_type1" name="connection_type1" class="input-xlarge">
+                                <option value="1">URL</option>
+                            </select>
+                            <p class="help-block"></p>
+                        </div>
+                    </div>
+                    <div class="row" id="urlview" style="display:block;padding:10px">
+                        <div class="form-group">
+                            <label for="urlinfo" class="col-sm-2 control-label">URL 정보 </label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="urlinfo" id="urlinfo" placeholder="URL 정보" value=" ">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label"></label>
                 <div class="col-sm-6">
@@ -152,20 +166,6 @@
 </div>
 
 <script>
-    $("#connection_type").change(function(){
-        $( "#connection_type option:selected" ).each(function() {
-            chooseLayer($( this ).val());
-        });
-    });
-    function chooseLayer(ctype){
-        if(ctype =='1'){
-            $("#urlview" ).show( "slow" );
-            $("#productview" ).hide( "slow" );
-        }else{
-            $("#urlview" ).hide( "slow" );
-            $("#productview" ).show( "slow" );
-        }
-    }
 
     if("${resultMessage}" != ""){
         alert("${resultMessage}");

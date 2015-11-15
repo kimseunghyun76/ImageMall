@@ -64,7 +64,7 @@
                         <div class="form-group">
                             <label for="image01" class="col-sm-2 control-label">이미지1</label>
                             <div class="col-sm-4">
-                                <input type="file" class="form-control" name="imageFiles" id="image01" onchange="readURL(this,1)" ><img id="thumbnail1"  width="0" height="0"/>
+                                <input type="file" class="form-control" name="imageFiles" id="image01" onchange="readURL(this,1)" multiple><img id="thumbnail1"  width="0" height="0"/>
                             </div>
                         </div>
                     </div>
@@ -162,7 +162,7 @@
         $('#addFile').click(function() {
             var fileIndex = $('input[type=file]').length + 1;
             $('#imageuploadzone')
-                    .append('<div class="form-group"><label for="imageFiles' + fileIndex + '" class="col-sm-2 control-label">이미지' + fileIndex + '</label><div class="col-sm-4"><input type="file" class="form-control" name="imageFiles" id="imageFiles' + fileIndex + '"  onchange="readURL(this,' + fileIndex + ')" ><img id="thumbnail' + fileIndex + '"  width="0" height="0"/></div></div>');
+                    .append('<div class="form-group"><label for="imageFiles' + fileIndex + '" class="col-sm-2 control-label">이미지' + fileIndex + '</label><div class="col-sm-4"><input type="file" class="form-control" name="imageFiles" id="imageFiles' + fileIndex + '"  onchange="readURL(this,' + fileIndex + ')" multiple><img id="thumbnail' + fileIndex + '"  width="0" height="0"/></div></div>');
 
         });
     });

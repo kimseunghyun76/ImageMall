@@ -49,35 +49,35 @@
                         <div class="form-group">
                             <label for="imageFiles01" class="col-sm-2 control-label">이미지1</label>
                             <div class="col-sm-4">
-                                <input type="file" class="form-control" name="imageFiles" id="imageFiles01" onchange="readURL(this,1)" ><img id="thumbnail1"  width="0" height="0"/>
+                                <input type="file" class="form-control" name="imageFiles" id="imageFiles01" onchange="readURL(this,1)" multiple/><img id="thumbnail1"  width="0" height="0"/>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="imageFiles02" class="col-sm-2 control-label">이미지2</label>
                             <div class="col-sm-4">
-                                <input type="file" class="form-control" name="imageFiles" id="imageFiles02" onchange="readURL(this,2)" ><img id="thumbnail2"  width="0" height="0"/>
+                                <input type="file" class="form-control" name="imageFiles" id="imageFiles02" onchange="readURL(this,2)" multiple><img id="thumbnail2"  width="0" height="0"/>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="imageFiles03" class="col-sm-2 control-label">이미지3</label>
                             <div class="col-sm-4">
-                                <input type="file" class="form-control" name="imageFiles" id="imageFiles03" onchange="readURL(this,3)" ><img id="thumbnail3"  width="0" height="0"/>
+                                <input type="file" class="form-control" name="imageFiles" id="imageFiles03" onchange="readURL(this,3)" multiple><img id="thumbnail3"  width="0" height="0"/>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="imageFiles04" class="col-sm-2 control-label">이미지4</label>
                             <div class="col-sm-4">
-                                <input type="file" class="form-control" name="imageFiles"id="imageFiles04" onchange="readURL(this,4)" ><img id="thumbnail4"  width="0" height="0"/>
+                                <input type="file" class="form-control" name="imageFiles"id="imageFiles04" onchange="readURL(this,4)" multiple><img id="thumbnail4"  width="0" height="0"/>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="imageFiles05" class="col-sm-2 control-label">이미지5</label>
                             <div class="col-sm-4">
-                                <input type="file" class="form-control" name="imageFiles" id="imageFiles05" onchange="readURL(this,5)" ><img id="thumbnail5"  width="0" height="0"/>
+                                <input type="file" class="form-control" name="imageFiles" id="imageFiles05" onchange="readURL(this,5)" multiple><img id="thumbnail5"  width="0" height="0"/>
                             </div>
                         </div>
                     </div>
@@ -179,7 +179,7 @@
         $('#addFile').click(function() {
             var fileIndex = $('input[type=file]').length + 1;
             $('#imageuploadzone')
-                    .append('<div class="form-group"><label for="imageFiles' + fileIndex + '" class="col-sm-2 control-label">이미지' + fileIndex + '</label><div class="col-sm-4"><input type="file" class="form-control" name="imageFiles" id="imageFiles' + fileIndex + '"  onchange="readURL(this,' + fileIndex + ')" ><img id="thumbnail' + fileIndex + '"  width="0" height="0"/></div></div>');
+                    .append('<div class="form-group"><label for="imageFiles' + fileIndex + '" class="col-sm-2 control-label">이미지' + fileIndex + '</label><div class="col-sm-4"><input type="file" class="form-control" name="imageFiles" id="imageFiles' + fileIndex + '"  onchange="readURL(this,' + fileIndex + ')" multiple><img id="thumbnail' + fileIndex + '"  width="0" height="0"/></div></div>');
 
         });
 

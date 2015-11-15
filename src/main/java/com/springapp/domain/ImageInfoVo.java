@@ -1,6 +1,10 @@
 package com.springapp.domain;
 
 
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+
 /**
  * Created by Helloworld
  * User : USER
@@ -10,8 +14,10 @@ package com.springapp.domain;
  */
 public class ImageInfoVo extends CommonVo {
 
+    private List<MultipartFile> imageFiles;
+    private List<String> fileNames;
 
-    private String image_seq;   //image_info sequence
+    private int image_seq;   //image_info sequence
     private String category_seq;
     private String group_seq;
     private String shop_seq;
@@ -25,11 +31,27 @@ public class ImageInfoVo extends CommonVo {
     //TODO : 우선 String으로 하고, 이후에 각 데이터 타입별로 변경
 
 
-    public String getImage_seq() {
+    public List<String> getFileNames() {
+        return fileNames;
+    }
+
+    public void setFileNames(List<String> fileNames) {
+        this.fileNames = fileNames;
+    }
+
+    public List<MultipartFile> getImageFiles() {
+        return imageFiles;
+    }
+
+    public void setImageFiles(List<MultipartFile> imageFiles) {
+        this.imageFiles = imageFiles;
+    }
+
+    public int getImage_seq() {
         return image_seq;
     }
 
-    public void setImage_seq(String image_seq) {
+    public void setImage_seq(int image_seq) {
         this.image_seq = image_seq;
     }
 

@@ -3,7 +3,7 @@
 
 <div class="contentwrap">
     <article class="container">
-        <form class="form-horizontal" action="/imgmanager/write2" method="get">
+        <form class="form-horizontal" onsubmit="return onSubmitcheck();" action="/imgmanager/write2?${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data">
             <h1 id="type" class="page-header">이미지<small>등록</small></h1>
             <div class="row" style="padding:20px">
                 <div class="form-group">
@@ -45,39 +45,48 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="image01" class="col-sm-2 control-label">이미지1</label>
-                        <div class="col-sm-4">
-                            <input type="file" class="form-control" id="image01" placeholder="카테고리" >
+                    <div id="imageuploadzone" class="row" >
+                        <div class="form-group">
+                            <label for="imageFiles01" class="col-sm-2 control-label">이미지1</label>
+                            <div class="col-sm-4">
+                                <input type="file" class="form-control" name="imageFiles" id="imageFiles01" onchange="readURL(this,1)" ><img id="thumbnail1"  width="0" height="0"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="imageFiles02" class="col-sm-2 control-label">이미지2</label>
+                            <div class="col-sm-4">
+                                <input type="file" class="form-control" name="imageFiles" id="imageFiles02" onchange="readURL(this,2)" ><img id="thumbnail2"  width="0" height="0"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="imageFiles03" class="col-sm-2 control-label">이미지3</label>
+                            <div class="col-sm-4">
+                                <input type="file" class="form-control" name="imageFiles" id="imageFiles03" onchange="readURL(this,3)" ><img id="thumbnail3"  width="0" height="0"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="imageFiles04" class="col-sm-2 control-label">이미지4</label>
+                            <div class="col-sm-4">
+                                <input type="file" class="form-control" name="imageFiles"id="imageFiles04" onchange="readURL(this,4)" ><img id="thumbnail4"  width="0" height="0"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="imageFiles05" class="col-sm-2 control-label">이미지5</label>
+                            <div class="col-sm-4">
+                                <input type="file" class="form-control" name="imageFiles" id="imageFiles05" onchange="readURL(this,5)" ><img id="thumbnail5"  width="0" height="0"/>
+                            </div>
                         </div>
                     </div>
+                    <div class="row text-right">
+                        <span class="btn btn-success fileinput-button">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            <span id="addFile">이미지 필드 추가</span>
+                        </span>
 
-                    <div class="form-group">
-                        <label for="image02" class="col-sm-2 control-label">이미지2</label>
-                        <div class="col-sm-4">
-                            <input type="file" class="form-control" id="image02" placeholder="카테고리" >
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="image03" class="col-sm-2 control-label">이미지3</label>
-                        <div class="col-sm-4">
-                            <input type="file" class="form-control" id="image03" placeholder="카테고리" >
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="image04" class="col-sm-2 control-label">이미지4</label>
-                        <div class="col-sm-4">
-                            <input type="file" class="form-control" id="image04" placeholder="카테고리" >
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="image05" class="col-sm-2 control-label">이미지5</label>
-                        <div class="col-sm-4">
-                            <input type="file" class="form-control" id="image05" placeholder="카테고리" >
-                        </div>
                     </div>
                 </div>
             </div>
@@ -131,22 +140,6 @@
                     </div>
                 </div>
             </div>
-            <script>
-                $("#connection_type").change(function(){
-                    $( "#connection_type option:selected" ).each(function() {
-                        chooseLayer($( this ).val());
-                    });
-                });
-                function chooseLayer(ctype){
-                    if(ctype =='1'){
-                        $("#urlview" ).show( "slow" );
-                        $("#productview" ).hide( "slow" );
-                    }else{
-                        $("#urlview" ).hide( "slow" );
-                        $("#productview" ).show( "slow" );
-                    }
-                }
-            </script>
             <div class="form-group">
                 <label class="col-sm-2 control-label"></label>
                 <div class="col-sm-6">
@@ -158,12 +151,51 @@
     </article>
 </div>
 
-
-
 <script>
+    $("#connection_type").change(function(){
+        $( "#connection_type option:selected" ).each(function() {
+            chooseLayer($( this ).val());
+        });
+    });
+    function chooseLayer(ctype){
+        if(ctype =='1'){
+            $("#urlview" ).show( "slow" );
+            $("#productview" ).hide( "slow" );
+        }else{
+            $("#urlview" ).hide( "slow" );
+            $("#productview" ).show( "slow" );
+        }
+    }
+
     if("${resultMessage}" != ""){
         alert("${resultMessage}");
         location.href="/imgmanager/list";
     }
+    function onSubmitcheck(){
+        return true;
+    }
+
+    $(document).ready(function() {
+        $('#addFile').click(function() {
+            var fileIndex = $('input[type=file]').length + 1;
+            $('#imageuploadzone')
+                    .append('<div class="form-group"><label for="imageFiles' + fileIndex + '" class="col-sm-2 control-label">이미지' + fileIndex + '</label><div class="col-sm-4"><input type="file" class="form-control" name="imageFiles" id="imageFiles' + fileIndex + '"  onchange="readURL(this,' + fileIndex + ')" ><img id="thumbnail' + fileIndex + '"  width="0" height="0"/></div></div>');
+
+        });
+
+
+    });
+    function readURL(input,targetId) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#thumbnail'+targetId).attr('src', e.target.result);
+                $('#thumbnail'+targetId).attr('width', 100);
+                $('#thumbnail'+targetId).attr('height', 100);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>
+
 <jsp:include page="/include_bottom" flush="true" />

@@ -45,8 +45,12 @@
     </select>
 
     <!-- 이미지 정보 등록 -->
-    <insert id="insert" parameterType="ImageInfoVo">
-		<![CDATA[
+    <insert id="insert" parameterType="ImageInfoVo" >
+
+		<selectKey keyProperty="image_seq" resultType="Integer" order="AFTER">
+			SELECT LAST_INSERT_ID() as image_seq
+		</selectKey>
+
 		INSERT INTO image_info
 		(
 		category_seq,
@@ -71,7 +75,6 @@
 		#{product_name},
 		#{urlinfo}
 		);
-		]]>
     </insert>
 
 

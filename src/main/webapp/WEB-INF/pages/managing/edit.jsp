@@ -4,7 +4,7 @@
 
 <div class="contentwrap">
     <article class="container">
-        <form class="form-horizontal" action="/imgmanager/edit2" method="get">
+        <form class="form-horizontal" action="/imgmanager/edit2?${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data">
             <input type="hidden" name="image_seq" value="${imageInfo.image_seq}" />
             <h1 id="type" class="page-header">이미지<small>수정</small></h1>
             <div class="row" style="padding:20px">
@@ -42,44 +42,38 @@
                                 <option value="2" <c:if test="${imageInfo.image_type == '2'}">selected</c:if>>프로모션이미지</option>
                                 <option value="3" <c:if test="${imageInfo.image_type == '3'}">selected</c:if>>마네킹 촬영사진</option>
                             </select>
-                            <a class="btn btn-default" href="/admin/list" role="button">미리 보기</a>
                             <p class="help-block"></p>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label for="image01" class="col-sm-2 control-label">이미지1</label>
+                    <div class="row" >
+                        <label class="col-sm-2 control-label">Upload Images </label>
+                    <c:forEach items="${imageFileInfo}" varStatus="status"  var="file">
                         <div class="col-sm-4">
-                            <input type="file" class="form-control" id="image01" placeholder="카테고리" >
+                            <div class="thumbnail">
+                                <img src="/resources/uploadimages/${file.image_name}" alt="${file.image_name}" width="200"/>
+                                <div class="caption">
+                                    <h3>Image ${status.count} <a href="#" class="btn btn-primary" role="button">삭제</a></h3>
+                                    <p>FileName : <small>${file.image_name}</small></p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
+                    </div>
+                    <div id="imageuploadzone" class="row" >
+                        <div class="form-group">
+                            <label for="image01" class="col-sm-2 control-label">이미지1</label>
+                            <div class="col-sm-4">
+                                <input type="file" class="form-control" name="imageFiles" id="image01" onchange="readURL(this,1)" ><img id="thumbnail1"  width="0" height="0"/>
+                            </div>
                         </div>
                     </div>
+                    <div class="row text-right">
+                        <span class="btn btn-success fileinput-button">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            <span id="addFile">이미지 필드 추가</span>
+                        </span>
 
-                    <div class="form-group">
-                        <label for="image02" class="col-sm-2 control-label">이미지2</label>
-                        <div class="col-sm-4">
-                            <input type="file" class="form-control" id="image02" placeholder="카테고리" >
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="image03" class="col-sm-2 control-label">이미지3</label>
-                        <div class="col-sm-4">
-                            <input type="file" class="form-control" id="image03" placeholder="카테고리" >
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="image04" class="col-sm-2 control-label">이미지4</label>
-                        <div class="col-sm-4">
-                            <input type="file" class="form-control" id="image04" placeholder="카테고리" >
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="image05" class="col-sm-2 control-label">이미지5</label>
-                        <div class="col-sm-4">
-                            <input type="file" class="form-control" id="image05" placeholder="카테고리" >
-                        </div>
                     </div>
                 </div>
             </div>
@@ -102,7 +96,7 @@
                         <div class="form-group">
                             <label for="urlinfo" class="col-sm-2 control-label">URL 정보 </label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="urlinfo" id="urlinfo" placeholder="URL 정보 " value="${imageInfo.urlinfo}">
+                                <input type="text" class="form-control" name="urlinfo" id="urlinfo" placeholder="URL 정보 " value="${imageInfo.urlinfo}" >
                             </div>
                         </div>
                     </div>
@@ -162,6 +156,26 @@
     chooseLayer('${imageInfo.connection_type}');
     if("${resultMessage}" != ""){
         alert("${resultMessage}")
+    }
+
+    $(document).ready(function() {
+        $('#addFile').click(function() {
+            var fileIndex = $('input[type=file]').length + 1;
+            $('#imageuploadzone')
+                    .append('<div class="form-group"><label for="imageFiles' + fileIndex + '" class="col-sm-2 control-label">이미지' + fileIndex + '</label><div class="col-sm-4"><input type="file" class="form-control" name="imageFiles" id="imageFiles' + fileIndex + '"  onchange="readURL(this,' + fileIndex + ')" ><img id="thumbnail' + fileIndex + '"  width="0" height="0"/></div></div>');
+
+        });
+    });
+    function readURL(input,targetId) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#thumbnail'+targetId).attr('src', e.target.result);
+                $('#thumbnail'+targetId).attr('width', 100);
+                $('#thumbnail'+targetId).attr('height', 100);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
     }
 </script>
 <jsp:include page="/include_bottom" flush="true" />

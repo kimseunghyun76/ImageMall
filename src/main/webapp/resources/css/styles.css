@@ -38,5 +38,6 @@ body {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
-select,input[type="file"]{height:30px;*margin-top:4px;line-height:30px;}
-select{width:220px;border:1px solid #cccccc;background-color:#ffffff;}
+input[type="file"]{height:30px;*margin-top:4px;line-height:30px;border:0px}
+select{height:30px;*margin-top:4px;line-height:30px;}
+select{width:100%;border:1px solid #cccccc;background-color:#ffffff;}

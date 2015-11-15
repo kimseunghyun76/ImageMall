@@ -67,25 +67,38 @@
                         <td>1</td>
                         <td>admin</td>
                         <td>관리자</td>
-                        <td><a class="btn btn-default" href="/admin/edit" role="button">정보수정</a></td>
+                        <td>
+                            <a class="btn btn-success" href="/admin/edit" role="button">정보 수정</a>
+                            <a class="btn btn-warning" href="/admin/edit" role="button">정보 삭제</a>
+                        </td>
+
                     </tr>
                     <tr>
                         <td>2</td>
                         <td>tester</td>
                         <td>김수로</td>
-                        <td><a class="btn btn-default" href="/admin/edit" role="button">정보수정</a></td>
+                        <td>
+                            <a class="btn btn-success" href="/admin/edit" role="button">정보 수정</a>
+                            <a class="btn btn-warning" href="/admin/edit" role="button">정보 삭제</a>
+                        </td>
                     </tr>
                     <tr>
                         <td>3</td>
                         <td>hyundai00</td>
                         <td>홍길동</td>
-                        <td><a class="btn btn-default" href="/admin/edit" role="button">정보수정</a></td>
+                        <td>
+                            <a class="btn btn-success" href="/admin/edit" role="button">정보 수정</a>
+                            <a class="btn btn-warning" href="/admin/edit" role="button">정보 삭제</a>
+                        </td>
                     </tr>
                     <tr>
                         <td>4</td>
                         <td>hyundai01</td>
                         <td>박남정</td>
-                        <td><a class="btn btn-default" href="/admin/edit" role="button">정보수정</a></td>
+                        <td>
+                            <a class="btn btn-success" href="/admin/edit" role="button">정보 수정</a>
+                            <a class="btn btn-warning" href="/admin/edit" role="button">정보 삭제</a>
+                        </td>
                     </tr>
                 </table>
             </div>

@@ -44,22 +44,22 @@
                 </div>
                 <div class="row" style="padding:10px">
                     <div class="col-md-6">
-                        <label for="userrole" style="padding-right:40px">권한  </label>
+                        <label for="userrole">권한 </label>
                         <select id="userrole" name="userrole" class="input-xlarge">
                             <option value="">선택</option>
-                            <option value="superadmin">최고관리자</option>
+                            <option value="super">최고관리자</option>
                             <option value="admin">관리자</option>
                             <option value="user">사용자</option>
                         </select>
                     </div>
 
                     <div class="col-md-6">
-                        <label for="userrole" style="padding-right:20px">이미지구분  </label>
-                        <select id="userrole" name="userrole" class="input-xlarge">
+                        <label for="image_type">이미지구분  </label>
+                        <select id="image_type" name="image_type" class="input-xlarge">
                             <option value="">선택</option>
-                            <option value="logo">로고</option>
-                            <option value="promotion">프로모션이미지</option>
-                            <option value="picture">마네킹 촬영사진</option>
+                            <option value="1">로고</option>
+                            <option value="2">프로모션이미지</option>
+                            <option value="3">마네킹 촬영사진</option>
                         </select>
                     </div>
                 </div>
@@ -78,12 +78,12 @@
                     </thead>
                     <tbody>
                     <c:forEach var="info" items="${imageInfoList}">
-                        <tr>
+                        <tr onclick="location.href='/imgmanager/preview?image_seq=${info.image_seq}'" style="cursor: pointer;" >
                             <td>${info.image_seq}</td>
                             <td>운동용품 | 천호점 | 나이키골프 | URL : ${info.urlinfo} </td>
                             <td>
-                                <a class="btn btn-default" href="/imgmanager/edit?image_seq=${info.image_seq}" role="button">수정</a>
-                                <a class="btn btn-default" href="/imgmanager/delete?image_seq=${info.image_seq}" role="button">삭제</a>
+                                <a class="btn btn-success" href="/imgmanager/edit?image_seq=${info.image_seq}" role="button">수정</a>
+                                <a class="btn btn-warning" href="/imgmanager/delete?image_seq=${info.image_seq}" role="button">삭제</a>
                             </td>
                         </tr>
                     </c:forEach>

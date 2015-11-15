@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">
             <div class="account-wall">
-                <h3 class="text-center login-title">theHyundai.com 이미지 검색</h3>
+                <h4 class="text-center login-title">theHyundai.com 이미지 검색</h4>
                 <c:if test="${param.error != null}">
                     <div class="alert alert-danger">
                         <p>아이디와 비밀번호가 정확하지 않습니다.</p>

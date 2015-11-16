@@ -28,7 +28,7 @@
                 </div>
             </div>
 
-            <h3 class="page-header">이미지 정보</h3>
+            <h3 class="page-header">연결 정보</h3>
             <div class="row" style="padding:20px">
                 <div class="row" style="padding:10px">
                     <div class="form-group">
@@ -63,24 +63,11 @@
             <div class="row" style="padding:20px">
                 <div class="row" style="padding:10px">
                     <div class="row" id="urlview" style="display:block;padding:10px">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">URL 정보 </label>
-                            <label class="col-sm-3 control-label">
-                                <h4>${imageInfo.urlinfo}</h4>
-                            </label>
-                        </div>
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">상품 정보 </label>
+                            <label class="col-sm-2 control-label">상품 코드 </label>
                             <label class="col-sm-3 control-label">
-                                <h4> </h4>
-                            </label>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">상품 정보 </label>
-                            <label class="col-sm-3 control-label">
-                                <h4> </h4>
+                                <h4>${imageInfo.product_code}</h4>
                             </label>
                         </div>
 
@@ -88,6 +75,13 @@
                             <label class="col-sm-2 control-label">상품명 </label>
                             <label class="col-sm-3 control-label">
                                 <h4> ${imageInfo.product_name}</h4>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">URL 정보 </label>
+                            <label class="col-sm-3 control-label">
+                                <h4>${imageInfo.urlinfo}</h4>
                             </label>
                         </div>
                     </div>

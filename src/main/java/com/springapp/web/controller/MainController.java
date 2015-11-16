@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -265,6 +266,13 @@ public class MainController {
         return "managing/list";
     }
 
+    //Image edit
+    @RequestMapping(value = "/imgmanager/deleteFile", method = RequestMethod.GET)
+    public @ResponseBody String
+    manageDelete(@ModelAttribute("imageFileInfoVo") ImageFileInfoVo imageFileInfoVo) throws Exception{
+        imageFileInfoService.delete(imageFileInfoVo);
+        return "0";
+    }
 
 
 

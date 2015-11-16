@@ -48,11 +48,11 @@
                     <div class="row" >
                         <label class="col-sm-2 control-label">Upload Images </label>
                     <c:forEach items="${imageFileInfo}" varStatus="status"  var="file">
-                        <div class="col-sm-4">
+                        <div class="col-sm-4" id="imageDiv${status.count}">
                             <div class="thumbnail">
                                 <img src="/resources/uploadimages/${file.image_name}" alt="${file.image_name}" width="200"/>
                                 <div class="caption">
-                                    <h3>Image ${status.count} <a href="#" class="btn btn-primary" role="button">삭제</a></h3>
+                                    <h3>Image ${status.count} <a href="javascript:deleteImg('imageDiv${status.count}','/imgmanager/deleteFile?image_files_seq=${file.image_files_seq}');" class="btn btn-primary" role="button">삭제</a></h3>
                                     <p>FileName : <small>${file.image_name}</small></p>
 
                                 </div>
@@ -82,57 +82,21 @@
             <h3 class="page-header">연결 정보</h3>
             <div class="row" style="padding:20px">
                 <div class="row" style="padding:10px">
-                    <div class="form-group">
-                        <label for="connection_type" class="col-sm-2 control-label">구분</label>
-                        <div class="col-sm-4">
-                            <select id="connection_type" name="connection_type" class="input-xlarge">
-                                <option value="2" <c:if test="${imageInfo.connection_type == '2'}">selected</c:if>>상품</option>
-                            </select>
-                            <p class="help-block"></p>
-                        </div>
-                    </div>
-
-                    <div class="row" id="productview" style="padding:10px">
+                    <div class="row" style="padding:10px">
                         <div class="form-group">
-                            <label for="product_seqname" class="col-sm-2 control-label">상품 정보</label>
+                            <label for="product_code" class="col-sm-2 control-label">상품 코드</label>
                             <div class="col-sm-4">
-                                <input type="hidden" name="product_seq" value="${imageInfo.product_seq}" />
-                                <input type="text" class="form-control" id="product_seqname" placeholder="상품 정보" readonly>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="product_codename" class="col-sm-2 control-label">상품 코드</label>
-                            <div class="col-sm-4">
-                                <input type="hidden" name="product_code" value="${imageInfo.product_code}" />
-                                <input type="text" class="form-control" id="product_codename" placeholder="상품 코드" readonly>
+                                <input type="text" class="form-control" name="product_code" id="product_code" placeholder="상품 코드" value="${imageInfo.product_code}">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="product_name" class="col-sm-2 control-label">상품명</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="product_name" placeholder="상품명"  value="${imageInfo.product_name}">
+                                <input type="text" class="form-control" name="product_name" id="product_name" placeholder="상품명"  value="${imageInfo.product_name}">
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
 
-
-            <h3 class="page-header">연결 정보</h3>
-            <div class="row" style="padding:20px">
-                <div class="row" style="padding:10px">
-                    <div class="form-group">
-                        <label for="connection_type" class="col-sm-2 control-label">구분</label>
-                        <div class="col-sm-4">
-                            <select id="connection_type" name="connection_type" class="input-xlarge">
-                                <option value="1" <c:if test="${imageInfo.connection_type == '1'}">selected</c:if>>URL</option>
-                            </select>
-                            <p class="help-block"></p>
-                        </div>
-                    </div>
-                    <div class="row" id="urlview" style="display:block;padding:10px">
                         <div class="form-group">
                             <label for="urlinfo" class="col-sm-2 control-label">URL 정보 </label>
                             <div class="col-sm-4">
@@ -142,6 +106,7 @@
                     </div>
                 </div>
             </div>
+
 
             <div class="form-group">
                 <label class="col-sm-2 control-label"></label>
@@ -155,15 +120,6 @@
 </div>
 
 <script>
-    function chooseLayer(ctype){
-        if(ctype=='1'){
-            $("#urlview" ).show( "slow" );
-            $("#productview" ).hide( "slow" );
-        }else{
-            $("#urlview" ).hide( "slow" );
-            $("#productview" ).show( "slow" );
-        }
-    }
     if("${resultMessage}" != ""){
         alert("${resultMessage}")
     }
@@ -186,6 +142,16 @@
             }
             reader.readAsDataURL(input.files[0]);
         }
+    }
+    function deleteImg(imageDiv,targetUrl){
+        $.ajax({
+            url : targetUrl,
+            method: 'get',
+            success : function(data) {
+                $("#"+imageDiv).hide(1000);
+                alert( "삭제되었습니다. ");
+            }
+        });
     }
 </script>
 <jsp:include page="/include_bottom" flush="true" />

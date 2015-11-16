@@ -22,8 +22,6 @@ public class ImageInfoVo extends CommonVo {
     private String group_seq;
     private String shop_seq;
     private String image_type;  //default 1
-    private String connection_type;  //default 1
-    private String product_seq;
     private String product_code;
     private String product_name;
     private String urlinfo;
@@ -85,22 +83,6 @@ public class ImageInfoVo extends CommonVo {
 
     public void setImage_type(String image_type) {
         this.image_type = image_type;
-    }
-
-    public String getConnection_type() {
-        return connection_type;
-    }
-
-    public void setConnection_type(String connection_type) {
-        this.connection_type = connection_type;
-    }
-
-    public String getProduct_seq() {
-        return product_seq;
-    }
-
-    public void setProduct_seq(String product_seq) {
-        this.product_seq = product_seq;
     }
 
     public String getProduct_code() {

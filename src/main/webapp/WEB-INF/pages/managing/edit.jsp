@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="/include_top" flush="true" />
-
 <div class="contentwrap">
     <article class="container">
         <form class="form-horizontal" action="/imgmanager/edit2?${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data">

@@ -147,7 +147,6 @@ public class MainController {
             }
 
         }
-
         //파일들 넣어주시고,
         imageInfoVo.setFileNames(fileNames);
         model.addAttribute("imageInfo",imageInfoVo);

@@ -31,7 +31,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     public DriverManagerDataSource dataSource() {
         DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
         driverManagerDataSource.setDriverClassName("net.sf.log4jdbc.DriverSpy");
-        driverManagerDataSource.setUrl("jdbc:log4jdbc:mysql://localhost:3306/mall");
+        driverManagerDataSource.setUrl("jdbc:log4jdbc:mysql://localhost:3306/mall?useUnicode=true&characterEncoding=utf8");
         driverManagerDataSource.setUsername("dbuser");
         driverManagerDataSource.setPassword("1212");
 

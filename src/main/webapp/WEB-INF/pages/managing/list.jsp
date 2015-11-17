@@ -68,28 +68,51 @@
         </div>
         <div class="row" style="padding:8px;">
             <div class="table-responsive">
-                <table class="table table-striped table-bordered" >
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>이미지 정보</th>
-                        <th>정보변경</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="info" items="${imageInfoList}">
-                        <tr onclick="location.href='/imgmanager/preview?image_seq=${info.image_seq}'" style="cursor: pointer;" >
-                            <td>${info.image_seq}</td>
-                            <td>운동용품 | 천호점 | 나이키골프 | URL : ${info.urlinfo} </td>
-                            <td>
-                                <a class="btn btn-success" href="/imgmanager/edit?image_seq=${info.image_seq}" role="button">수정</a>
-                                <a class="btn btn-warning" href="/imgmanager/delete?image_seq=${info.image_seq}" role="button">삭제</a>
-                            </td>
+
+                <form name="listForm" action="/imgmanager/list" method="get">
+                <input type="hidden" name="pageNo" value="" />
+                    <table class="table table-striped table-bordered" >
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>상품코드</th>
+                            <th>상품명</th>
+                            <th>URL</th>
+                            <th>정보변경</th>
                         </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="info" items="${imageInfoList}" varStatus="status">
+                            <tr onclick="location.href='/imgmanager/preview?image_seq=${info.image_seq}'" style="cursor: pointer;" >
+                                <td>${info.image_seq}</td>
+                                <th>${info.product_code}</th>
+                                <th>${info.product_name}</th>
+                                <th>${info.urlinfo}</th>
+                                <td>
+                                    <a class="btn btn-success" href="/imgmanager/edit?image_seq=${info.image_seq}" role="button">수정</a>
+                                    <a class="btn btn-warning" href="/imgmanager/delete?image_seq=${info.image_seq}" role="button">삭제</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </form>
             </div>
+            <jsp:include page="/include_paging" flush="true">
+                <jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
+                <jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
+                <jsp:param name="startPageNo" value="${paging.startPageNo}" />
+                <jsp:param name="pageNo" value="${paging.pageNo}" />
+                <jsp:param name="endPageNo" value="${paging.endPageNo}" />
+                <jsp:param name="nextPageNo" value="${paging.nextPageNo}" />
+                <jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
+            </jsp:include>
+            <script type="text/javascript">
+                function goPage(pageNo){
+                    document.listForm.pageNo.value = pageNo;
+                    document.listForm.submit();
+                }
+            </script>
         </div>
     </article>
 </div>

@@ -24,6 +24,10 @@ public class ImageInfoService {
         return imageInfoMapper.selectList(imageInfoVo);
     }
 
+    public int selectListCount(ImageInfoVo imageInfoVo) throws Exception{
+        return imageInfoMapper.selectListCount(imageInfoVo);
+    }
+
     public ImageInfoVo selectInfo(ImageInfoVo imageInfoVo) throws Exception{
         return imageInfoMapper.selectInfo(imageInfoVo);
     }

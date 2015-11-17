@@ -4,6 +4,7 @@ import com.springapp.domain.ImageFileInfoVo;
 import com.springapp.domain.ImageInfoVo;
 import com.springapp.service.ImageFileInfoService;
 import com.springapp.service.ImageInfoService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,10 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -54,6 +52,13 @@ public class MainController {
         return "includes/bottom";
     }
 
+    //include 포함.
+    @RequestMapping(value = { "/include_paging" })
+    public String pagingPage(ModelMap model) {
+        model.addAttribute("user", getPrincipal());
+        return "includes/paging";
+    }
+
     //메인 페이지
     @RequestMapping(value = { "/", "/index" })
     public String mainPage(ModelMap model) {
@@ -81,7 +86,17 @@ public class MainController {
 
     //Image Upload
     @RequestMapping(value = { "/imgmanager", "/imgmanager/list" }, method = RequestMethod.GET)
-    public String manageListPage(@ModelAttribute("imageInfoVo") ImageInfoVo imageInfoVo,ModelMap model) throws Exception{
+    public String manageListPage(@ModelAttribute("imageInfoVo") ImageInfoVo imageInfoVo, @RequestParam(value = "pageNo", required = false) String pageNo,ModelMap model) throws Exception{
+
+
+        imageInfoVo.setPageSize(10); // 한 페이지에 보일 게시글 수
+        imageInfoVo.setPageNo(1); // 현재 페이지 번호
+        if(StringUtils.isNotEmpty(pageNo)){
+            imageInfoVo.setPageNo(Integer.parseInt(pageNo));
+        }
+        imageInfoVo.setBlockSize(10);
+        imageInfoVo.setTotalCount(imageInfoService.selectListCount(imageInfoVo)); // 게시물 총 개수
+        model.addAttribute("paging", imageInfoVo);
         model.addAttribute("imageInfoList", imageInfoService.selectList(imageInfoVo));
         return "managing/list";
     }
@@ -128,7 +143,7 @@ public class MainController {
 
                 //TODO : 나중에는 사용자 키 값이랑 상품명도 추가
                 if (!"".equalsIgnoreCase(fileName)) {
-                    fileName = imageInfoVo.getImage_seq() +"_"+ UUID.randomUUID().toString().replaceAll("-","") + ".png";
+                    fileName = imageInfoVo.getImage_seq() +"_"+ UUID.randomUUID().toString().replaceAll("-","") +"."+ fileName.substring(fileName.lastIndexOf(".")+1,fileName.length());
                     multipartFile.transferTo(new File(saveDirectory + fileName));
                     fileNames.add(fileName);
                     System.out.println("fileName = " + fileName);

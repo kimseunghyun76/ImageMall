@@ -9,41 +9,18 @@ package com.springapp.domain;
  */
 public class CommonVo {
 
-	/*Grid 페이징 사용 변수*/
-    /** 현재페이지 */
-    private int pageIndex = 1;
-    /** 페이지갯수 */
-    private int pageUnit = 10;
-    /** 페이지사이즈 */
-    private int pageSize = 10;
-    /** firstIndex */
-    private int firstIndex = 1;
-    /** lastIndex */
-    private int lastIndex = 1;
-    /** recordCountPerPage */
-    private int recordCountPerPage = 10;
-    /** 정렬 기준 */
-    private String sidx = "";
-    /** 정렬 방법 */
-    private String sord = "";
-    /** 전체 로우수 **/
-    private int resultCnt= 0;
-
-    public int getPageIndex() {
-        return pageIndex;
-    }
-
-    public void setPageIndex(int pageIndex) {
-        this.pageIndex = pageIndex;
-    }
-
-    public int getPageUnit() {
-        return pageUnit;
-    }
-
-    public void setPageUnit(int pageUnit) {
-        this.pageUnit = pageUnit;
-    }
+    private int pageSize; // 한 페이지에 보일 게시글 수
+    private int firstPageNo; // 첫 번째 페이지 번호
+    private int prevPageNo; // 이전 페이지 번호
+    private int startPageNo; // 시작 페이지 (페이징 네비 기준)
+    private int pageNo; // 페이지 번호
+    private int endPageNo; // 끝 페이지 (페이징 네비 기준)
+    private int nextPageNo; // 다음 페이지 번호
+    private int finalPageNo; // 마지막 페이지 번호
+    private int totalCount; // 게시글 전체 수
+    private int blockSize; // 페이지 번호 링크 개수
+    private int startRowNum; // 게시글 조회 쿼리에 들어갈 row 시작점
+    private int endRowNum; // 게시글 조회 쿼리에 들어갈 row 끝점
 
     public int getPageSize() {
         return pageSize;
@@ -53,51 +30,141 @@ public class CommonVo {
         this.pageSize = pageSize;
     }
 
-    public int getFirstIndex() {
-        return firstIndex;
+    public int getFirstPageNo() {
+        return firstPageNo;
     }
 
-    public void setFirstIndex(int firstIndex) {
-        this.firstIndex = firstIndex;
+    public void setFirstPageNo(int firstPageNo) {
+        this.firstPageNo = firstPageNo;
     }
 
-    public int getLastIndex() {
-        return lastIndex;
+    public int getPrevPageNo() {
+        return prevPageNo;
     }
 
-    public void setLastIndex(int lastIndex) {
-        this.lastIndex = lastIndex;
+    public void setPrevPageNo(int prevPageNo) {
+        this.prevPageNo = prevPageNo;
     }
 
-    public int getRecordCountPerPage() {
-        return recordCountPerPage;
+    public int getStartPageNo() {
+        return startPageNo;
     }
 
-    public void setRecordCountPerPage(int recordCountPerPage) {
-        this.recordCountPerPage = recordCountPerPage;
+    public void setStartPageNo(int startPageNo) {
+        this.startPageNo = startPageNo;
     }
 
-    public String getSidx() {
-        return sidx;
+    public int getPageNo() {
+        return pageNo;
     }
 
-    public void setSidx(String sidx) {
-        this.sidx = sidx;
+    public void setPageNo(int pageNo) {
+        this.pageNo = pageNo;
+
+        this.setEndRowNum(pageNo * pageSize);
+        this.setStartRowNum(endRowNum - (pageSize - 1));
     }
 
-    public String getSord() {
-        return sord;
+    public int getEndPageNo() {
+        return endPageNo;
     }
 
-    public void setSord(String sord) {
-        this.sord = sord;
+    public void setEndPageNo(int endPageNo) {
+        this.endPageNo = endPageNo;
     }
 
-    public int getResultCnt() {
-        return resultCnt;
+    public int getNextPageNo() {
+        return nextPageNo;
     }
 
-    public void setResultCnt(int resultCnt) {
-        this.resultCnt = resultCnt;
+    public void setNextPageNo(int nextPageNo) {
+        this.nextPageNo = nextPageNo;
     }
+
+    public int getFinalPageNo() {
+        return finalPageNo;
+    }
+
+    public void setFinalPageNo(int finalPageNo) {
+        this.finalPageNo = finalPageNo;
+    }
+
+    public int getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
+        this.makePaging();
+    }
+
+    public int getBlockSize() {
+        return blockSize;
+    }
+
+    public void setBlockSize(int blockSize) {
+        this.blockSize = blockSize;
+    }
+
+    public int getStartRowNum() {
+        return startRowNum;
+    }
+
+    public void setStartRowNum(int startRowNum) {
+        this.startRowNum = startRowNum;
+    }
+
+    public int getEndRowNum() {
+        return endRowNum;
+    }
+
+    public void setEndRowNum(int endRowNum) {
+        this.endRowNum = endRowNum;
+    }
+
+    private void makePaging() {
+        if (this.totalCount == 0)
+            return; // 게시글 전체 수가 없는 경우
+        if (this.pageNo == 0)
+            this.setPageNo(1); // 기본 값 설정
+        if (this.pageSize == 0)
+            this.setPageSize(10); // 기본 값 설정
+
+        int finalPage = (totalCount + (pageSize - 1)) / pageSize; // 마지막 페이지
+        if (this.pageNo > finalPage)
+            this.setPageNo(finalPage); // 기본 값 설정
+
+        if (this.pageNo < 0 || this.pageNo > finalPage)
+            this.pageNo = 1; // 현재 페이지 유효성 체크
+
+        boolean isNowFirst = pageNo == 1 ? true : false; // 시작 페이지 (전체)
+        boolean isNowFinal = pageNo == finalPage ? true : false; // 마지막 페이지 (전체)
+
+        int startPage = ((pageNo - 1) / blockSize) * blockSize + 1; // 시작 페이지 (페이징 네비 기준)
+        int endPage = startPage + blockSize - 1; // 끝 페이지 (페이징 네비 기준)
+
+        if (endPage > finalPage) { // [마지막 페이지 (페이징 네비 기준) > 마지막 페이지]보다 큰 경우
+            endPage = finalPage;
+        }
+
+        this.setFirstPageNo(1); // 첫 번째 페이지 번호
+
+        if (isNowFirst) {
+            this.setPrevPageNo(1); // 이전 페이지 번호
+        } else {
+            this.setPrevPageNo(((pageNo - 1) < 1 ? 1 : (pageNo - 1))); // 이전 페이지 번호
+        }
+
+        this.setStartPageNo(startPage); // 시작 페이지 (페이징 네비 기준)
+        this.setEndPageNo(endPage); // 끝 페이지 (페이징 네비 기준)
+
+        if (isNowFinal) {
+            this.setNextPageNo(finalPage); // 다음 페이지 번호
+        } else {
+            this.setNextPageNo(((pageNo + 1) > finalPage ? finalPage : (pageNo + 1))); // 다음 페이지 번호
+        }
+
+        this.setFinalPageNo(finalPage); // 마지막 페이지 번호
+    }
+
 }

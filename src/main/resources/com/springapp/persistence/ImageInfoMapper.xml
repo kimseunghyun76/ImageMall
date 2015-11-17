@@ -6,8 +6,7 @@
 
     <!-- 이미지 정보 리스트 -->
     <select id = "selectList" parameterType="ImageInfoVo" resultType="ImageInfoVo">
-        <![CDATA[
-		 SELECT
+		SELECT
 			  image_seq,
 			  category_seq,
 			  group_seq,
@@ -18,9 +17,16 @@
 			  urlinfo
 			FROM
 				 image_info
-			ORDER BY image_seq desc;
-	  	]]>
+			ORDER BY image_seq desc
+			limit #{startRowNum },#{endRowNum}
     </select>
+
+	<select id="selectListCount" resultType="int">
+		SELECT
+		COUNT(*) count
+		FROM image_info
+	</select>
+
 
     <!-- 이미지 정보 호출  -->
     <select id="selectInfo" parameterType="ImageInfoVo" resultType="ImageInfoVo">

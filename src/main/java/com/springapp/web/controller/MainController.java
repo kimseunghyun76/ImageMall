@@ -69,11 +69,13 @@ public class MainController {
     //User List
     @RequestMapping(value = { "/admin", "/admin/list" })
     public String adminListPage(ModelMap model) {
+        model.addAttribute("user", getPrincipal());
         return "user/list";
     }
     //User write
     @RequestMapping(value = "/admin/write")
     public String adminInsertPage(ModelMap model) {
+        model.addAttribute("user", getPrincipal());
         return "user/write";
     }
     //User edit
@@ -87,7 +89,6 @@ public class MainController {
     //Image Upload
     @RequestMapping(value = { "/imgmanager", "/imgmanager/list" }, method = RequestMethod.GET)
     public String manageListPage(@ModelAttribute("imageInfoVo") ImageInfoVo imageInfoVo, @RequestParam(value = "pageNo", required = false) String pageNo,ModelMap model) throws Exception{
-
 
         imageInfoVo.setPageSize(10); // 한 페이지에 보일 게시글 수
         imageInfoVo.setPageNo(1); // 현재 페이지 번호
@@ -307,6 +308,7 @@ public class MainController {
 
     @RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
     public String accessDeniedPage(ModelMap model) {
+        model.addAttribute("user", getPrincipal());
         return "accessDenied";
     }
 

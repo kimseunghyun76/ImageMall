@@ -25,8 +25,8 @@
                 </c:if>
                 <c:url var="loginUrl" value="/login" />
                 <form action="${loginUrl}" method="post" class="form-horizontal">
-                    <label for="username" class="sr-only">아이디</label>
-                    <input type="text" class="form-control" id="username" name="ssoId"  placeholder="아이디 입력" required autofocus>
+                    <label for="ssoId" class="sr-only">아이디</label>
+                    <input type="text" class="form-control" id="ssoId" name="ssoId"  placeholder="아이디 입력" required autofocus>
                     <label for="password" class="sr-only">비밀번호</label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호 입력" required>
                     <br/><br/>

@@ -62,7 +62,7 @@ public class CommonVo {
         this.pageNo = pageNo;
 
         this.setEndRowNum(pageNo * pageSize);
-        this.setStartRowNum(endRowNum - (pageSize - 1));
+        this.setStartRowNum(endRowNum - (pageSize ));
     }
 
     public int getEndPageNo() {

@@ -1,12 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>AccessDenied page</title>
-</head>
-<body>
-Dear <strong>${user}</strong>, You are not authorized to access this page
-<a href="<c:url value="/logout" />">Logout</a>
-</body>
-</html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<jsp:include page="/include_top" flush="true" />
+<!-- /.container -->
+<div class="container">
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h1 id="type" class="page-header">${user}<small>님 해당 페이지는 접근하실수 없습니다..</small></h1>
+            <ul class="list-unstyled text-left">
+                <li>
+                    <a href="/">메인 페이지로 이동</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+<jsp:include page="/include_bottom" flush="true" />

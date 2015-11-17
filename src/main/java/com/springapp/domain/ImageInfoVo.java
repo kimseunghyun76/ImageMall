@@ -26,16 +26,14 @@ public class ImageInfoVo extends CommonVo {
     private String product_name;
     private String urlinfo;
 
+    private String category_name;
+    private String group_name;
+    private String shop_name;
+    private String user_id;
+    private String user_role;
+
     //TODO : 우선 String으로 하고, 이후에 각 데이터 타입별로 변경
 
-
-    public List<String> getFileNames() {
-        return fileNames;
-    }
-
-    public void setFileNames(List<String> fileNames) {
-        this.fileNames = fileNames;
-    }
 
     public List<MultipartFile> getImageFiles() {
         return imageFiles;
@@ -43,6 +41,14 @@ public class ImageInfoVo extends CommonVo {
 
     public void setImageFiles(List<MultipartFile> imageFiles) {
         this.imageFiles = imageFiles;
+    }
+
+    public List<String> getFileNames() {
+        return fileNames;
+    }
+
+    public void setFileNames(List<String> fileNames) {
+        this.fileNames = fileNames;
     }
 
     public int getImage_seq() {
@@ -107,5 +113,45 @@ public class ImageInfoVo extends CommonVo {
 
     public void setUrlinfo(String urlinfo) {
         this.urlinfo = urlinfo;
+    }
+
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
+    }
+
+    public String getGroup_name() {
+        return group_name;
+    }
+
+    public void setGroup_name(String group_name) {
+        this.group_name = group_name;
+    }
+
+    public String getShop_name() {
+        return shop_name;
+    }
+
+    public void setShop_name(String shop_name) {
+        this.shop_name = shop_name;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getUser_role() {
+        return user_role;
+    }
+
+    public void setUser_role(String user_role) {
+        this.user_role = user_role;
     }
 }

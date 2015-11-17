@@ -13,12 +13,12 @@
                 <div class="row text-right">
                     <a class="btn btn-default" href="javascript:alert('준비중입니다.');" role="button">대량회원등록</a>
                     <a class="btn btn-default" href="/admin/write" role="button">회원등록</a>
-                    <a class="btn btn-default" href="#" role="button">조회</a>
                 </div>
             </div>
         </div>
 
-        <div class="row" style="padding:20px;">
+        <form class="row" style="padding:20px;">
+            <form name="searchfrm" action="/admin/list">
             <div class="row" style="border:2px solid #e5e5e5;">
                 <div class="row" style="padding:5px">
                     <div class="col-md-6">
@@ -52,7 +52,13 @@
                         </select>
                     </div>
                 </div>
+                <div class="row" style="padding:10px">
+                    <div class="col-md-12 text-right">
+                        <button type="submit" class="btn btn-primary">SEARCH</button>
+                    </div>
+                </div>
             </div>
+            </form>
         </div>
         <div class="row" style="padding:8px;">
             <div class="table-responsive">

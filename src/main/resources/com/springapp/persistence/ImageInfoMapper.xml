@@ -17,14 +17,24 @@
 			  urlinfo
 			FROM
 				 image_info
+		<where>
+			<if test="image_type != null">
+				AND image_type =  #{image_type}
+			</if>
+		</where>
 			ORDER BY image_seq desc
 			limit #{startRowNum },#{endRowNum}
     </select>
 
-	<select id="selectListCount" resultType="int">
+	<select id="selectListCount" parameterType="ImageInfoVo" resultType="int">
 		SELECT
 		COUNT(*) count
 		FROM image_info
+		<where>
+			<if test="image_type != null">
+				AND image_type =  #{image_type}
+			</if>
+		</where>
 	</select>
 
 
@@ -84,6 +94,7 @@
 			<if test="category_seq != null and category_seq != '' ">category_seq=#{category_seq},</if>
 			<if test="group_seq != null and group_seq != '' ">group_seq=#{group_seq},</if>
 			<if test="shop_seq != null and shop_seq != '' ">shop_seq=#{shop_seq},</if>
+			<if test="image_type != null and image_type != '' ">image_type=#{image_type},</if>
 			<if test="product_code != null and product_code != '' ">product_code=#{product_code},</if>
 			<if test="product_name != null and product_name != '' ">product_name=#{product_name},</if>
 			<if test="urlinfo != null and urlinfo != '' ">urlinfo=#{urlinfo},</if>

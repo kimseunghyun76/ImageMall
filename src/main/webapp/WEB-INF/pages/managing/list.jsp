@@ -19,37 +19,38 @@
         </div>
 
         <div class="row" style="padding:20px;">
+            <form name="searchfrm" action="/imgmanager/list">
             <div class="row" style="border:2px solid #e5e5e5;">
                 <div class="row" style="padding:5px">
                     <div class="col-md-6">
-                        <label for="a">카테고리</label>
-                        <input type="text" class="form-control" id="a" placeholder="카테고리">
+                        <label for="category_name">카테고리</label>
+                        <input type="text" class="form-control" id="category_name" name="category_name" placeholder="카테고리" value="${paging.category_name}">
                     </div>
 
                     <div class="col-md-6">
-                        <label for="b">조직명</label>
-                        <input type="text" class="form-control" id="b" placeholder="조직명">
+                        <label for="group_name">조직명</label>
+                        <input type="text" class="form-control" id="group_name" name="group_name" placeholder="조직명"  value="${paging.group_name}">
                     </div>
                 </div>
                 <div class="row" style="padding:10px">
                     <div class="col-md-6">
-                        <label for="c">매장명</label>
-                        <input type="text" class="form-control" id="c" placeholder="매장명">
+                        <label for="shop_name">매장명</label>
+                        <input type="text" class="form-control" id="shop_name" name="shop_name" placeholder="매장명" value="${paging.shop_name}">
                     </div>
 
                     <div class="col-md-6">
-                        <label for="inputId">아이디</label>
-                        <input type="text" class="form-control" id="inputId" placeholder="아이디">
+                        <label for="user_id">아이디</label>
+                        <input type="text" class="form-control" id="user_id" name="user_id" placeholder="아이디" value="${paging.user_id}">
                     </div>
                 </div>
                 <div class="row" style="padding:10px">
                     <div class="col-md-6">
-                        <label for="userrole">권한 </label>
-                        <select id="userrole" name="userrole" class="input-xlarge">
+                        <label for="user_role">권한 </label>
+                        <select id="user_role" name="user_role" class="input-xlarge">
                             <option value="">선택</option>
-                            <option value="super">최고관리자</option>
-                            <option value="admin">관리자</option>
-                            <option value="user">사용자</option>
+                            <option value="super" <c:if test="${paging.user_role == 'super'}">selected</c:if>>최고관리자</option>
+                            <option value="admin" <c:if test="${paging.user_role == 'admin'}">selected</c:if>>관리자</option>
+                            <option value="user" <c:if test="${paging.user_role == 'user'}">selected</c:if>>사용자</option>
                         </select>
                     </div>
 
@@ -57,14 +58,19 @@
                         <label for="image_type">이미지구분  </label>
                         <select id="image_type" name="image_type" class="input-xlarge">
                             <option value="">선택</option>
-                            <option value="1">로고</option>
-                            <option value="2">프로모션이미지</option>
-                            <option value="3">마네킹 촬영사진</option>
+                            <option value="1" <c:if test="${paging.image_type == '1'}">selected</c:if>>로고</option>
+                            <option value="2" <c:if test="${paging.image_type == '2'}">selected</c:if>>프로모션이미지</option>
+                            <option value="3" <c:if test="${paging.image_type == '3'}">selected</c:if>>마네킹 촬영사진</option>
                         </select>
                     </div>
                 </div>
-
+                <div class="row" style="padding:10px">
+                    <div class="col-md-12 text-right">
+                        <button type="submit" class="btn btn-primary">SEARCH</button>
+                    </div>
+                </div>
             </div>
+            </form>
         </div>
         <div class="row" style="padding:8px;">
             <div class="table-responsive">

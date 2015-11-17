@@ -1,15 +1,26 @@
 package com.springapp.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.AccessDecisionVoter;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
+import org.springframework.security.access.vote.AffirmativeBased;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
+import org.springframework.security.web.access.expression.WebExpressionVoter;
 import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import javax.sql.DataSource;
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Helloworld
@@ -26,14 +37,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     DataSource dataSource;
 
+    private RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
+
+    public SecurityConfig() {
+        roleHierarchy.setHierarchy(
+                "ROLE_SUPERADMIN > ROLE_ADMIN" +
+                        "ROLE_ADMIN > ROLE_USER"
+        );
+    }
+
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
 
         auth.jdbcAuthentication().dataSource(dataSource)
                 .usersByUsernameQuery(
-                        "select username,password, enabled from users where username=?")
+                        "select user_id as username,password, enabled from users where user_id=?")
                 .authoritiesByUsernameQuery(
-                        "select username, role from user_roles where username=?");
+                        "select user_id as username, role from user_roles where user_id=?");
     }
 
     @Override
@@ -44,13 +64,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(filter,CsrfFilter.class);
 
         http.authorizeRequests()
-                .antMatchers("/").access("hasRole('ADMIN')")
-                .antMatchers("/admin/**").access("hasRole('ADMIN')")
-                .antMatchers("/imgmanager/**").access("hasRole('ADMIN') and hasRole('USER')")
+                .accessDecisionManager(getAccessDecisionManager())
+                .antMatchers("/login", "/login/**", "/logout", "/Access_Denied").permitAll()
+                .antMatchers("/imgmanager/**").hasAnyRole("USER")
+                .antMatchers("/admin/**").hasAnyRole("ADMIN")
                 .and().formLogin().loginPage("/login")
                 .usernameParameter("ssoId").passwordParameter("password")
                 .and().csrf()
                 .and().exceptionHandling().accessDeniedPage("/Access_Denied");
     }
 
+    @Bean
+    public AffirmativeBased getAccessDecisionManager() {
+        DefaultWebSecurityExpressionHandler expressionHandler = new DefaultWebSecurityExpressionHandler();
+        expressionHandler.setRoleHierarchy(roleHierarchy);
+
+        WebExpressionVoter webExpressionVoter = new WebExpressionVoter();
+        webExpressionVoter.setExpressionHandler(expressionHandler);
+
+        List<AccessDecisionVoter<? extends Object>> voters = new ArrayList<>();
+
+        voters.add(webExpressionVoter);
+        return new AffirmativeBased(voters);
+    }
+
+    @RequestMapping("/admin/write")
+    @Secured("SUPERADMIN")
+    public String adminSystemMenu(Principal princpal) {
+        return "/admin/write";
+    }
 }

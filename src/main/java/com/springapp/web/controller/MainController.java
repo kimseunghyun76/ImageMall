@@ -2,8 +2,10 @@ package com.springapp.web.controller;
 
 import com.springapp.domain.ImageFileInfoVo;
 import com.springapp.domain.ImageInfoVo;
+import com.springapp.domain.UserVo;
 import com.springapp.service.ImageFileInfoService;
 import com.springapp.service.ImageInfoService;
+import com.springapp.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -33,6 +35,9 @@ import java.util.UUID;
  */
 @Controller
 public class MainController {
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     ImageInfoService imageInfoService;
@@ -66,12 +71,24 @@ public class MainController {
         return "welcome";
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////////
     //User List
-    @RequestMapping(value = { "/admin", "/admin/list" })
-    public String adminListPage(ModelMap model) {
+    @RequestMapping(value = { "/admin", "/admin/list" }, method = RequestMethod.GET)
+    public String adminListPage(@ModelAttribute("userVo") UserVo userVo, @RequestParam(value = "pageNo", required = false) String pageNo,ModelMap model) throws Exception{
         model.addAttribute("user", getPrincipal());
+        userVo.setPageSize(10); // 한 페이지에 보일 게시글 수
+        userVo.setPageNo(1); // 현재 페이지 번호
+        if(StringUtils.isNotEmpty(pageNo)){
+            userVo.setPageNo(Integer.parseInt(pageNo));
+        }
+        userVo.setBlockSize(10);
+        userVo.setTotalCount(userService.selectListCount(userVo)); // 게시물 총 개수
+        model.addAttribute("paging", userVo);
+        model.addAttribute("userList", userService.selectList(userVo));
         return "user/list";
     }
+
+
     //User write
     @RequestMapping(value = "/admin/write")
     public String adminInsertPage(ModelMap model) {
@@ -85,11 +102,11 @@ public class MainController {
         return "user/edit";
     }
 
-
+    ///////////////////////////////////////////////////////////////////////////////////////////
     //Image Upload
     @RequestMapping(value = { "/imgmanager", "/imgmanager/list" }, method = RequestMethod.GET)
     public String manageListPage(@ModelAttribute("imageInfoVo") ImageInfoVo imageInfoVo, @RequestParam(value = "pageNo", required = false) String pageNo,ModelMap model) throws Exception{
-
+        model.addAttribute("user", getPrincipal());
         imageInfoVo.setPageSize(10); // 한 페이지에 보일 게시글 수
         imageInfoVo.setPageNo(1); // 현재 페이지 번호
         if(StringUtils.isNotEmpty(pageNo)){

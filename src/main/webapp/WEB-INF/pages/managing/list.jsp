@@ -74,7 +74,6 @@
         </div>
         <div class="row" style="padding:8px;">
             <div class="table-responsive">
-
                 <form name="listForm" action="/imgmanager/list" method="get">
                 <input type="hidden" name="pageNo" value="" />
                     <table class="table table-striped table-bordered" >
@@ -90,7 +89,7 @@
                         <tbody>
                         <c:forEach var="info" items="${imageInfoList}" varStatus="status">
                             <tr onclick="location.href='/imgmanager/preview?image_seq=${info.image_seq}'" style="cursor: pointer;" >
-                                <td>${info.image_seq}</td>
+                                <td>${paging.totalCount - (status.count +((paging.pageNo - 1) * paging.pageSize))+1}</td>
                                 <th>${info.product_code}</th>
                                 <th>${info.product_name}</th>
                                 <th>${info.urlinfo}</th>

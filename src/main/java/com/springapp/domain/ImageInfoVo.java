@@ -12,7 +12,7 @@ import java.util.List;
  * Time : 오후 5:52
  * To change this template use File | Settings | File and Code Templates.
  */
-public class ImageInfoVo extends CommonVo {
+public class ImageInfoVo extends UserVo {
 
     private List<MultipartFile> imageFiles;
     private List<String> fileNames;
@@ -26,14 +26,7 @@ public class ImageInfoVo extends CommonVo {
     private String product_name;
     private String urlinfo;
 
-    private String category_name;
-    private String group_name;
-    private String shop_name;
-    private String user_id;
-    private String user_role;
-
     //TODO : 우선 String으로 하고, 이후에 각 데이터 타입별로 변경
-
 
     public List<MultipartFile> getImageFiles() {
         return imageFiles;
@@ -115,43 +108,4 @@ public class ImageInfoVo extends CommonVo {
         this.urlinfo = urlinfo;
     }
 
-    public String getCategory_name() {
-        return category_name;
-    }
-
-    public void setCategory_name(String category_name) {
-        this.category_name = category_name;
-    }
-
-    public String getGroup_name() {
-        return group_name;
-    }
-
-    public void setGroup_name(String group_name) {
-        this.group_name = group_name;
-    }
-
-    public String getShop_name() {
-        return shop_name;
-    }
-
-    public void setShop_name(String shop_name) {
-        this.shop_name = shop_name;
-    }
-
-    public String getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
-    }
-
-    public String getUser_role() {
-        return user_role;
-    }
-
-    public void setUser_role(String user_role) {
-        this.user_role = user_role;
-    }
 }

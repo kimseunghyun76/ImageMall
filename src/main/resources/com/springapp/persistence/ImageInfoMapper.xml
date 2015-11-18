@@ -23,7 +23,7 @@
 			</if>
 		</where>
 			ORDER BY image_seq desc
-			limit #{startRowNum },#{endRowNum}
+			limit #{startRowNum },#{pageSize}
     </select>
 
 	<select id="selectListCount" parameterType="ImageInfoVo" resultType="int">

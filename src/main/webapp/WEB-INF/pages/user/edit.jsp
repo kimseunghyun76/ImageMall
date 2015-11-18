@@ -75,4 +75,14 @@
         </form>
     </article>
 </div>
+
+<script>
+    if("${resultMessage}" != ""){
+        alert("${resultMessage}");
+        location.href="/admin/list";
+    }
+    function onSubmitcheck(){
+        return true;
+    }
+</script>
 <jsp:include page="/include_bottom" flush="true" />

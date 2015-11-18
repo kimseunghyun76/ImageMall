@@ -108,4 +108,11 @@
         </div>
      </article>
 </div>
+
+<script>
+    if("${resultMessage}" != ""){
+        alert("${resultMessage}");
+        location.href="/admin/list";
+    }
+</script>
 <jsp:include page="/include_bottom" flush="true" />

@@ -17,7 +17,19 @@
 		FROM
 				users
 		<where>
-			<if test="user_role != null">
+			<if test="user_id != null">
+				AND user_id LIKE CONCAT('%', #{user_id},'%')
+			</if>
+			<if test="group_name != null">
+				AND group_name LIKE CONCAT('%', #{group_name},'%')
+			</if>
+			<if test="shop_name != null">
+				AND shop_name LIKE CONCAT('%', #{shop_name},'%')
+			</if>
+			<if test="category_name != null">
+				AND category_name LIKE CONCAT('%', #{category_name},'%')
+			</if>
+			<if test="user_role != '0'">
 				AND user_role =  #{user_role}
 			</if>
 		</where>
@@ -30,17 +42,38 @@
 			COUNT(*) count
 		FROM users
 		<where>
-			<if test="user_role != null">
+			<if test="user_id != null">
+				AND user_id LIKE CONCAT('%', #{user_id},'%')
+			</if>
+			<if test="group_name != null">
+				AND group_name LIKE CONCAT('%', #{group_name},'%')
+			</if>
+			<if test="shop_name != null">
+				AND shop_name LIKE CONCAT('%', #{shop_name},'%')
+			</if>
+			<if test="category_name != null">
+				AND category_name LIKE CONCAT('%', #{category_name},'%')
+			</if>
+			<if test="user_role != '0'">
 				AND user_role =  #{user_role}
 			</if>
 		</where>
 	</select>
+
+	<select id="selectIDCount" parameterType="UserVo" resultType="int">
+		SELECT
+		COUNT(*) count
+		FROM users
+		where  user_id =  #{user_id}
+	</select>
+
 
 
     <!-- 이미지 정보 호출  -->
     <select id="selectInfo" parameterType="UserVo" resultType="UserVo">
         <![CDATA[
 	  		SELECT
+	  			user_id,
 				user_name,
 				category_name,
 				group_name,
@@ -81,6 +114,7 @@
     </insert>
 
 
+
 	<!-- 이미지 정보 수정 -->
 	<update id="update" parameterType="UserVo">
 		UPDATE
@@ -108,5 +142,26 @@
 	  	]]>
 	</delete>
 
+
+
+	<!-- 사용자 권한 정보 등록 -->
+	<insert id="insertUserRole" parameterType="UserVo" >
+		INSERT INTO user_roles(user_id,	role) VALUES(#{user_id},'ROLE_USER');
+	</insert>
+	<insert id="insertAdminRole" parameterType="UserVo" >
+		INSERT INTO user_roles(user_id,	role) VALUES(#{user_id},'ROLE_ADMIN');
+	</insert>
+	<insert id="insertSuperAdminRole" parameterType="UserVo" >
+		INSERT INTO user_roles(user_id,	role) VALUES(#{user_id},'ROLE_SUPERADMIN');
+	</insert>
+
+	<!-- 사용자 권한 정보 삭제 -->
+	<delete id="roleDelete" parameterType="UserVo">
+		<![CDATA[
+		  DELETE FROM
+				user_roles
+		  WHERE  user_id = #{user_id};
+	  	]]>
+	</delete>
 
 </mapper>

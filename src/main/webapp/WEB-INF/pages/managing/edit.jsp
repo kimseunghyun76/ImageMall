@@ -8,24 +8,21 @@
             <h1 id="type" class="page-header">이미지<small>수정</small></h1>
             <div class="row" style="padding:20px">
                 <div class="form-group">
-                    <label for="a" class="col-sm-2 control-label">카테고리</label>
+                    <label for="category_name" class="col-sm-2 control-label">카테고리</label>
                     <div class="col-sm-4">
-                        <input type="hidden" name="category_seq" value="${imageInfo.category_seq}" />
-                        <input type="text" class="form-control" id="a" placeholder="카테고리" value="운동용품" readonly>
+                        <input type="text" class="form-control" id="category_name" placeholder="카테고리" value="${imageInfo.category_name}" readonly>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="b" class="col-sm-2 control-label">조직명</label>
+                    <label for="group_name" class="col-sm-2 control-label">조직명</label>
                     <div class="col-sm-4">
-                        <input type="hidden" name="group_seq" value="${imageInfo.group_seq}" />
-                        <input type="text" class="form-control" id="b" placeholder="조직명" value="천호점" readonly>
+                        <input type="text" class="form-control" id="group_name" placeholder="조직명" value="${imageInfo.group_name}" readonly>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="c" class="col-sm-2 control-label">매장명</label>
+                    <label for="shop_seq" class="col-sm-2 control-label">매장명</label>
                     <div class="col-sm-4">
-                        <input type="hidden" name="shop_seq" value="${imageInfo.shop_seq}" />
-                        <input type="text" class="form-control" id="c" placeholder="매장명" value="나이키골프" readonly>
+                        <input type="text" class="form-control" id="shop_seq" placeholder="매장명" value="${imageInfo.shop_seq}" readonly>
                     </div>
                 </div>
             </div>

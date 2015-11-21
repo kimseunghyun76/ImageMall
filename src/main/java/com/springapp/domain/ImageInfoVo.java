@@ -18,13 +18,12 @@ public class ImageInfoVo extends UserVo {
     private List<String> fileNames;
 
     private int image_seq;   //image_info sequence
-    private String category_seq;
-    private String group_seq;
-    private String shop_seq;
     private String image_type;  //default 1
     private String product_code;
     private String product_name;
     private String urlinfo;
+    //싱글로만
+    private String image_name;
 
     //TODO : 우선 String으로 하고, 이후에 각 데이터 타입별로 변경
 
@@ -50,30 +49,6 @@ public class ImageInfoVo extends UserVo {
 
     public void setImage_seq(int image_seq) {
         this.image_seq = image_seq;
-    }
-
-    public String getCategory_seq() {
-        return category_seq;
-    }
-
-    public void setCategory_seq(String category_seq) {
-        this.category_seq = category_seq;
-    }
-
-    public String getGroup_seq() {
-        return group_seq;
-    }
-
-    public void setGroup_seq(String group_seq) {
-        this.group_seq = group_seq;
-    }
-
-    public String getShop_seq() {
-        return shop_seq;
-    }
-
-    public void setShop_seq(String shop_seq) {
-        this.shop_seq = shop_seq;
     }
 
     public String getImage_type() {
@@ -108,4 +83,11 @@ public class ImageInfoVo extends UserVo {
         this.urlinfo = urlinfo;
     }
 
+    public String getImage_name() {
+        return image_name;
+    }
+
+    public void setImage_name(String image_name) {
+        this.image_name = image_name;
+    }
 }

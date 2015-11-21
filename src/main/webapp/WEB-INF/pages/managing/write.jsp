@@ -58,27 +58,6 @@
                                 <input type="file" class="form-control" name="imageFiles" id="imageFiles02" onchange="readURL(this,2)" multiple><img id="thumbnail2"  width="0" height="0"/>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <label for="imageFiles03" class="col-sm-2 control-label">이미지3</label>
-                            <div class="col-sm-4">
-                                <input type="file" class="form-control" name="imageFiles" id="imageFiles03" onchange="readURL(this,3)" multiple><img id="thumbnail3"  width="0" height="0"/>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="imageFiles04" class="col-sm-2 control-label">이미지4</label>
-                            <div class="col-sm-4">
-                                <input type="file" class="form-control" name="imageFiles"id="imageFiles04" onchange="readURL(this,4)" multiple><img id="thumbnail4"  width="0" height="0"/>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="imageFiles05" class="col-sm-2 control-label">이미지5</label>
-                            <div class="col-sm-4">
-                                <input type="file" class="form-control" name="imageFiles" id="imageFiles05" onchange="readURL(this,5)" multiple><img id="thumbnail5"  width="0" height="0"/>
-                            </div>
-                        </div>
                     </div>
                     <div class="row text-right">
                         <span class="btn btn-success fileinput-button">

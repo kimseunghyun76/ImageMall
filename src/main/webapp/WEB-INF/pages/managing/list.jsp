@@ -11,6 +11,8 @@
             <div class="col-md-8"></div>
             <div class="col-md-4">
                 <div class="row text-right">
+                    <!--권한에 따라서....-->
+                    <a class="btn btn-primary" href="/imgmanager/write" role="button">이미지 등록</a>
                     <a class="btn btn-default" href="#" role="button">승인</a>
                     <a class="btn btn-default" href="#" role="button">반려</a>
                     <a class="btn btn-default" href="#" role="button">조회</a>
@@ -47,17 +49,17 @@
                     <div class="col-md-6">
                         <label for="user_role">권한 </label>
                         <select id="user_role" name="user_role" class="input-xlarge">
-                            <option value="">선택</option>
-                            <option value="super" <c:if test="${paging.user_role == 'super'}">selected</c:if>>최고관리자</option>
-                            <option value="admin" <c:if test="${paging.user_role == 'admin'}">selected</c:if>>관리자</option>
-                            <option value="user" <c:if test="${paging.user_role == 'user'}">selected</c:if>>사용자</option>
+                            <option value="">전체</option>
+                            <option value="3" <c:if test="${paging.user_role == '3'}">selected</c:if>>최고관리자</option>
+                            <option value="2" <c:if test="${paging.user_role == '2'}">selected</c:if>>관리자</option>
+                            <option value="1" <c:if test="${paging.user_role == '1'}">selected</c:if>>사용자</option>
                         </select>
                     </div>
 
                     <div class="col-md-6">
                         <label for="image_type">이미지구분  </label>
                         <select id="image_type" name="image_type" class="input-xlarge">
-                            <option value="">선택</option>
+                            <option value="">전체</option>
                             <option value="1" <c:if test="${paging.image_type == '1'}">selected</c:if>>로고</option>
                             <option value="2" <c:if test="${paging.image_type == '2'}">selected</c:if>>프로모션이미지</option>
                             <option value="3" <c:if test="${paging.image_type == '3'}">selected</c:if>>마네킹 촬영사진</option>
@@ -80,6 +82,7 @@
                         <thead>
                         <tr>
                             <th>#</th>
+                            <th>대표이미지</th>
                             <th>상품코드</th>
                             <th>상품명</th>
                             <th>URL</th>
@@ -90,9 +93,14 @@
                         <c:forEach var="info" items="${imageInfoList}" varStatus="status">
                             <tr onclick="location.href='/imgmanager/preview?image_seq=${info.image_seq}'" style="cursor: pointer;" >
                                 <td>${paging.totalCount - (status.count +((paging.pageNo - 1) * paging.pageSize))+1}</td>
-                                <th>${info.product_code}</th>
-                                <th>${info.product_name}</th>
-                                <th>${info.urlinfo}</th>
+                                <td>
+                                    <c:if test="${info.image_name != ''}">
+                                        <img src="/resources/uploadimages/${info.image_name}" alt="${info.image_name}" width="120" height="100" class="img-thumbnail"/>
+                                    </c:if>
+                                </td>
+                                <td>${info.product_code}</td>
+                                <td>${info.product_name}</td>
+                                <td>${info.urlinfo}</td>
                                 <td>
                                     <a class="btn btn-success" href="/imgmanager/edit?image_seq=${info.image_seq}" role="button">수정</a>
                                     <a class="btn btn-warning" href="/imgmanager/delete?image_seq=${info.image_seq}" role="button">삭제</a>

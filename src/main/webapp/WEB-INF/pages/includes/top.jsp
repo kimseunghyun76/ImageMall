@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -41,12 +42,17 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong>${user}</strong> 정보 <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/admin/edit"><i class="icon-cog"></i> 정보 수정</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="<c:url value="/logout" />"><i class="icon-off"></i>Logout</a></li>
-                    </ul>
+                    <sec:authorize access="isAnonymous()">
+                        <a href="/login"><i class="icon-cog"></i>로그인</a>
+                    </sec:authorize>
+                    <sec:authorize access="isAuthenticated()">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong><sec:authentication property="principal.username"/></strong>정보 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/admin/edit"><i class="icon-cog"></i>내 정보 수정</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="<c:url value="/logout" />"><i class="icon-off"></i>Logout</a></li>
+                        </ul>
+                    </sec:authorize>
                 </li>
             </ul>
         </div><!-- /.navbar-collapse -->

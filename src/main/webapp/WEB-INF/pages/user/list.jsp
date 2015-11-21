@@ -12,8 +12,8 @@
             <div class="col-md-8"></div>
             <div class="col-md-4">
                 <div class="row text-right">
-                    <a class="btn btn-default" href="javascript:alert('준비중입니다.');" role="button">대량회원등록</a>
-                    <a class="btn btn-default" href="/admin/write" role="button">회원등록</a>
+                    <!--a class="btn btn-default" href="javascript:alert('준비중입니다.');" role="button">대량회원등록</a-->
+                    <a class="btn btn-primary" href="/admin/write" role="button">회원등록</a>
                 </div>
             </div>
         </div>
@@ -46,9 +46,10 @@
                     <div class="col-md-12">
                         <label for="user_role" style="padding-right:40px">권한 </label>
                         <select id="user_role" name="user_role" class="input-xlarge">
-                            <option value="super" <c:if test="${paging.user_role == 'super'}">selected</c:if>>최고관리자</option>
-                            <option value="admin" <c:if test="${paging.user_role == 'admin'}">selected</c:if>>관리자</option>
-                            <option value="user" <c:if test="${paging.user_role == 'user'}">selected</c:if>>사용자</option>
+                            <option value="0">전체</option>
+                            <option value="3" <c:if test="${paging.user_role == '3'}">selected</c:if>>최고관리자</option>
+                            <option value="2" <c:if test="${paging.user_role == '2'}">selected</c:if>>관리자</option>
+                            <option value="1" <c:if test="${paging.user_role == '1'}">selected</c:if>>사용자</option>
                         </select>
                     </div>
                 </div>
@@ -79,7 +80,13 @@
                                 <td>${paging.totalCount - (status.count +((paging.pageNo - 1) * paging.pageSize))+1}</td>
                                 <th>${info.user_id}</th>
                                 <th>${info.user_name}</th>
-                                <th>${info.user_role}</th>
+                                <th>
+                                    <c:choose>
+                                        <c:when test="${info.user_role=='3'}">최고관리자</c:when>
+                                        <c:when test="${info.user_role=='2'}">관리자</c:when>
+                                        <c:when test="${info.user_role=='1'}">사용자</c:when>
+                                    </c:choose>
+                                </th>
                                 <td>
                                     <a class="btn btn-success" href="/admin/edit?user_id=${info.user_id}" role="button">수정</a>
                                     <a class="btn btn-warning" href="/admin/delete?user_id=${info.user_id}" role="button">삭제</a>

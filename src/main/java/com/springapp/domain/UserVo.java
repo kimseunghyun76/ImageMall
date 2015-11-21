@@ -3,16 +3,18 @@ package com.springapp.domain;
 /**
  * Created by jooyoung on 2015-11-19.
  */
-public class UserVo extends CommonVo{
+public class UserVo extends CommonVo {
 
     private String user_id;
+    private String user_name;
+    private String password;
+
+
     private String category_name;
     private String group_name;
     private String shop_name;
     private String user_role;
 
-    private String user_name;
-    private String password;
     private String enabled;
     private String reg_date;
 
@@ -64,10 +66,6 @@ public class UserVo extends CommonVo{
         this.user_name = user_name;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -87,4 +85,5 @@ public class UserVo extends CommonVo{
     public void setReg_date(String reg_date) {
         this.reg_date = reg_date;
     }
+
 }

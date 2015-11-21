@@ -28,17 +28,58 @@ public class UserService {
         return userMapper.selectInfo(userVo);
     }
 
+
+    public int selectIDCount(UserVo userVo) throws Exception{
+        return userMapper.selectIDCount(userVo);
+    }
+
     public int insert(UserVo userVo) throws Exception{
+
+
+
         int chk = userMapper.insert(userVo);
+
+        userMapper.insertUserRole(userVo);
+
+        if(userVo.getUser_role().equals("2")){
+            //관리자 (USER, ADMIN)
+            userMapper.insertAdminRole(userVo);
+        }
+
+        if(userVo.getUser_role().equals("3")){
+            //슈퍼 관리자 (USER, ADMIN, SUPERADMIN)
+            userMapper.insertAdminRole(userVo);
+            userMapper.insertSuperAdminRole(userVo);
+        }
+
         return chk;
     }
 
     public int update(UserVo userVo) throws Exception{
         int chk = userMapper.update(userVo);
+
+        userMapper.roleDelete(userVo);
+
+        userMapper.insertUserRole(userVo);
+
+
+        if(userVo.getUser_role().equals("2")){
+            //관리자 (USER, ADMIN)
+            userMapper.insertAdminRole(userVo);
+        }
+
+        if(userVo.getUser_role().equals("3")){
+            //슈퍼 관리자 (USER, ADMIN, SUPERADMIN)
+            userMapper.insertAdminRole(userVo);
+            userMapper.insertSuperAdminRole(userVo);
+        }
+
+
         return chk;
     }
 
     public int delete(UserVo userVo) throws Exception{
+        userMapper.roleDelete(userVo);
         int chk = userMapper.delete(userVo);
         return chk;
     }

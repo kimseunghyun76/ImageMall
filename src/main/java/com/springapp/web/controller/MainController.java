@@ -77,6 +77,10 @@ public class MainController {
             userVo.setPageNo(Integer.parseInt(pageNo));
         }
         userVo.setBlockSize(10);
+        if(userVo.getUser_role()== null || userVo.getUser_role().equals("0")){
+            userVo.setUser_role("");
+        }
+
         userVo.setTotalCount(userService.selectListCount(userVo)); // 게시물 총 개수
         model.addAttribute("paging", userVo);
         model.addAttribute("userList", userService.selectList(userVo));
@@ -157,6 +161,14 @@ public class MainController {
             imageInfoVo.setPageNo(Integer.parseInt(pageNo));
         }
         imageInfoVo.setBlockSize(10);
+
+        if(imageInfoVo.getUser_role()== null || imageInfoVo.getUser_role().equals("0")){
+            imageInfoVo.setUser_role("");
+        }
+        if(imageInfoVo.getImage_type()== null || imageInfoVo.getImage_type().equals("0")){
+            imageInfoVo.setImage_type("");
+        }
+
         imageInfoVo.setTotalCount(imageInfoService.selectListCount(imageInfoVo)); // 게시물 총 개수
         model.addAttribute("paging", imageInfoVo);
         imageInfoService.selectList(imageInfoVo);
@@ -165,7 +177,10 @@ public class MainController {
     }
     //이미지 등록 페이지 이동
     @RequestMapping(value = "/imgmanager/write", method = {RequestMethod.GET, RequestMethod.POST})
-    public String manageInsertPage(ModelMap model) {
+    public String manageInsertPage(ModelMap model)  throws Exception{
+        UserVo userVo = new UserVo();
+        userVo.setUser_id(getSessionUserID());
+        model.addAttribute("userInfo", userService.selectInfo(userVo));
         return "managing/write";
     }
 
@@ -262,7 +277,7 @@ public class MainController {
 
     //이미지 정보 수정
     @RequestMapping(value = "/imgmanager/edit2", method = RequestMethod.POST)
-    public String manageUpdate(@ModelAttribute("imageInfoVo") ImageInfoVo imageInfoVo,HttpServletRequest request,ModelMap model) throws Exception{
+    public String manageUpdate(RedirectAttributes redirectAttributes,@ModelAttribute("imageInfoVo") ImageInfoVo imageInfoVo,HttpServletRequest request,ModelMap model) throws Exception{
 
         final String saveDirectory = request.getSession().getServletContext().getRealPath("/") + "/resources/uploadimages/";
 
@@ -311,13 +326,9 @@ public class MainController {
         String resultMessage ="관리자에게 문의 바랍니다.";
         if(result > 0 )
             resultMessage ="정상적으로 수정이 완료되었습니다.";
-        model.addAttribute("resultMessage", resultMessage);
+        redirectAttributes.addFlashAttribute("resultMessage", resultMessage);
 
-        ImageFileInfoVo imageFileInfoVo = new ImageFileInfoVo();
-        imageFileInfoVo.setImage_seq(imageInfoVo.getImage_seq());
-        model.addAttribute("imageFileInfo", imageFileInfoService.selectList(imageFileInfoVo));
-        model.addAttribute("imageInfo", imageInfoService.selectInfo(imageInfoVo));
-        return "managing/preview";
+        return "redirect:/imgmanager/preview?image_seq=" + imageInfoVo.getImage_seq();
     }
 
     //Image edit

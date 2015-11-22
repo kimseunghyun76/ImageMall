@@ -12,16 +12,14 @@
             <div class="col-md-4">
                 <div class="row text-right">
                     <!--권한에 따라서....-->
-                    <a class="btn btn-primary" href="/imgmanager/write" role="button">이미지 등록</a>
-                    <a class="btn btn-default" href="#" role="button">승인</a>
-                    <a class="btn btn-default" href="#" role="button">반려</a>
-                    <a class="btn btn-default" href="#" role="button">조회</a>
+                    <a class="btn btn-default" href="javascript:alert('준비중입니다.');" role="button">승인</a>
+                    <a class="btn btn-default" href="javascript:alert('준비중입니다.');" role="button">반려</a>
                 </div>
             </div>
         </div>
 
         <div class="row" style="padding:20px;">
-            <form name="searchfrm" action="/imgmanager/list">
+            <form name="searchfrm" action="/imgGrant/list">
             <div class="row" style="border:2px solid #e5e5e5;">
                 <div class="row" style="padding:5px">
                     <div class="col-md-6">
@@ -47,19 +45,18 @@
                 </div>
                 <div class="row" style="padding:10px">
                     <div class="col-md-6">
-                        <label for="user_role">권한 </label>
+                        <label for="user_role"></label>
                         <select id="user_role" name="user_role" class="input-xlarge">
-                            <option value="">전체</option>
+                            <option value="0">전체 권한</option>
                             <option value="3" <c:if test="${paging.user_role == '3'}">selected</c:if>>최고관리자</option>
                             <option value="2" <c:if test="${paging.user_role == '2'}">selected</c:if>>관리자</option>
                             <option value="1" <c:if test="${paging.user_role == '1'}">selected</c:if>>사용자</option>
                         </select>
                     </div>
-
                     <div class="col-md-6">
-                        <label for="image_type">이미지구분  </label>
+                        <label for="image_type"></label>
                         <select id="image_type" name="image_type" class="input-xlarge">
-                            <option value="">전체</option>
+                            <option value="0">전체 이미지구분</option>
                             <option value="1" <c:if test="${paging.image_type == '1'}">selected</c:if>>로고</option>
                             <option value="2" <c:if test="${paging.image_type == '2'}">selected</c:if>>프로모션이미지</option>
                             <option value="3" <c:if test="${paging.image_type == '3'}">selected</c:if>>마네킹 촬영사진</option>
@@ -76,12 +73,13 @@
         </div>
         <div class="row" style="padding:8px;">
             <div class="table-responsive">
-                <form name="listForm" action="/imgmanager/list" method="get">
+                <form name="listForm" action="/imgGrant/list" method="get">
                 <input type="hidden" name="pageNo" value="" />
-                    <table class="table table-striped table-bordered" >
+                    <table class="table table-striped table-bordered" id="domainTable">
                         <thead>
                         <tr>
-                            <th>#</th>
+                            <th><input type="checkbox" name="selectAll" id="selectAllDomainList" /></th>
+                            <th>상태</th>
                             <th>대표이미지</th>
                             <th>상품코드</th>
                             <th>상품명</th>
@@ -91,19 +89,35 @@
                         </thead>
                         <tbody>
                         <c:forEach var="info" items="${imageInfoList}" varStatus="status">
-                            <tr onclick="location.href='/imgmanager/preview?image_seq=${info.image_seq}'" style="cursor: pointer;" >
-                                <td>${paging.totalCount - (status.count +((paging.pageNo - 1) * paging.pageSize))+1}</td>
+                            <tr>
+                                <td><input type="checkbox" name="domainList" value="${info.image_seq}">${paging.totalCount - (status.count +((paging.pageNo - 1) * paging.pageSize))+1}</td>
                                 <td>
-                                    <c:if test="${info.image_name != ''}">
-                                        <img src="/resources/uploadimages/${info.image_name}" alt="${info.image_name}" width="120" height="100" class="img-thumbnail"/>
+                                    <c:if test="${info.status == '1'}">승인요청</c:if>
+                                    <c:if test="${info.status == '2'}">요청취소</c:if>
+                                    <c:if test="${info.status == '3'}">반려</c:if>
+                                    <c:if test="${info.status == '4'}">승인</c:if>
+                                </td>
+                                <td>
+                                    <c:if test="${info.image_name != null}">
+                                       <img src="/resources/uploadimages/${info.image_name}" alt="${info.image_name}" width="225" height="225" class="img-thumbnail" onclick="location.href='/imgGrant/preview?image_seq=${info.image_seq}'"/>
+                                    </c:if>
+                                    <c:if test="${info.image_name == null}">
+                                        <img src="/resources/css/noImg.png" alt="등록된 이미지가 없습니다." width="225" height="225" class="img-thumbnail"/>
                                     </c:if>
                                 </td>
                                 <td>${info.product_code}</td>
                                 <td>${info.product_name}</td>
                                 <td>${info.urlinfo}</td>
                                 <td>
-                                    <a class="btn btn-success" href="/imgmanager/edit?image_seq=${info.image_seq}" role="button">수정</a>
-                                    <a class="btn btn-warning" href="/imgmanager/delete?image_seq=${info.image_seq}" role="button">삭제</a>
+                                    <!--권한별-->
+                                    <a class="btn btn-primary" href="/imgGrant/preview?image_seq=${info.image_seq}" role="button">보기</a>
+
+                                    <c:if test="${info.status == '1'}">
+                                        <a class="btn btn-success" href="/imgGrant/edit?image_seq=${info.image_seq}" role="button">수정</a>
+                                        <a class="btn btn-warning" href="/imgGrant/delete?image_seq=${info.image_seq}" role="button">삭제</a>
+                                    </c:if>
+                                    <a class="btn btn-default" href="javascript:alert('준비중입니다.');" role="button">승인</a>
+                                    <a class="btn btn-default" href="javascript:alert('준비중입니다.');" role="button">반려</a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -133,7 +147,13 @@
 <script>
     if("${resultMessage}" != ""){
         alert("${resultMessage}");
-        location.href="/imgmanager/list";
+        location.href="/imgGrant/list";
     }
+    $('#selectAllDomainList').click(function() {
+        var checkedStatus = this.checked;
+        $('#domainTable tbody tr').find('td:first :checkbox').each(function() {
+            $(this).prop('checked', checkedStatus);
+        });
+    });
 </script>
 <jsp:include page="/include_bottom" flush="true" />

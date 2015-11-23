@@ -49,7 +49,6 @@ public class UserService {
         if(userVo.getUser_role().equals("3")){
             //슈퍼 관리자 (USER, ADMIN, SUPERADMIN)
             userMapper.insertAdminRole(userVo);
-            userMapper.insertSuperAdminRole(userVo);
         }
 
         return chk;
@@ -60,18 +59,18 @@ public class UserService {
 
         userMapper.roleDelete(userVo);
 
-        userMapper.insertUserRole(userVo);
+        if(userVo.getUser_role() != null){
+            userMapper.insertUserRole(userVo);
 
+            if(userVo.getUser_role().equals("2")){
+                //관리자 (USER, ADMIN)
+                userMapper.insertAdminRole(userVo);
+            }
 
-        if(userVo.getUser_role().equals("2")){
-            //관리자 (USER, ADMIN)
-            userMapper.insertAdminRole(userVo);
-        }
-
-        if(userVo.getUser_role().equals("3")){
-            //슈퍼 관리자 (USER, ADMIN, SUPERADMIN)
-            userMapper.insertAdminRole(userVo);
-            userMapper.insertSuperAdminRole(userVo);
+            if(userVo.getUser_role().equals("3")){
+                //슈퍼 관리자 (USER, ADMIN, SUPERADMIN)
+                userMapper.insertAdminRole(userVo);
+            }
         }
 
 

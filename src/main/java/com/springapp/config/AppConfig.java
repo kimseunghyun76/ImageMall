@@ -38,10 +38,12 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         return driverManagerDataSource;
     }
 
+
     @Bean
     public DataSourceTransactionManager transactionManager() {
         return new DataSourceTransactionManager(dataSource());
     }
+
 
     @Bean
     public SqlSessionFactoryBean sqlSessionFactory() throws Exception {

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springapp2.others.ProductMapper">
+
+    <!-- 이미지 정보 리스트 -->
+    <select id = "selectList" parameterType="ProductVo" resultType="ProductVo">
+        SELECT
+        SLITM_CD,
+        SLITM_NM,
+        ITEM_URL
+        FROM
+        items
+        WHERE  SLITM_NM LIKE CONCAT( #{SLITM_NM},'%')
+        limit #{startRowNum },#{pageSize}
+    </select>
+
+    <select id="selectListCount" parameterType="ProductVo" resultType="int">
+        SELECT
+        COUNT(*) count
+        FROM
+        items
+        WHERE  SLITM_NM LIKE CONCAT( #{SLITM_NM},'%')
+    </select>
+
+</mapper>

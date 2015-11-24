@@ -41,3 +41,11 @@ body {
 input[type="file"]{height:30px;*margin-top:4px;line-height:30px;border:0px}
 select{height:30px;*margin-top:4px;line-height:30px;}
 select{width:100%;border:1px solid #cccccc;background-color:#ffffff;}
+
+.text-overflow {
+    display: inline-block;
+    max-width: 500px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

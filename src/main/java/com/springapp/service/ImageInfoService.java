@@ -28,6 +28,14 @@ public class ImageInfoService {
         return imageInfoMapper.selectListCount(imageInfoVo);
     }
 
+    public List<ImageInfoVo> selectGrantList(ImageInfoVo imageInfoVo) throws Exception{
+        return imageInfoMapper.selectGrantList(imageInfoVo);
+    }
+
+    public int selectGrantListCount(ImageInfoVo imageInfoVo) throws Exception{
+        return imageInfoMapper.selectGrantListCount(imageInfoVo);
+    }
+
     public ImageInfoVo selectInfo(ImageInfoVo imageInfoVo) throws Exception{
         return imageInfoMapper.selectInfo(imageInfoVo);
     }

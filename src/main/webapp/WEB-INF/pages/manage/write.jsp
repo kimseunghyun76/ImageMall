@@ -3,42 +3,30 @@
 
 <div class="contentwrap">
     <article class="container">
-        <form class="form-horizontal" onsubmit="return onSubmitcheck();" action="/imgmanager/write2?${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data">
+        <form class="form-horizontal" name="imgfrm" id="imgfrm" onsubmit="return onSubmitcheck();" method="post" enctype="multipart/form-data">
             <h1 id="type" class="page-header">이미지<small>등록</small></h1>
-            <div class="row" style="padding:20px">
-                <div class="form-group">
-                    <label for="a" class="col-sm-2 control-label">카테고리</label>
-                    <div class="col-sm-4">
-                        <input type="hidden" name="category_seq" value="1" />
-                        <input type="text" class="form-control" id="a" placeholder="카테고리" value="운동용품" readonly>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="b" class="col-sm-2 control-label">조직명</label>
-                    <div class="col-sm-4">
-                        <input type="hidden" name="group_seq" value="1" />
-                        <input type="text" class="form-control" id="b" placeholder="조직명" value="천호점" readonly>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="c" class="col-sm-2 control-label">매장명</label>
-                    <div class="col-sm-4">
-                        <input type="hidden" name="shop_seq" value="1" />
-                        <input type="text" class="form-control" id="c" placeholder="매장명" value="나이키골프" readonly>
-                    </div>
-                </div>
-            </div>
-
             <h3 class="page-header">이미지 정보</h3>
             <div class="row" style="padding:20px">
                 <div class="row" style="padding:10px">
+
+                    <div class="form-group">
+                        <label for="status" class="col-sm-2 control-label">승인 여부 </label>
+                        <div class="col-sm-10">
+                            <select id="status" name="status" class="input-xlarge">
+                                <option value="1">승인 요청</option>
+                                <option value="2">승인 취소(대기)</option>
+                            </select>
+                            <p class="help-block">* 승인 요청 시에는 해당 정보의 수정/삭제가 불가능 합니다.</p>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label for="image_type" class="col-sm-2 control-label">구분</label>
-                        <div class="col-sm-4">
+                        <div class="col-sm-10">
                             <select id="image_type" name="image_type" class="input-xlarge">
                                 <option value="1">로고</option>
-                                <option value="2">프로모션이미지</option>
-                                <option value="3">마네킹 촬영사진</option>
+                                <option value="2">프로모션 이미지</option>
+                                <option value="3">마네킹 촬영 이미지</option>
                             </select>
                             <p class="help-block"></p>
                         </div>
@@ -47,14 +35,14 @@
                     <div id="imageuploadzone" class="row" >
                         <div class="form-group">
                             <label for="imageFiles01" class="col-sm-2 control-label">이미지1</label>
-                            <div class="col-sm-4">
+                            <div class="col-sm-10">
                                 <input type="file" class="form-control" name="imageFiles" id="imageFiles01" onchange="readURL(this,1)" multiple/><img id="thumbnail1"  width="0" height="0"/>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="imageFiles02" class="col-sm-2 control-label">이미지2</label>
-                            <div class="col-sm-4">
+                            <div class="col-sm-10">
                                 <input type="file" class="form-control" name="imageFiles" id="imageFiles02" onchange="readURL(this,2)" multiple><img id="thumbnail2"  width="0" height="0"/>
                             </div>
                         </div>
@@ -76,32 +64,33 @@
                     <div class="row" style="padding:10px">
                         <div class="form-group">
                             <label for="product_code" class="col-sm-2 control-label">상품 코드</label>
-                            <div class="col-sm-4">
+                            <div class="col-sm-10">
                                 <input type="text" class="form-control" name="product_code"  id="product_code" placeholder="상품 코드" >
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="product_name" class="col-sm-2 control-label">상품명</label>
-                            <div class="col-sm-4">
+                            <div class="col-sm-10">
                                 <input type="text" class="form-control" name="product_name" id="product_name" placeholder="상품명" >
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="urlinfo" class="col-sm-2 control-label">URL 정보 </label>
-                            <div class="col-sm-4">
+                            <div class="col-sm-10">
                                 <input type="text" class="form-control" name="urlinfo" id="urlinfo" placeholder="URL 정보">
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label"></label>
-                <div class="col-sm-6">
-                    <button type="submit" class="btn btn-primary">저장 등록</button>
-                    <a class="btn btn-default" href="/imgmanager/list" role="button">이미지 목록</a>
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary">정보 등록</button>
+                    <a class="btn btn-default" href="/imgManage/list" role="button">이미지 목록</a>
                 </div>
             </div>
         </form>
@@ -112,12 +101,17 @@
 
     if("${resultMessage}" != ""){
         alert("${resultMessage}");
-        location.href="/imgmanager/list";
+        location.href="/imgManage/list";
     }
     function onSubmitcheck(){
-        return true;
+        if(!confirm("해당 정보 승인 요청을 진행하시겠습니까?")){
+            return false;
+        }else{
+            document.imgfrm.action="/imgManage/write2?${_csrf.parameterName}=${_csrf.token}";
+            return true;
+        }
+        return false;
     }
-
     $(document).ready(function() {
         $('#addFile').click(function() {
             var fileIndex = $('input[type=file]').length + 1;

@@ -37,14 +37,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     DataSource dataSource;
 
-    private RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
-
-    public SecurityConfig() {
-        roleHierarchy.setHierarchy(
-                "ROLE_SUPERADMIN > ROLE_ADMIN" +
-                        "ROLE_ADMIN > ROLE_USER"
-        );
-    }
 
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
@@ -66,8 +58,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .accessDecisionManager(getAccessDecisionManager())
                 .antMatchers("/login", "/login/**", "/logout", "/Access_Denied").permitAll()
-                .antMatchers("/imgmanager/**").hasAnyRole("USER")
+                .antMatchers("/imgManage/**").hasAnyRole("USER")
                 .antMatchers("/admin/**").hasAnyRole("ADMIN")
+                .antMatchers("/imgGrant/**").hasAnyRole("ADMIN")
                 .and().formLogin().loginPage("/login")
                 .usernameParameter("ssoId").passwordParameter("password")
                 .and().csrf()
@@ -77,7 +70,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AffirmativeBased getAccessDecisionManager() {
         DefaultWebSecurityExpressionHandler expressionHandler = new DefaultWebSecurityExpressionHandler();
-        expressionHandler.setRoleHierarchy(roleHierarchy);
 
         WebExpressionVoter webExpressionVoter = new WebExpressionVoter();
         webExpressionVoter.setExpressionHandler(expressionHandler);
@@ -88,9 +80,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new AffirmativeBased(voters);
     }
 
-    @RequestMapping("/admin/write")
-    @Secured("SUPERADMIN")
-    public String adminSystemMenu(Principal princpal) {
-        return "/admin/write";
-    }
 }

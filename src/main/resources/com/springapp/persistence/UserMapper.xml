@@ -13,6 +13,7 @@
 			group_name,
 			shop_name,
 			user_role,
+			phone_num,
 			enabled
 		FROM
 				users
@@ -29,7 +30,7 @@
 			<if test="category_name != null">
 				AND category_name LIKE CONCAT('%', #{category_name},'%')
 			</if>
-			<if test="user_role != '0'">
+			<if test="user_role != '' ">
 				AND user_role =  #{user_role}
 			</if>
 		</where>
@@ -54,7 +55,7 @@
 			<if test="category_name != null">
 				AND category_name LIKE CONCAT('%', #{category_name},'%')
 			</if>
-			<if test="user_role != '0'">
+			<if test="user_role != '' ">
 				AND user_role =  #{user_role}
 			</if>
 		</where>
@@ -79,6 +80,7 @@
 				group_name,
 				shop_name,
 				user_role,
+				phone_num,
 				enabled,
 				reg_date
 			FROM
@@ -98,7 +100,9 @@
 			group_name,
 			shop_name,
 			user_role,
-			enabled
+			enabled,
+			phone_num,
+			reg_date
 		)
 		VALUES
 		(
@@ -109,7 +113,9 @@
 			#{group_name},
 			#{shop_name},
 			#{user_role},
-			true
+			true,
+			#{phone_num},
+			now()
 		);
     </insert>
 
@@ -127,6 +133,7 @@
 				<if test="shop_name != null and shop_name != '' ">shop_name=#{shop_name},</if>
 				<if test="user_role != null and user_role != '' ">user_role=#{user_role},</if>
 				<if test="enabled != null and enabled != '' ">enabled=#{enabled},</if>
+				<if test="phone_num != null and phone_num != '' ">phone_num=#{phone_num},</if>
 			</set>
 		WHERE  user_id = #{user_id};
 	</update>
@@ -151,10 +158,6 @@
 	<insert id="insertAdminRole" parameterType="UserVo" >
 		INSERT INTO user_roles(user_id,	role) VALUES(#{user_id},'ROLE_ADMIN');
 	</insert>
-	<insert id="insertSuperAdminRole" parameterType="UserVo" >
-		INSERT INTO user_roles(user_id,	role) VALUES(#{user_id},'ROLE_SUPERADMIN');
-	</insert>
-
 	<!-- 사용자 권한 정보 삭제 -->
 	<delete id="roleDelete" parameterType="UserVo">
 		<![CDATA[

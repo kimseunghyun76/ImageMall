@@ -29,10 +29,10 @@
                         <a href="/admin/list">회원 정보</a>
                     </li>
                     <li>
-                        <a href="/imgmanager/write">이미지 관리</a>
+                        <a href="/imgManage/write">이미지 관리</a>
                     </li>
                     <li>
-                        <a href="/imgmanager/list">이미지 승인</a>
+                        <a href="/imgGrant/list">이미지 승인</a>
                     </li>
                 </ul>
             </sec:authorize>
@@ -41,4 +41,10 @@
     <!-- /.row -->
 </div>
 <!-- /.container -->
+
+<script>
+    if("${resultMessage}" != ""){
+        alert("${resultMessage}")
+    }
+</script>
 <jsp:include page="/include_bottom" flush="true" />

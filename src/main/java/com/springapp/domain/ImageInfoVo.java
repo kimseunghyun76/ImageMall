@@ -18,14 +18,32 @@ public class ImageInfoVo extends UserVo {
     private List<String> fileNames;
 
     private int image_seq;   //image_info sequence
+    private String image_seqs;
     private String image_type;  //default 1
     private String product_code;
     private String product_name;
     private String urlinfo;
+    private String status;
     //싱글로만
     private String image_name;
 
-    //TODO : 우선 String으로 하고, 이후에 각 데이터 타입별로 변경
+    public String getImage_seqs() {
+        return image_seqs;
+    }
+
+    public void setImage_seqs(String image_seqs) {
+        this.image_seqs = image_seqs;
+    }
+
+//TODO : 우선 String으로 하고, 이후에 각 데이터 타입별로 변경
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public List<MultipartFile> getImageFiles() {
         return imageFiles;

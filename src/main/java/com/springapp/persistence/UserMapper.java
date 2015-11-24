@@ -30,7 +30,6 @@ public interface UserMapper {
     //Role만 별도로 넣어주자
     public int insertUserRole(UserVo userVo) throws DataAccessException;
     public int insertAdminRole(UserVo userVo) throws DataAccessException;
-    public int insertSuperAdminRole(UserVo userVo) throws DataAccessException;
 
     public int roleDelete(UserVo userVo) throws DataAccessException;
 

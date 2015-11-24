@@ -34,10 +34,10 @@
                     <a href="/admin/list">회원 정보</a>
                 </li>
                 <li>
-                    <a href="/imgmanager/write">이미지 관리</a>
+                    <a href="/imgManage/list">이미지 관리</a>
                 </li>
                 <li>
-                    <a href="/imgmanager/list">이미지 승인</a>
+                    <a href="/imgGrant/list">이미지 승인</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -48,7 +48,7 @@
                     <sec:authorize access="isAuthenticated()">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong><sec:authentication property="principal.username"/></strong>정보 <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/admin/edit"><i class="icon-cog"></i>내 정보 수정</a></li>
+                            <li><a href="/user/edit?user_id=<sec:authentication property="principal.username"/>"><i class="icon-cog"></i>내 정보 수정</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="<c:url value="/logout" />"><i class="icon-off"></i>Logout</a></li>
                         </ul>

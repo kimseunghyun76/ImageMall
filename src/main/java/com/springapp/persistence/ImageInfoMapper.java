@@ -18,6 +18,11 @@ public interface ImageInfoMapper {
     //리스트 카운트 가져오기
     public int selectListCount(ImageInfoVo imageInfoVo) throws DataAccessException;
 
+    //리스트 가져오기
+    public List<ImageInfoVo> selectGrantList(ImageInfoVo imageInfoVo) throws DataAccessException;
+    //리스트 카운트 가져오기
+    public int selectGrantListCount(ImageInfoVo imageInfoVo) throws DataAccessException;
+
     //단일 제품 가져오기
     public ImageInfoVo selectInfo(ImageInfoVo imageInfoVo) throws DataAccessException;
     //등록 하기

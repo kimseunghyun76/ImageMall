@@ -9,7 +9,7 @@ public class UserVo extends CommonVo {
     private String user_name;
     private String password;
 
-
+    private String phone_num;
     private String category_name;
     private String group_name;
     private String shop_name;
@@ -24,6 +24,14 @@ public class UserVo extends CommonVo {
 
     public void setUser_id(String user_id) {
         this.user_id = user_id;
+    }
+
+    public String getPhone_num() {
+        return phone_num;
+    }
+
+    public void setPhone_num(String phone_num) {
+        this.phone_num = phone_num;
     }
 
     public String getCategory_name() {

@@ -44,9 +44,8 @@
                 </div>
                 <div class="row" style="padding:10px">
                     <div class="col-md-12">
-                        <label for="user_role" style="padding-right:40px">권한 </label>
                         <select id="user_role" name="user_role" class="input-xlarge">
-                            <option value="0">전체</option>
+                            <option value="0">전체 권한</option>
                             <option value="3" <c:if test="${paging.user_role == '3'}">selected</c:if>>최고관리자</option>
                             <option value="2" <c:if test="${paging.user_role == '2'}">selected</c:if>>관리자</option>
                             <option value="1" <c:if test="${paging.user_role == '1'}">selected</c:if>>사용자</option>
@@ -76,7 +75,7 @@
                         </thead>
                         <tbody>
                         <c:forEach var="info" items="${userList}" varStatus="status">
-                            <tr onclick="location.href='/admin/edit?user_id=${info.user_id}'" style="cursor: pointer;">
+                            <tr>
                                 <td>${paging.totalCount - (status.count +((paging.pageNo - 1) * paging.pageSize))+1}</td>
                                 <th>${info.user_id}</th>
                                 <th>${info.user_name}</th>
@@ -88,8 +87,11 @@
                                     </c:choose>
                                 </th>
                                 <td>
-                                    <a class="btn btn-success" href="/admin/edit?user_id=${info.user_id}" role="button">수정</a>
-                                    <a class="btn btn-warning" href="/admin/delete?user_id=${info.user_id}" role="button">삭제</a>
+                                    <a class="btn btn-primary" href="/admin/edit?user_id=${info.user_id}" role="button">상세 보기</a>
+                                    <a class="btn btn-success" href="/admin/edit?user_id=${info.user_id}" role="button">회원 수정</a>
+                                    <c:if test="${info.user_id != myid}">
+                                    <a class="btn btn-warning" href="/admin/delete?user_id=${info.user_id}" role="button">회원 삭제</a>
+                                    </c:if>
                                 </td>
                             </tr>
                         </c:forEach>

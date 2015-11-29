@@ -16,6 +16,11 @@ import java.util.List;
 public interface ImageFileInfoMapper {
     //리스트 가져오기
     public List<ImageFileInfoVo> selectList(ImageFileInfoVo imageFileInfoVo) throws DataAccessException;
+
+    //단일 제품 가져오기
+    public ImageFileInfoVo selectInfo(ImageFileInfoVo imageFileInfoVo) throws DataAccessException;
+
+
     //등록 하기
     public int insert(ImageFileInfoVo imageFileInfoVo) throws DataAccessException;
     //삭제 하기

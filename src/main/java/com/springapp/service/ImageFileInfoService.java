@@ -27,6 +27,10 @@ public class ImageFileInfoService {
         return imageFileInfoMapper.selectList(imageFileInfoVo);
     }
 
+    public ImageFileInfoVo selectInfo(ImageFileInfoVo imageFileInfoVo) throws Exception{
+        return imageFileInfoMapper.selectInfo(imageFileInfoVo);
+    }
+
     public int insert(ImageFileInfoVo imageFileInfoVo) throws Exception{
         int chk = imageFileInfoMapper.insert(imageFileInfoVo);
         return chk;

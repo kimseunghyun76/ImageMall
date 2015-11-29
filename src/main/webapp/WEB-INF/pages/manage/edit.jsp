@@ -172,7 +172,7 @@
         });
     }
     function onSubmitcheck(){
-        if(!confirm("해당 정보 승인 요청을 진행하시겠습니까?")){
+        if(!confirm("해당 정보에 대해 " + $("#status option:selected").text() +" 을 진행하시겠습니까?")){
             return false;
         }else{
             document.imgfrm.action ="/imgManage/edit2?${_csrf.parameterName}=${_csrf.token}";

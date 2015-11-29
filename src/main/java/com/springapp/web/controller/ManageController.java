@@ -162,7 +162,6 @@ public class ManageController {
                     fileName = imageInfoVo.getImage_seq() +"_"+ UUID.randomUUID().toString().replaceAll("-","") + ".png";
                     multipartFile.transferTo(new File(saveDirectory + fileName));
                     fileNames.add(fileName);
-                    System.out.println("fileName = " + fileName);
 
                     //두번째는 파일 정보 (이미지 키를 가지고)
                     //파일이 있는걸 저장합니다.
@@ -187,11 +186,27 @@ public class ManageController {
 
     //이미지 정보 삭제
     @RequestMapping(value = "/imgManage/delete", method = {RequestMethod.GET, RequestMethod.POST})
-    public String manageDelete(RedirectAttributes redirectAttributes,@ModelAttribute("imageInfoVo") ImageInfoVo imageInfoVo,ModelMap model) throws Exception{
-        //TODO : 이미지 파일도 삭제하는 것도 넣었으면 합니다.
+    public String manageDelete(RedirectAttributes redirectAttributes,@ModelAttribute("imageInfoVo") ImageInfoVo imageInfoVo,HttpServletRequest request,ModelMap model) throws Exception{
+        final String saveDirectory = request.getSession().getServletContext().getRealPath("/") + "/resources/uploadimages/";
         int result = 0;
         ImageFileInfoVo imageFileInfoVo = new ImageFileInfoVo();
         imageFileInfoVo.setImage_seq(imageInfoVo.getImage_seq());
+
+        List<ImageFileInfoVo> imagefileList = imageFileInfoService.selectList(imageFileInfoVo);
+        try{
+            for(ImageFileInfoVo imageFileInfoVo1 :  imagefileList) {
+                File file = new File(saveDirectory + imageFileInfoVo1.getImage_name());
+                if (file.delete()) {
+                    System.out.println(file.getName() + " is deleted!");
+                } else {
+                    System.out.println("Delete operation is failed.");
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+
         result = imageFileInfoService.deleteAll(imageFileInfoVo);
         result += imageInfoService.delete(imageInfoVo);
 
@@ -207,8 +222,20 @@ public class ManageController {
     @RequestMapping(value = "/imgManage/deleteFile", method = RequestMethod.GET)
     public @ResponseBody
     String
-    manageDelete(@ModelAttribute("imageFileInfoVo") ImageFileInfoVo imageFileInfoVo) throws Exception{
-        //TODO : 이미지 파일도 삭제하는 것도 넣었으면 합니다.
+    manageDelete(@ModelAttribute("imageFileInfoVo") ImageFileInfoVo imageFileInfoVo,HttpServletRequest request) throws Exception{
+        final String saveDirectory = request.getSession().getServletContext().getRealPath("/") + "/resources/uploadimages/";
+        ImageFileInfoVo imageFileInfoVo2 = imageFileInfoService.selectInfo(imageFileInfoVo);
+        try{
+            File file = new File(saveDirectory + imageFileInfoVo2.getImage_name());
+            if(file.delete()){
+                System.out.println(file.getName() + " is deleted!");
+            }else{
+                System.out.println("Delete operation is failed.");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
         imageFileInfoService.delete(imageFileInfoVo);
         return "0";
     }

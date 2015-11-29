@@ -131,10 +131,27 @@ public class GrantController {
 
     //업로드 파일 삭제
     @RequestMapping(value = "/imgGrant/delete", method = {RequestMethod.GET, RequestMethod.POST})
-    public String manageDelete(RedirectAttributes redirectAttributes,@ModelAttribute("imageInfoVo") ImageInfoVo imageInfoVo,ModelMap model) throws Exception{
+    public String manageDelete(RedirectAttributes redirectAttributes,@ModelAttribute("imageInfoVo") ImageInfoVo imageInfoVo,HttpServletRequest request,ModelMap model) throws Exception{
+        final String saveDirectory = request.getSession().getServletContext().getRealPath("/") + "/resources/uploadimages/";
         int result = 0;
         ImageFileInfoVo imageFileInfoVo = new ImageFileInfoVo();
         imageFileInfoVo.setImage_seq(imageInfoVo.getImage_seq());
+
+        List<ImageFileInfoVo> imagefileList = imageFileInfoService.selectList(imageFileInfoVo);
+        try{
+            for(ImageFileInfoVo imageFileInfoVo1 :  imagefileList) {
+                File file = new File(saveDirectory + imageFileInfoVo1.getImage_name());
+                if (file.delete()) {
+                    System.out.println(file.getName() + " is deleted!");
+                } else {
+                    System.out.println("Delete operation is failed.");
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+
         result = imageFileInfoService.deleteAll(imageFileInfoVo);
         result += imageInfoService.delete(imageInfoVo);
 
@@ -192,7 +209,19 @@ public class GrantController {
     @RequestMapping(value = "/imgGrant/deleteFile", method = RequestMethod.GET)
     public @ResponseBody
     String
-    manageDelete(@ModelAttribute("imageFileInfoVo") ImageFileInfoVo imageFileInfoVo) throws Exception{
+    manageDelete(@ModelAttribute("imageFileInfoVo") ImageFileInfoVo imageFileInfoVo,HttpServletRequest request) throws Exception{
+        final String saveDirectory = request.getSession().getServletContext().getRealPath("/") + "/resources/uploadimages/";
+        ImageFileInfoVo imageFileInfoVo2 = imageFileInfoService.selectInfo(imageFileInfoVo);
+        try{
+            File file = new File(saveDirectory + imageFileInfoVo2.getImage_name());
+            if(file.delete()){
+                System.out.println(file.getName() + " is deleted!");
+            }else{
+                System.out.println("Delete operation is failed.");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         imageFileInfoService.delete(imageFileInfoVo);
         return "0";
     }

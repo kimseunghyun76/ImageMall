@@ -18,6 +18,18 @@
 	  	]]>
     </select>
 
+	<!-- 이미지 정보 리스트 -->
+	<select id = "selectInfo" parameterType="ImageFileInfoVo" resultType="ImageFileInfoVo">
+		<![CDATA[
+		 SELECT
+			  image_files_seq,
+			  image_seq,
+			  image_name
+			FROM
+				 image_files
+			where image_files_seq= #{image_files_seq}
+	  	]]>
+	</select>
 
     <!-- 이미지 정보 등록 -->
     <insert id="insert" parameterType="ImageFileInfoVo" >

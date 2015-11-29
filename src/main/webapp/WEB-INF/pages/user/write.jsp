@@ -11,7 +11,7 @@
             <div class="form-group">
                 <label for="user_id" class="col-sm-2 control-label">ID</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="user_id" name="user_id" placeholder="ID" maxlength="40"><a class="btn btn-default" href="javascript:idcheck();" role="button">ID 중복체크</a>
+                    <input type="text" class="form-control" id="user_id" name="user_id" placeholder="ID" maxlength="40"><button class="btn btn-default" id="idCheck" role="button">ID 중복체크</button>
                 </div>
             </div>
             <div class="form-group">
@@ -86,7 +86,8 @@
     </article>
 </div>
 <script>
-    function idcheck(){
+
+    $('#idCheck').on('click', function (e) {
         if($("#user_id").val() =="" || $("#user_id").val().length <= 4) {
             alert("사용자 아이디를 입력해주세요(길이는 4자 이상 입력해주세요!");
         }
@@ -100,7 +101,7 @@
                 $("#idchk").val(data);
             });
         }
-    }
+    });
     function onSubmitcheck(){
         if($("#user_id").val() =="" || $("#user_id").val().length <= 4) {
             alert("사용자 아이디를 입력해주세요(길이는 4자 이상 입력해주세요!");

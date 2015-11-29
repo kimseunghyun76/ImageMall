@@ -1,16 +1,27 @@
 package com.springapp.config;
 
-import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.context.annotation.*;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.accept.ContentNegotiationManager;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.mvc.method.annotation.ServletWebArgumentResolverAdapter;
+import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Helloworld
@@ -23,36 +34,30 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @ComponentScan({ "com.springapp.*" })
 @Import({ SecurityConfig.class })
-@MapperScan("com.springapp.persistence")
 public class AppConfig extends WebMvcConfigurerAdapter {
 
-
-    @Bean(name = "dataSource")
-    public DriverManagerDataSource dataSource() {
-        DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-        driverManagerDataSource.setDriverClassName("net.sf.log4jdbc.DriverSpy");
-        driverManagerDataSource.setUrl("jdbc:log4jdbc:mysql://localhost:3306/mall?useUnicode=true&characterEncoding=utf8");
-        driverManagerDataSource.setUsername("dbuser");
-        driverManagerDataSource.setPassword("1212");
-
-        return driverManagerDataSource;
+    @Override
+    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+        configurer.ignoreAcceptHeader(true).defaultContentType(
+                MediaType.TEXT_HTML);
     }
-
-
+    /*
+        * Configure ContentNegotiatingViewResolver
+        */
     @Bean
-    public DataSourceTransactionManager transactionManager() {
-        return new DataSourceTransactionManager(dataSource());
+    public ViewResolver contentNegotiatingViewResolver(ContentNegotiationManager manager) {
+        ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
+        resolver.setContentNegotiationManager(manager);
+
+        // Define all possible view resolvers
+        List<ViewResolver> resolvers = new ArrayList<ViewResolver>();
+
+        resolvers.add(jsonViewResolver());
+        resolvers.add(viewResolver());
+
+        resolver.setViewResolvers(resolvers);
+        return resolver;
     }
-
-
-    @Bean
-    public SqlSessionFactoryBean sqlSessionFactory() throws Exception {
-        SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource());
-        sessionFactory.setTypeAliasesPackage("com.springapp.domain");
-        return sessionFactory;
-    }
-
 
     @Bean
     public InternalResourceViewResolver viewResolver() {
@@ -82,5 +87,13 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         return resolver;
     }
 
+    /*
+     * Configure View resolver to provide JSON output using JACKSON library to
+     * convert object in JSON format.
+     */
+    @Bean
+    public ViewResolver jsonViewResolver() {
+        return new JsonViewResolver();
+    }
 
 }

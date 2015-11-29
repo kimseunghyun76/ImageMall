@@ -50,6 +50,9 @@
 			<if test="product_name != null">
 				AND a.product_name LIKE CONCAT('%', #{product_name},'%')
 			</if>
+			<if test="status != null">
+				AND a.status = #{status}
+			</if>
 		</where>
 		ORDER BY image_seq desc
 		limit #{startRowNum },#{pageSize}
@@ -92,6 +95,9 @@
 			</if>
 			<if test="product_name != null">
 				AND a.product_name LIKE CONCAT('%', #{product_name},'%')
+			</if>
+			<if test="status != null">
+				AND a.status = #{status}
 			</if>
 		</where>
 	</select>

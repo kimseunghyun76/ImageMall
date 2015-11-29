@@ -65,7 +65,7 @@
                 </div>
                 <div class="row" style="padding:10px">
                     <div class="col-md-6">
-                        <label for="user_role"></label>
+                        <label for="status">상태</label>
                         <select id="status" name="status" class="input-xlarge">
                             <option value="1" <c:if test="${paging.status == '1'}">selected</c:if>>승인 요청</option>
                             <option value="3" <c:if test="${paging.status == '3'}">selected</c:if>>반려 건</option>
@@ -101,10 +101,10 @@
                                 <td><input type="checkbox" name="domainList" value="${info.image_seq}"></td>
                                 <th>${paging.totalCount - (status.count +((paging.pageNo - 1) * paging.pageSize))+1}</th>
                                 <td>
-                                    <c:if test="${info.status == '1'}">승인요청</c:if>
-                                    <c:if test="${info.status == '2'}">요청취소</c:if>
-                                    <c:if test="${info.status == '3'}">반려</c:if>
-                                    <c:if test="${info.status == '4'}">승인</c:if>
+                                    <c:if test="${info.status == '1'}"><span class="label label-primary">승인요청</span></c:if>
+                                    <c:if test="${info.status == '2'}"><span class="label label-default">요청취소</span></c:if>
+                                    <c:if test="${info.status == '3'}"><span class="label label-warning">반려</span></c:if>
+                                    <c:if test="${info.status == '4'}"><span class="label label-success">승인</span></c:if>
                                 </td>
                                 <td>
                                     <c:if test="${info.image_name != null}">

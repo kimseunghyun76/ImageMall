@@ -11,12 +11,10 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">승인 여부 </label>
                     <label class="col-sm-10">
-                        <h4>
-                            <c:if test="${imageInfo.status == '1'}"> 승인 요청중</c:if>
-                            <c:if test="${imageInfo.status == '2'}"> 승인 요청 취소(대기)</c:if>
-                            <c:if test="${imageInfo.status == '3'}"> 승인 반려 </c:if>
-                            <c:if test="${imageInfo.status == '4'}"> 승인 완료</c:if>
-                        </h4>
+                        <c:if test="${imageInfo.status == '1'}"><span class="label label-primary">승인요청</span></c:if>
+                        <c:if test="${imageInfo.status == '2'}"><span class="label label-default">요청취소</span></c:if>
+                        <c:if test="${imageInfo.status == '3'}"><span class="label label-warning">반려</span></c:if>
+                        <c:if test="${imageInfo.status == '4'}"><span class="label label-success">승인</span></c:if>
                     </label>
                 </div>
                 <div class="form-group">

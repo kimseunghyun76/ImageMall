@@ -5,6 +5,7 @@ import com.springapp.domain.ImageInfoVo;
 import com.springapp.domain.UserVo;
 import com.springapp.service.ImageFileInfoService;
 import com.springapp.service.ImageInfoService;
+import com.springapp.service.ProductService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -236,6 +238,27 @@ public class ManageController {
         }
         redirectAttributes.addFlashAttribute("resultMessage", resultMessage);
         return "redirect:/imgManage/list";
+    }
+
+    @Autowired
+    ProductService productService;
+
+    @RequestMapping(value = "/imgManage/productList.json", method = RequestMethod.POST)
+    public String productList(@ModelAttribute("imageInfoVo") ImageInfoVo imageInfoVo, @RequestParam(value = "pageNo", required = false) String pageNo,ModelMap model) throws Exception{
+
+        //페이징 정보
+        imageInfoVo.setPageSize(20);        // 한 페이지에 보일 게시글 수
+        imageInfoVo.setPageNo(1);           // 현재 페이지 번호
+        if(StringUtils.isNotEmpty(pageNo)){
+            imageInfoVo.setPageNo(Integer.parseInt(pageNo));
+        }
+        imageInfoVo.setBlockSize(10);
+        imageInfoVo.setTotalCount(productService.selectListCount(imageInfoVo)); // 게시물 총 개수
+        //model.put("productList", productService.selectList(imageInfoVo));
+        model.addAttribute("totalCount",imageInfoVo.getTotalCount());
+        model.addAttribute("resultList",productService.selectList(imageInfoVo));		//리스트
+
+        return "jsonView";
     }
 
 }

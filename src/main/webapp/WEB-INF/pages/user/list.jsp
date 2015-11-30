@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <jsp:include page="/include_top" flush="true" />
 
 <div class="contentwrap">
@@ -12,8 +13,13 @@
             <div class="col-md-8"></div>
             <div class="col-md-4">
                 <div class="row text-right">
-                    <!--a class="btn btn-default" href="javascript:alert('준비중입니다.');" role="button">대량회원등록</a-->
-                    <a class="btn btn-primary" href="/admin/write" role="button">회원등록</a>
+                    <form method="POST" action="uploadFile?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
+                        <c:if test="${myUserinfo.user_role =='3'}">
+                        <input type="file" name="file">
+                        <button class="btn btn-default">대량회원등록</button>
+                        </c:if>
+                        <a class="btn btn-primary" href="/admin/write" role="button">회원등록</a>
+                    </form>
                 </div>
             </div>
         </div>
@@ -46,7 +52,9 @@
                     <div class="col-md-12">
                         <select id="user_role" name="user_role" class="input-xlarge">
                             <option value="0">전체 권한</option>
+                            <c:if test="${myUserinfo.user_role =='3'}">
                             <option value="3" <c:if test="${paging.user_role == '3'}">selected</c:if>>최고관리자</option>
+                            </c:if>
                             <option value="2" <c:if test="${paging.user_role == '2'}">selected</c:if>>관리자</option>
                             <option value="1" <c:if test="${paging.user_role == '1'}">selected</c:if>>사용자</option>
                         </select>
@@ -122,6 +130,16 @@
     if("${resultMessage}" != ""){
         alert("${resultMessage}");
         location.href="/admin/list";
+    }
+
+    function onSubmitcheck(){
+        if($("#file").val() =="") {
+            alert("파일을 선택해신후에 대량회원 등록 버튼을 눌러 주세요.");
+            return false;
+        }else{
+            return true;
+        }
+        return false;
     }
 </script>
 <jsp:include page="/include_bottom" flush="true" />

@@ -212,6 +212,22 @@
             <artifactId>jackson-annotations</artifactId>
             <version>2.4.1</version>
         </dependency>
+
+        <!--For Excel 2003 format only-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.9</version>
+        </dependency>
+
+
+        <!--For Excel 2007 format-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.9</version>
+        </dependency>
+
         <!--<dependency>-->
             <!--<groupId>opensymphony</groupId>-->
             <!--<artifactId>sitemesh</artifactId>-->

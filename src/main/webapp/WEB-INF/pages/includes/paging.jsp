@@ -4,8 +4,13 @@
     <nav>
         <ul class="pagination pagination-lg">
             <li>
-                <a href="javascript:goPage(${param.firstPageNo})" aria-label="Previous">
+                <a href="javascript:goPage(${param.firstPageNo})" aria-label="첫 페이지">
                     <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:goPage(${param.prevPageNo})" aria-label="이전페이지">
+                    <span aria-hidden="true">&lt;</span>
                 </a>
             </li>
             <c:forEach var="i" begin="${param.startPageNo}" end="${param.endPageNo}" step="1">
@@ -19,7 +24,12 @@
                 </c:choose>
             </c:forEach>
             <li>
-                <a href="javascript:goPage(${param.finalPageNo})" aria-label="Next">
+                <a href="javascript:goPage(${param.nextPageNo})" aria-label="다음 페이지">
+                    <span aria-hidden="true">&gt;</span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:goPage(${param.finalPageNo})" aria-label="마지막 페이지">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>

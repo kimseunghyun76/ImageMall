@@ -15,7 +15,7 @@
             <sec:authorize access="isAnonymous()">
                 <div class="row  text-center">
                     <h3>
-                        로그인이 필요한 서비스 입니다.
+
                     </h3>
                     <div class="row text-center">
                         <a class="btn btn-primary" href="/login" role="button">로그인</a>

@@ -12,7 +12,7 @@
         ITEM_URL as urlinfo
         FROM
         items
-        WHERE  SLITM_NM LIKE CONCAT( #{product_name},'%')
+        WHERE  SLITM_NM LIKE CONCAT('%', #{product_name},'%')
         limit #{startRowNum },#{pageSize}
     </select>
 
@@ -21,7 +21,7 @@
         COUNT(*) count
         FROM
         items
-        WHERE  SLITM_NM LIKE CONCAT( #{product_name},'%')
+        WHERE  SLITM_NM LIKE CONCAT('%', #{product_name},'%')
     </select>
 
 </mapper>

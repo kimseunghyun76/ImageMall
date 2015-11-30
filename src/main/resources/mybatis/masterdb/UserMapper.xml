@@ -33,6 +33,11 @@
 			<if test="user_role != '' ">
 				AND user_role =  #{user_role}
 			</if>
+			<if test="user_role == '' ">
+				<![CDATA[
+				AND user_role <> '3'
+	  			]]>
+			</if>
 		</where>
 			ORDER BY reg_date desc
 			limit #{startRowNum },#{pageSize}
@@ -57,6 +62,11 @@
 			</if>
 			<if test="user_role != '' ">
 				AND user_role =  #{user_role}
+			</if>
+			<if test="user_role == '' ">
+				<![CDATA[
+				AND user_role <> '3'
+	  			]]>
 			</if>
 		</where>
 	</select>

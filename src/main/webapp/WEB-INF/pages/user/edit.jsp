@@ -63,19 +63,19 @@
                     <p class="help-block"></p>
                 </div>
             </div>
-            <c:if test="${myUserinfo.user_role =='3'}">
             <div class="form-group">
                 <label for="user_role" class="col-sm-2 control-label">권한</label>
                 <div class="col-sm-10">
                     <select id="user_role" name="user_role" class="input-xlarge">
-                        <option value="3" <c:if test="${userinfo.user_role == '3'}">selected</c:if>>최고관리자</option>
+                        <c:if test="${myUserinfo.user_role =='3' || userinfo.user_role == '3'}">
+                          <option value="3" selected>최고관리자</option>
+                        </c:if>
                         <option value="2" <c:if test="${userinfo.user_role == '2'}">selected</c:if>>관리자</option>
                         <option value="1" <c:if test="${userinfo.user_role == '1'}">selected</c:if>>사용자</option>
                     </select>
                     <p class="help-block"></p>
                 </div>
             </div>
-            </c:if>
 
             <div class="form-group">
                 <label class="col-sm-2 control-label"></label>

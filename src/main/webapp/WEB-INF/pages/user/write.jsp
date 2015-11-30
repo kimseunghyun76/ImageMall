@@ -11,7 +11,7 @@
             <div class="form-group">
                 <label for="user_id" class="col-sm-2 control-label">ID</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="user_id" name="user_id" placeholder="ID" maxlength="40"><button class="btn btn-default" id="idCheck" role="button">ID 중복체크</button>
+                    <input type="text" class="form-control" id="user_id" name="user_id" placeholder="ID" maxlength="40"><a class="btn btn-default" onclick="return idCheck()">ID 중복체크</a>
                 </div>
             </div>
             <div class="form-group">
@@ -67,8 +67,10 @@
                 <div class="col-sm-10">
                     <select id="user_role" name="user_role" class="input-xlarge">
                         <option value="1">사용자</option>
-                        <c:if test="${myUserinfo.user_role =='3'}">
+                        <c:if test="${myUserinfo.user_role =='3' || myUserinfo.user_role =='2'}">
                         <option value="2">관리자</option>
+                        </c:if>
+                        <c:if test="${myUserinfo.user_role =='3'}">
                         <option value="3">최고관리자</option>
                         </c:if>
                     </select>
@@ -87,11 +89,11 @@
 </div>
 <script>
 
-    $('#idCheck').on('click', function (e) {
+    function idCheck(){
         if($("#user_id").val() =="" || $("#user_id").val().length <= 4) {
             alert("사용자 아이디를 입력해주세요(길이는 4자 이상 입력해주세요!");
-        }
-        if($("#user_id").val() !="" && $("#user_id").val().length >= 4) {
+            return false;
+        }else{
             $.get('/admin/idchk', {user_id: $("#user_id").val()}).done(function (data) {
                 if(data == '0'){
                     alert("등록 가능한 아이디 입니다.");
@@ -100,8 +102,9 @@
                 }
                 $("#idchk").val(data);
             });
+            return false;
         }
-    });
+    }
     function onSubmitcheck(){
         if($("#user_id").val() =="" || $("#user_id").val().length <= 4) {
             alert("사용자 아이디를 입력해주세요(길이는 4자 이상 입력해주세요!");

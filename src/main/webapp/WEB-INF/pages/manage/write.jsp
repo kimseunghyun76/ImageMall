@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="/include_top" flush="true" />
 
 <div class="contentwrap">
@@ -9,11 +10,69 @@
             <div class="row" style="padding:20px">
                 <div class="row" style="padding:10px">
 
+
+
+                    <div class="form-group">
+                        <label for="category_name" class="col-sm-2 control-label">카테고리</label>
+                        <div class="col-sm-10">
+                            <select id="category_name" name="category_name" class="input-xlarge">
+                                <option <c:if test="${myUserinfo.category_name == '화장품'}">selected</c:if>>화장품</option>
+                                <option <c:if test="${myUserinfo.category_name == '명품/잡화'}">selected</c:if>>명품/잡화</option>
+                                <option <c:if test="${myUserinfo.category_name == '여성패션'}">selected</c:if>>여성패션</option>
+                                <option <c:if test="${myUserinfo.category_name == '영캐쥬얼'}">selected</c:if>>영캐쥬얼</option>
+                                <option <c:if test="${myUserinfo.category_name == '진,이지'}">selected</c:if>>진,이지</option>
+                                <option <c:if test="${myUserinfo.category_name == '남성패션'}">selected</c:if>>남성패션</option>
+                                <option <c:if test="${myUserinfo.category_name == '유아동/문화'}">selected</c:if>>유아동/문화</option>
+                                <option <c:if test="${myUserinfo.category_name == '스포츠/레져'}">selected</c:if>>스포츠/레져</option>
+                                <option <c:if test="${myUserinfo.category_name == '리빙/가전'}">selected</c:if>>리빙/가전</option>
+                                <option <c:if test="${myUserinfo.category_name == '리빙/가전'}">selected</c:if>>리빙/가전</option>
+                                <option <c:if test="${myUserinfo.category_name == '식품'}">selected</c:if>>식품</option>
+                                <option <c:if test="${myUserinfo.category_name == '기타'}">selected</c:if>>기타</option>
+                            </select>
+                            <p class="help-block"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="group_name" class="col-sm-2 control-label">조직명</label>
+                        <div class="col-sm-10">
+                            <select id="group_name" name="group_name" class="input-xlarge">
+                                <option <c:if test="${myUserinfo.group_name == '본사'}">selected</c:if>>본사</option>
+                                <option <c:if test="${myUserinfo.group_name == '압구정본점'}">selected</c:if>>압구정본점</option>
+                                <option <c:if test="${myUserinfo.group_name == '천호점'}">selected</c:if>>천호점</option>
+                                <option <c:if test="${myUserinfo.group_name == '신촌점'}">selected</c:if>>신촌점</option>
+                                <option <c:if test="${myUserinfo.group_name == '미아점'}">selected</c:if>>미아점</option>
+                                <option <c:if test="${myUserinfo.group_name == '중동점'}">selected</c:if>>중동점</option>
+                                <option <c:if test="${myUserinfo.group_name == '판교점'}">selected</c:if>>판교점</option>
+                                <option <c:if test="${myUserinfo.group_name == '부산점'}">selected</c:if>>부산점</option>
+                                <option <c:if test="${myUserinfo.group_name == '대구점'}">selected</c:if>>대구점</option>
+                                <option <c:if test="${myUserinfo.group_name == '울산점'}">selected</c:if>>울산점</option>
+                                <option <c:if test="${myUserinfo.group_name == '울산동구점'}">selected</c:if>>울산동구점</option>
+                                <option <c:if test="${myUserinfo.group_name == '기타'}">selected</c:if>>기타</option>
+                            </select>
+                            <p class="help-block"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="shop_name" class="col-sm-2 control-label">매장명</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="shop_name" name="shop_name" placeholder="매장명"  value="${myUserinfo.shop_name}" maxlength="40">
+                            <p class="help-block"></p>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
                     <div class="form-group">
                         <label for="status" class="col-sm-2 control-label">승인 여부 </label>
                         <div class="col-sm-10">
                             <select id="status" name="status" class="input-xlarge">
-                                <option value="2">승인 취소(대기)</option>
                                 <option value="1">승인 요청</option>
                             </select>
                             <p class="help-block">* 승인 요청 시에는 해당 정보의 수정/삭제가 불가능 합니다.</p>

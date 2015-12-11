@@ -50,7 +50,6 @@
                         <label for="status">상태</label>
                         <select id="status" name="status" class="input-xlarge">
                             <option value="1" <c:if test="${paging.status == '1'}">selected</c:if>>승인 요청</option>
-                            <option value="2" <c:if test="${paging.status == '2'}">selected</c:if>>승인 취소(대기)</option>
                             <option value="3" <c:if test="${paging.status == '3'}">selected</c:if>>반려 건</option>
                             <option value="4" <c:if test="${paging.status == '4'}">selected</c:if>>승인 건</option>
                         </select>
@@ -82,7 +81,6 @@
                                 <td>${paging.totalCount - (status.count +((paging.pageNo - 1) * paging.pageSize))+1}</td>
                                 <td>
                                     <c:if test="${info.status == '1'}"><span class="label label-primary">승인요청</span></c:if>
-                                    <c:if test="${info.status == '2'}"> <span class="label label-default">요청취소</span></c:if>
                                     <c:if test="${info.status == '3'}"><span class="label label-warning">반려</span></c:if>
                                     <c:if test="${info.status == '4'}"> <span class="label label-success">승인</span></c:if>
                                 </td>

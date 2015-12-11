@@ -6,30 +6,18 @@
         <div class="page-header">
             <h1>이미지 관리 <small>승인</small></h1>
         </div>
-
-        <div class="row">
-            <div class="col-md-8"></div>
-            <div class="col-md-4">
-                <div class="row text-right">
-                    <!--권한에 따라서....-->
-                    <a class="btn btn-default" id="checkedGrant" role="button">승인</a>
-                    <a class="btn btn-default" id="checkedNoGrant" role="button">반려</a>
-                </div>
-            </div>
-        </div>
-
         <div class="row" style="padding:20px;">
             <form name="searchfrm" action="/imgGrant/list">
             <div class="row" style="border:2px solid #e5e5e5;">
                 <div class="row" style="padding:5px">
                     <div class="col-md-6">
                         <label for="category_name">카테고리</label>
-                        <input type="text" class="form-control" id="category_name" name="category_name" placeholder="카테고리" value="${paging.category_name}">
+                        <input type="text" class="form-control" id="category_name" name="category_name" placeholder="카테고리" value="${myUserinfo.category_name}">
                     </div>
 
                     <div class="col-md-6">
                         <label for="group_name">조직명</label>
-                        <input type="text" class="form-control" id="group_name" name="group_name" placeholder="조직명"  value="${paging.group_name}">
+                        <input type="text" class="form-control" id="group_name" name="group_name" placeholder="조직명"  value="${myUserinfo.group_name}">
                     </div>
                 </div>
                 <div class="row" style="padding:10px">
@@ -80,6 +68,20 @@
             </div>
             </form>
         </div>
+
+
+        <div class="row">
+            <div class="col-md-8"></div>
+            <div class="col-md-4">
+                <div class="row text-right">
+                    <!--권한에 따라서....-->
+                    <a class="btn btn-default" id="checkedGrant" role="button">승인</a>
+                    <a class="btn btn-default" id="checkedNoGrant" role="button">반려</a>
+                </div>
+            </div>
+        </div>
+
+
         <div class="row" style="padding:8px;">
             <div class="table-responsive">
                 <form name="listForm" action="/imgGrant/list" method="get">
@@ -102,7 +104,6 @@
                                 <th>${paging.totalCount - (status.count +((paging.pageNo - 1) * paging.pageSize))+1}</th>
                                 <td>
                                     <c:if test="${info.status == '1'}"><span class="label label-primary">승인요청</span></c:if>
-                                    <c:if test="${info.status == '2'}"><span class="label label-default">요청취소</span></c:if>
                                     <c:if test="${info.status == '3'}"><span class="label label-warning">반려</span></c:if>
                                     <c:if test="${info.status == '4'}"><span class="label label-success">승인</span></c:if>
                                 </td>

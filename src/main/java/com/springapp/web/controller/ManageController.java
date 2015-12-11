@@ -274,7 +274,7 @@ public class ManageController {
     public String productList(@ModelAttribute("imageInfoVo") ImageInfoVo imageInfoVo, @RequestParam(value = "pageNo", required = false) String pageNo,ModelMap model) throws Exception{
 
         //페이징 정보
-        imageInfoVo.setPageSize(20);        // 한 페이지에 보일 게시글 수
+        imageInfoVo.setPageSize(200);        // 한 페이지에 보일 게시글 수
         imageInfoVo.setPageNo(1);           // 현재 페이지 번호
         if(StringUtils.isNotEmpty(pageNo)){
             imageInfoVo.setPageNo(Integer.parseInt(pageNo));

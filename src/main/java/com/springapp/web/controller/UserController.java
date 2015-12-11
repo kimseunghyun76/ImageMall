@@ -99,6 +99,10 @@ public class UserController {
     @RequestMapping(value = { "/admin/edit2", "/user/edit2" }, method = RequestMethod.POST)
     public String  adminUpdatePage2(RedirectAttributes redirectAttributes,@ModelAttribute("userVo") UserVo userVo,ModelMap model) throws Exception{
         int result=0;
+
+        //TODO: 관리자인 경우 패스워드 수정.
+
+
         result = userService.update(userVo);
         String resultMessage ="관리자에게 문의 바랍니다.";
         if(result > 0 ) {

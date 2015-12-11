@@ -35,16 +35,42 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="phone_num" class="col-sm-2 control-label">전화번호</label>
+                <label for="category_name" class="col-sm-2 control-label">카테고리</label>
                 <div class="col-sm-10">
-                    <input type="num" class="form-control" id="phone_num" name="phone_num" placeholder="전화번호" maxlength="15">
-                    <p class="help-block">숫자만 입력해주세요(15자미만)</p>
+                    <select id="category_name" name="category_name" class="input-xlarge">
+                        <option>화장품</option>
+                        <option>명품/잡화</option>
+                        <option>여성패션</option>
+                        <option>영캐쥬얼</option>
+                        <option>진,이지</option>
+                        <option>남성패션</option>
+                        <option>유아동/문화</option>
+                        <option>스포츠/레져</option>
+                        <option>리빙/가전</option>
+                        <option>리빙/가전</option>
+                        <option>식품</option>
+                        <option>기타</option>
+                    </select>
+                    <p class="help-block"></p>
                 </div>
             </div>
             <div class="form-group">
                 <label for="group_name" class="col-sm-2 control-label">조직명</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="group_name" name="group_name" placeholder="조직명" maxlength="40">
+                    <select id="group_name" name="group_name" class="input-xlarge">
+                        <option>본사</option>
+                        <option>압구정본점</option>
+                        <option>천호점</option>
+                        <option>신촌점</option>
+                        <option>미아점</option>
+                        <option>중동점</option>
+                        <option>판교점</option>
+                        <option>부산점</option>
+                        <option>대구점</option>
+                        <option>울산점</option>
+                        <option>울산동구점</option>
+                        <option>기타</option>
+                    </select>
                     <p class="help-block"></p>
                 </div>
             </div>
@@ -56,10 +82,10 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="category_name" class="col-sm-2 control-label">카테고리</label>
+                <label for="phone_num" class="col-sm-2 control-label">전화번호</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="category_name" name="category_name"  placeholder="카테고리" maxlength="40">
-                    <p class="help-block"></p>
+                    <input type="num" class="form-control" id="phone_num" name="phone_num" placeholder="전화번호" maxlength="15">
+                    <p class="help-block">숫자만 입력해주세요(15자미만)</p>
                 </div>
             </div>
             <div class="form-group">
@@ -109,17 +135,26 @@
         if($("#user_id").val() =="" || $("#user_id").val().length <= 4) {
             alert("사용자 아이디를 입력해주세요(길이는 4자 이상 입력해주세요!");
             return false;
-        }else if($("#password").val() =="" || $("#password").val().length <= 4) {
-            alert("비밀번호를 입력해주세요(길이는 4자 이상 입력해주세요!");
+        }else if($("#password").val() =="" || $("#password").val().length <= 8) {
+            alert("비밀번호를 입력해주세요(길이는 8자 이상 입력해주세요!");
             return false;
-        }else if($("#password2").val() =="" || $("#password2").val().length <= 4) {
-            alert("비밀번호 확인을 입력해주세요(길이는 4자 이상 입력해주세요!");
+        }else if(!$("#password").val().match(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/)) {
+            alert("비밀번호는 영문,숫자,특수문자(!@$%^&* 만 허용)를 사용하여 8자 이상사용해 주세요.");
+            return false;
+        }else if($("#password2").val() =="" || $("#password2").val().length <= 8) {
+            alert("비밀번호 확인을 입력해주세요(길이는 8자 이상 입력해주세요!");
             return false;
         }else if($("#password").val() != $("#password2").val()){
             alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
             return false;
         }else if($("#user_name").val() =="" || $("#user_name").val().length <= 2) {
-            alert("이름을 입력해주세요");
+            alert("이름을 2자 이상 입력해주세요");
+            return false;
+        }else if($("#shop_name").val() =="" || $("#shop_name").val().length <= 2) {
+            alert("매장명을 2자 이상 입력해주세요");
+            return false;
+        }else if($("#phone_num").val() =="" || $("#phone_num").val().length <= 11) {
+            alert("전화번호를 입력해주세요");
             return false;
         }else if ($("#idchk").val() !="0") {
             alert("아이디 중복 체크 버튼을 눌러서 아이디 중복 확인을 진행해주세요.");

@@ -13,7 +13,6 @@
                     <div class="col-sm-10">
                         <select id="status" name="status" class="input-xlarge">
                             <option value="1" <c:if test="${imageInfo.status == '1'}">selected</c:if>>승인 요청</option>
-                            <option value="2" <c:if test="${imageInfo.status == '2'}">selected</c:if>>승인 취소(대기)</option>
                             <option value="3" <c:if test="${imageInfo.status == '3'}">selected</c:if>>반려</option>
                             <option value="4" <c:if test="${imageInfo.status == '4'}">selected</c:if>>승인</option>
                         </select>
@@ -25,21 +24,52 @@
                 <div class="form-group">
                     <label for="category_name" class="col-sm-2 control-label">카테고리</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="category_name" placeholder="카테고리" value="${imageInfo.category_name}" readonly>
+                        <select id="category_name" name="category_name" class="input-xlarge">
+                            <option <c:if test="${imageInfo.category_name == '화장품'}">selected</c:if>>화장품</option>
+                            <option <c:if test="${imageInfo.category_name == '명품/잡화'}">selected</c:if>>명품/잡화</option>
+                            <option <c:if test="${imageInfo.category_name == '여성패션'}">selected</c:if>>여성패션</option>
+                            <option <c:if test="${imageInfo.category_name == '영캐쥬얼'}">selected</c:if>>영캐쥬얼</option>
+                            <option <c:if test="${imageInfo.category_name == '진,이지'}">selected</c:if>>진,이지</option>
+                            <option <c:if test="${imageInfo.category_name == '남성패션'}">selected</c:if>>남성패션</option>
+                            <option <c:if test="${imageInfo.category_name == '유아동/문화'}">selected</c:if>>유아동/문화</option>
+                            <option <c:if test="${imageInfo.category_name == '스포츠/레져'}">selected</c:if>>스포츠/레져</option>
+                            <option <c:if test="${imageInfo.category_name == '리빙/가전'}">selected</c:if>>리빙/가전</option>
+                            <option <c:if test="${imageInfo.category_name == '리빙/가전'}">selected</c:if>>리빙/가전</option>
+                            <option <c:if test="${imageInfo.category_name == '식품'}">selected</c:if>>식품</option>
+                            <option <c:if test="${imageInfo.category_name == '기타'}">selected</c:if>>기타</option>
+                        </select>
+                        <p class="help-block"></p>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="group_name" class="col-sm-2 control-label">조직명</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="group_name" placeholder="조직명" value="${imageInfo.group_name}" readonly>
+                        <select id="group_name" name="group_name" class="input-xlarge">
+                            <option <c:if test="${imageInfo.group_name == '본사'}">selected</c:if>>본사</option>
+                            <option <c:if test="${imageInfo.group_name == '압구정본점'}">selected</c:if>>압구정본점</option>
+                            <option <c:if test="${imageInfo.group_name == '천호점'}">selected</c:if>>천호점</option>
+                            <option <c:if test="${imageInfo.group_name == '신촌점'}">selected</c:if>>신촌점</option>
+                            <option <c:if test="${imageInfo.group_name == '미아점'}">selected</c:if>>미아점</option>
+                            <option <c:if test="${imageInfo.group_name == '중동점'}">selected</c:if>>중동점</option>
+                            <option <c:if test="${imageInfo.group_name == '판교점'}">selected</c:if>>판교점</option>
+                            <option <c:if test="${imageInfo.group_name == '부산점'}">selected</c:if>>부산점</option>
+                            <option <c:if test="${imageInfo.group_name == '대구점'}">selected</c:if>>대구점</option>
+                            <option <c:if test="${imageInfo.group_name == '울산점'}">selected</c:if>>울산점</option>
+                            <option <c:if test="${imageInfo.group_name == '울산동구점'}">selected</c:if>>울산동구점</option>
+                            <option <c:if test="${imageInfo.group_name == '기타'}">selected</c:if>>기타</option>
+                        </select>
+                        <p class="help-block"></p>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="shop_name" class="col-sm-2 control-label">매장명</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="shop_name" placeholder="매장명" value="${imageInfo.shop_name}" readonly>
+                        <input type="text" class="form-control" id="shop_name" name="shop_name" placeholder="매장명"  value="${imageInfo.shop_name}" maxlength="40">
+                        <p class="help-block"></p>
                     </div>
                 </div>
+
+
             </div>
 
             <h3 class="page-header">이미지 정보</h3>

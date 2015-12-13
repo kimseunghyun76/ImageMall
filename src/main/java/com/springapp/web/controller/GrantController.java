@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,7 @@ public class GrantController {
 
 
     @RequestMapping(value = { "/imgGrant", "/imgGrant/list" }, method = RequestMethod.GET)
-    public String grantlistPage(@ModelAttribute("imageInfoVo") ImageInfoVo imageInfoVo, @RequestParam(value = "pageNo", required = false) String pageNo,ModelMap model) throws Exception{
+    public String grantlistPage(@ModelAttribute("imageInfoVo") ImageInfoVo imageInfoVo, @RequestParam(value = "pageNo", required = false) String pageNo,ModelMap model,HttpSession session) throws Exception{
         imageInfoVo.setPageSize(10); // 한 페이지에 보일 게시글 수
         imageInfoVo.setPageNo(1); // 현재 페이지 번호
         if(StringUtils.isNotEmpty(pageNo)){
@@ -53,9 +54,12 @@ public class GrantController {
         if(imageInfoVo.getUser_role()== null || imageInfoVo.getUser_role().equals("0")){
             imageInfoVo.setUser_role("");
         }
-        if(imageInfoVo.getImage_type()== null || imageInfoVo.getImage_type().equals("0")){
-            imageInfoVo.setImage_type("");
+
+        //본인의 조직은 fix
+        if(!session.getAttribute("my_user_role").toString().equals("3")) {
+            imageInfoVo.setGroup_now_name(session.getAttribute("my_group_name").toString());
         }
+
         //selectGrantList , selectGrantListCount 는 승인취소를 제외한 3가지 타입이 나와야 함.
         // 승인신청, 반려, 승인 ...
         imageInfoVo.setTotalCount(imageInfoService.selectGrantListCount(imageInfoVo)); // 게시물 총 개수

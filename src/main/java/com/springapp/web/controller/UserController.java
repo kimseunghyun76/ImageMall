@@ -51,17 +51,12 @@ public class UserController {
         userVo.setTotalCount(userService.selectListCount(userVo)); // 게시물 총 개수
         model.addAttribute("paging", userVo);
         model.addAttribute("userList", userService.selectList(userVo));
-        model.addAttribute("myid", getSessionUserID());
-        UserVo userVo2 = new UserVo();
-        userVo2.setUser_id(getSessionUserID());
-        model.addAttribute("myUserinfo", userService.selectInfo(userVo2));
+
         return "user/list";
     }
     //User write
     @RequestMapping(value = "/admin/write")
     public String adminInsertPage(@ModelAttribute("userVo") UserVo userVo, ModelMap model)  throws Exception{
-        userVo.setUser_id(getSessionUserID());
-        model.addAttribute("myUserinfo", userService.selectInfo(userVo));
         return "user/write";
     }
     @RequestMapping(value = "/admin/idchk", method = RequestMethod.GET)
@@ -90,8 +85,6 @@ public class UserController {
     @RequestMapping(value = { "/admin/edit", "/user/edit" })
     public String adminUpdatePage(@ModelAttribute("userVo") UserVo userVo,ModelMap model) throws Exception{
         model.addAttribute("userinfo", userService.selectInfo(userVo));
-        userVo.setUser_id(getSessionUserID());
-        model.addAttribute("myUserinfo", userService.selectInfo(userVo));
         return "user/edit";
     }
 
@@ -99,10 +92,7 @@ public class UserController {
     @RequestMapping(value = { "/admin/edit2", "/user/edit2" }, method = RequestMethod.POST)
     public String  adminUpdatePage2(RedirectAttributes redirectAttributes,@ModelAttribute("userVo") UserVo userVo,ModelMap model) throws Exception{
         int result=0;
-
         //TODO: 관리자인 경우 패스워드 수정.
-
-
         result = userService.update(userVo);
         String resultMessage ="관리자에게 문의 바랍니다.";
         if(result > 0 ) {

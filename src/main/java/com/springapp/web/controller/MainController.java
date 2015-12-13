@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by Helloworld
@@ -26,12 +27,28 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class MainController {
 
+    @Autowired
+    UserService userService;
+
     //include 포함.
     @RequestMapping(value = { "/include_top" })
-    public String topPage(ModelMap model) {
+    public String topPage(ModelMap model,HttpSession session) throws Exception{
+        if(getSessionUserID() != "anonymousUser"){
+            if(session.getAttribute("my_user_role") == null){
+                UserVo userVo = new UserVo();
+                userVo.setUser_id(getSessionUserID());
+                userVo = userService.selectInfo(userVo);
+                session.setAttribute("my_user_role", userVo.getUser_role());
+                session.setAttribute("my_user_id", userVo.getUser_id());
+                session.setAttribute("my_user_name", userVo.getUser_name());
+
+                session.setAttribute("my_category_name", userVo.getCategory_name());
+                session.setAttribute("my_group_name", userVo.getGroup_name());
+                session.setAttribute("my_shop_name", userVo.getShop_name());
+            }
+        }
         return "includes/top";
     }
-
     @RequestMapping(value = { "/include_bottom" })
     public String bottomPage(ModelMap model) {
         return "includes/bottom";
@@ -70,4 +87,16 @@ public class MainController {
         return "redirect:/login?logout";
     }
 
+
+    private String getSessionUserID(){
+        String userName = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            userName = ((UserDetails)principal).getUsername();
+        } else {
+            userName = principal.toString();
+        }
+        return userName;
+    }
 }

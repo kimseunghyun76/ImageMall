@@ -28,25 +28,34 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <sec:authorize access="isAuthenticated()">
             <ul class="nav navbar-nav">
                 <!--li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li-->
                 <li>
+                    <c:if test="${my_user_role =='1'}">
+                    <a href="/user/edit?user_id=<sec:authentication property="principal.username"/>"><i class="icon-cog"></i>회원 정보</a>
+                    </c:if>
+                    <c:if test="${my_user_role !='1'}">
                     <a href="/admin/list">회원 정보</a>
+                    </c:if>
                 </li>
                 <li>
                     <a href="/imgManage/list">이미지 관리</a>
                 </li>
-                <li>
-                    <a href="/imgGrant/list">이미지 승인</a>
-                </li>
+                <c:if test="${my_user_role !='1'}">
+                    <li>
+                        <a href="/imgGrant/list">이미지 승인</a>
+                    </li>
+                </c:if>
             </ul>
+            </sec:authorize>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <sec:authorize access="isAnonymous()">
                         <a href="/login"><i class="icon-cog"></i>로그인</a>
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong><sec:authentication property="principal.username"/></strong>정보 <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong>${my_user_name}</strong>님 정보 <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="/user/edit?user_id=<sec:authentication property="principal.username"/>"><i class="icon-cog"></i>내 정보 수정</a></li>
                             <li role="separator" class="divider"></li>

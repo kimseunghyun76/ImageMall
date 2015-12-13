@@ -38,7 +38,7 @@
                     <div class="col-md-6">
                         <label for="image_type">이미지 구분</label>
                         <select id="image_type" name="image_type" class="input-xlarge">
-                            <option value="0">전체</option>
+                            <option value="all">전체</option>
                             <option value="1" <c:if test="${paging.image_type == '1'}">selected</c:if>>로고</option>
                             <option value="2" <c:if test="${paging.image_type == '2'}">selected</c:if>>프로모션 이미지</option>
                             <option value="3" <c:if test="${paging.image_type == '3'}">selected</c:if>>마네킹 촬영 이미지</option>
@@ -93,9 +93,20 @@
                                     </c:if>
                                 </td>
                                 <td>
-                                    <h5 class="small">[name]<br/><span class="text-overflow" title="${info.product_name}"><h4><strong>${info.product_name}</strong></h4></span></h5>
-                                    <h5 class="small">[code]<br/><span class="text-overflow" title="${info.product_code}">${info.product_code}</span></h5>
-                                    <h5 class="small">[link]<br/><span class="text-overflow" title="${info.urlinfo}">${info.urlinfo}</span></h5>
+                                    <c:if test="${info.product_type  == '1' && info.product_gubun == '1'}">
+                                        <h5 class="small">[name]<br/><span class="text-overflow" title="${info.product_name}"><h4><strong>${info.product_name}</strong></h4></span></h5>
+                                        <h5 class="small">[code]<br/><span class="text-overflow" title="${info.product_code}">${info.product_code}</span></h5>
+                                        <h5 class="small">[link]<br/><span class="text-overflow" title="${info.urlinfo}">${info.urlinfo}</span></h5>
+                                    </c:if>
+
+                                    <c:if test="${info.product_type  == '1' && info.product_gubun == '2'}">
+                                        <h5 class="small">[link]<br/><span class="text-overflow" title="${info.direct_url2}">${info.direct_url2}</span></h5>
+                                    </c:if>
+
+                                    <c:if test="${info.product_type  == '2' && info.product_gubun == '2'}">
+                                        <h5 class="small">[link]<br/><span class="text-overflow" title="${info.direct_url}">${info.direct_url}</span></h5>
+                                    </c:if>
+
                                 </td>
                                 <td>
                                     <!--권한별-->

@@ -12,6 +12,13 @@
 		a.image_type as image_type,
 		a.product_code as product_code,
 		a.product_name as product_name,
+		a.category_now_name as category_now_name,
+		a.group_now_name as group_now_name,
+		a.shop_now_name as shop_now_name,
+		a.product_type as product_type,
+		a.product_gubun as product_gubun,
+		a.direct_url as direct_url,
+		a.direct_url2 as direct_url2,
 		a.urlinfo as urlinfo,
 		a.user_id as user_id,
 		b.image_name as image_name
@@ -23,20 +30,20 @@
 		GROUP BY image_seq) b
 		ON a.image_seq = b.image_seq
 		<where>
-			<if test="image_type != '' ">
+			<if test="image_type !='all' and image_type != null">
 				AND a.image_type =  #{image_type}
 			</if>
 			<if test="user_id != null">
 				AND u.user_id LIKE CONCAT('%', #{user_id},'%')
 			</if>
-			<if test="group_name != null">
-				AND u.group_name LIKE CONCAT('%', #{group_name},'%')
+			<if test="category_now_name !='all' and category_now_name != null">
+				AND a.category_now_name LIKE CONCAT('%', #{category_now_name},'%')
 			</if>
-			<if test="shop_name != null">
-				AND u.shop_name LIKE CONCAT('%', #{shop_name},'%')
+			<if test="group_now_name !='all' and group_now_name != null">
+				AND a.group_now_name LIKE CONCAT('%', #{group_now_name},'%')
 			</if>
-			<if test="category_name != null">
-				AND u.category_name LIKE CONCAT('%', #{category_name},'%')
+			<if test="shop_now_name != null">
+				AND a.shop_now_name LIKE CONCAT('%', #{shop_now_name},'%')
 			</if>
 			<if test="user_role != '' ">
 				AND u.user_role =  #{user_role}
@@ -69,20 +76,20 @@
 		GROUP BY image_seq) b
 		ON a.image_seq = b.image_seq
 		<where>
-			<if test="image_type != '' ">
+			<if test="image_type !='all' and image_type != null">
 				AND a.image_type =  #{image_type}
 			</if>
 			<if test="user_id != null">
 				AND u.user_id LIKE CONCAT('%', #{user_id},'%')
 			</if>
-			<if test="group_name != null">
-				AND u.group_name LIKE CONCAT('%', #{group_name},'%')
+			<if test="category_now_name !='all' and category_now_name != null">
+				AND a.category_now_name LIKE CONCAT('%', #{category_now_name},'%')
 			</if>
-			<if test="shop_name != null">
-				AND u.shop_name LIKE CONCAT('%', #{shop_name},'%')
+			<if test="group_now_name !='all' and group_now_name != null">
+				AND a.group_now_name LIKE CONCAT('%', #{group_now_name},'%')
 			</if>
-			<if test="category_name != null">
-				AND u.category_name LIKE CONCAT('%', #{category_name},'%')
+			<if test="shop_now_name != null">
+				AND a.shop_now_name LIKE CONCAT('%', #{shop_now_name},'%')
 			</if>
 			<if test="user_role != '' ">
 				AND u.user_role =  #{user_role}
@@ -110,6 +117,13 @@
 		a.image_seq as image_seq,
 		a.status as status,
 		a.image_type as image_type,
+		a.category_now_name as category_now_name,
+		a.group_now_name as group_now_name,
+		a.shop_now_name as shop_now_name,
+		a.product_type as product_type,
+		a.product_gubun as product_gubun,
+		a.direct_url as direct_url,
+		a.direct_url2 as direct_url2,
 		a.product_code as product_code,
 		a.product_name as product_name,
 		a.urlinfo as urlinfo,
@@ -123,20 +137,20 @@
 		GROUP BY image_seq) b
 		ON a.image_seq = b.image_seq
 		WHERE a.status != '2'
-		<if test="image_type != '' ">
+		<if test="image_type !='all' and image_type != null">
 			AND a.image_type =  #{image_type}
 		</if>
 		<if test="user_id != null">
 			AND u.user_id LIKE CONCAT('%', #{user_id},'%')
 		</if>
-		<if test="group_name != null">
-			AND u.group_name LIKE CONCAT('%', #{group_name},'%')
+		<if test="category_now_name !='all' and category_now_name != null">
+			AND a.category_now_name LIKE CONCAT('%', #{category_now_name},'%')
 		</if>
-		<if test="shop_name != null">
-			AND u.shop_name LIKE CONCAT('%', #{shop_name},'%')
+		<if test="group_now_name !='all' and group_now_name != null">
+			AND a.group_now_name LIKE CONCAT('%', #{group_now_name},'%')
 		</if>
-		<if test="category_name != null">
-			AND u.category_name LIKE CONCAT('%', #{category_name},'%')
+		<if test="shop_now_name != null">
+			AND a.shop_now_name LIKE CONCAT('%', #{shop_now_name},'%')
 		</if>
 		<if test="user_role != '' ">
 			AND u.user_role =  #{user_role}
@@ -168,20 +182,20 @@
 		GROUP BY image_seq) b
 		ON a.image_seq = b.image_seq
 		WHERE a.status != '2'
-		<if test="image_type != '' ">
+		<if test="image_type !='all' and image_type != null">
 			AND a.image_type =  #{image_type}
 		</if>
 		<if test="user_id != null">
 			AND u.user_id LIKE CONCAT('%', #{user_id},'%')
 		</if>
-		<if test="group_name != null">
-			AND u.group_name LIKE CONCAT('%', #{group_name},'%')
+		<if test="category_now_name !='all' and category_now_name != null">
+			AND a.category_now_name LIKE CONCAT('%', #{category_now_name},'%')
 		</if>
-		<if test="shop_name != null">
-			AND u.shop_name LIKE CONCAT('%', #{shop_name},'%')
+		<if test="group_now_name !='all' and group_now_name != null">
+			AND a.group_now_name LIKE CONCAT('%', #{group_now_name},'%')
 		</if>
-		<if test="category_name != null">
-			AND u.category_name LIKE CONCAT('%', #{category_name},'%')
+		<if test="shop_now_name != null">
+			AND a.shop_now_name LIKE CONCAT('%', #{shop_now_name},'%')
 		</if>
 		<if test="user_role != '' ">
 			AND u.user_role =  #{user_role}
@@ -207,6 +221,13 @@
   		SELECT
 			a.image_seq as image_seq,
 			a.image_type as image_type,
+			a.category_now_name as category_now_name,
+			a.group_now_name as group_now_name,
+			a.shop_now_name as shop_now_name,
+			a.product_type as product_type,
+			a.product_gubun as product_gubun,
+			a.direct_url as direct_url,
+			a.direct_url2 as direct_url2,
 			a.product_code as product_code,
 			a.product_name as product_name,
 			a.urlinfo as urlinfo,
@@ -229,12 +250,20 @@
 			SELECT LAST_INSERT_ID() as image_seq
 		</selectKey>
 
+
 		INSERT INTO image_info
 		(
 		image_type,
 		product_code,
 		product_name,
 		user_id,
+		category_now_name,
+		group_now_name,
+		shop_now_name,
+		product_type,
+		product_gubun,
+		direct_url,
+		direct_url2,
 		urlinfo,
 		reg_date,
 		status
@@ -245,6 +274,13 @@
 		#{product_code},
 		#{product_name},
 		#{user_id},
+		#{category_now_name},
+		#{group_now_name},
+		#{shop_now_name},
+		#{product_type},
+		#{product_gubun},
+		#{direct_url},
+		#{direct_url2},
 		#{urlinfo},
 		now(),
 		#{status}
@@ -260,6 +296,15 @@
 			<if test="image_type != null and image_type != '' ">image_type=#{image_type},</if>
 			<if test="product_code != null and product_code != '' ">product_code=#{product_code},</if>
 			<if test="product_name != null and product_name != '' ">product_name=#{product_name},</if>
+
+			<if test="category_now_name != null and category_now_name != '' ">category_now_name=#{category_now_name},</if>
+			<if test="group_now_name != null and group_now_name != '' ">group_now_name=#{group_now_name},</if>
+			<if test="shop_now_name != null and shop_now_name != '' ">shop_now_name=#{shop_now_name},</if>
+			<if test="product_type != null and product_type != '' ">product_type=#{product_type},</if>
+			<if test="product_gubun != null and product_gubun != '' ">product_gubun=#{product_gubun},</if>
+			<if test="direct_url != null and direct_url != '' ">direct_url=#{direct_url},</if>
+			<if test="direct_url2 != null and direct_url2 != '' ">direct_url2=#{direct_url2},</if>
+
 			<if test="user_id != null and user_id != '' ">user_id=#{user_id},</if>
 			<if test="urlinfo != null and urlinfo != '' ">urlinfo=#{urlinfo},</if>
 			<if test="status != null and status != '' ">status=#{status},</if>

@@ -16,26 +16,25 @@
                         <c:if test="${imageInfo.status == '4'}"><span class="label label-success">승인</span></c:if>
                     </label>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">카테고리 </label>
+                    <label class="col-sm-10">
+                        <h4>${imageInfo.category_now_name}</h4>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">조직명 </label>
+                    <label class="col-sm-10">
+                        <h4>${imageInfo.group_now_name}</h4>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">매장명 </label>
+                    <label class="col-sm-10">
+                        <h4>${imageInfo.shop_now_name}</h4>
+                    </label>
+                </div>
 
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">카테고리</label>
-                    <label class="col-sm-10">
-                        <h4>${imageInfo.category_name}</h4>
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">조직명</label>
-                    <label class="col-sm-10">
-                        <h4>${imageInfo.group_name}</h4>
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">매장명</label>
-                    <label class="col-sm-10">
-                        <h4>${imageInfo.shop_name}</h4>
-                    </label>
-                </div>
             </div>
             <h3 class="page-header">연결 정보</h3>
             <div class="row" style="padding:20px">
@@ -72,35 +71,54 @@
                 <div class="row" style="padding:10px">
                     <div class="row" id="urlview" style="display:block;padding:10px">
 
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">상품 코드 </label>
-                            <label class="col-sm-10">
-                                <h4>${imageInfo.product_code}</h4>
-                            </label>
-                        </div>
+                        <c:if test="${imageInfo.product_type == '1' && imageInfo.product_gubun == '1'}">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">상품 코드 </label>
+                                <label class="col-sm-10">
+                                    <h4>${imageInfo.product_code}</h4>
+                                </label>
+                            </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">상품명 </label>
-                            <label class="col-sm-10">
-                                <h4> ${imageInfo.product_name}</h4>
-                            </label>
-                        </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">상품명 </label>
+                                <label class="col-sm-10">
+                                    <h4> ${imageInfo.product_name}</h4>
+                                </label>
+                            </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">URL 정보 </label>
-                            <label class="col-sm-10">
-                                <h4>${imageInfo.urlinfo}</h4>
-                            </label>
-                        </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">URL 정보 </label>
+                                <label class="col-sm-10">
+                                    <h4>${imageInfo.urlinfo}</h4>
+                                </label>
+                            </div>
+                        </c:if>
+                        <c:if test="${imageInfo.product_type == '1'  && imageInfo.product_gubun == '2'}">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">URL 정보 </label>
+                                <label class="col-sm-10">
+                                    <h4>${imageInfo.direct_url2}</h4>
+                                </label>
+                            </div>
+                        </c:if>
+                        <c:if test="${imageInfo.product_type == '2' && imageInfo.product_gubun == '2'}">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">URL 정보 </label>
+                                <label class="col-sm-10">
+                                    <h4>${imageInfo.direct_url}</h4>
+                                </label>
+                            </div>
+                        </c:if>
+
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label"></label>
                 <div class="col-sm-6">
-                    <a class="btn btn-success" href="/imgGrant/edit?image_seq=${imageInfo.image_seq}" role="button">정보 수정</a>
-                    <a class="btn btn-warning" href="/imgGrant/delete?image_seq=${imageInfo.image_seq}" role="button">정보 삭제</a>
-                    <a class="btn btn-primary" href="/imgGrant/list" role="button">이미지 목록</a>
+                    <a class="btn btn-success" href="/imgGrant/edit?image_seq=${imageInfo.image_seq}" role="button">수정</a>
+                    <a class="btn btn-warning" href="/imgGrant/delete?image_seq=${imageInfo.image_seq}" role="button">삭제</a>
+                    <a class="btn btn-primary" href="/imgGrant/list" role="button">목록</a>
 
                     <c:if test="${info.status == '1'}">
                         <a class="btn btn-primary" href="/imgGrant/grant?image_seq=${imageInfo.image_seq}&status=4" role="button">승인</a>

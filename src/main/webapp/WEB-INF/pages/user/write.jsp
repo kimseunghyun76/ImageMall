@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="/include_top" flush="true" />
 <div class="contentwrap">
     <article class="container">
@@ -93,10 +94,10 @@
                 <div class="col-sm-10">
                     <select id="user_role" name="user_role" class="input-xlarge">
                         <option value="1">사용자</option>
-                        <c:if test="${myUserinfo.user_role =='3' || myUserinfo.user_role =='2'}">
+                        <c:if test="${my_user_role =='3' || my_user_role =='2'}">
                         <option value="2">관리자</option>
                         </c:if>
-                        <c:if test="${myUserinfo.user_role =='3'}">
+                        <c:if test="${my_user_role =='3'}">
                         <option value="3">최고관리자</option>
                         </c:if>
                     </select>
@@ -132,16 +133,16 @@
         }
     }
     function onSubmitcheck(){
-        if($("#user_id").val() =="" || $("#user_id").val().length <= 4) {
+        if($("#user_id").val() =="" || $("#user_id").val().length < 4) {
             alert("사용자 아이디를 입력해주세요(길이는 4자 이상 입력해주세요!");
             return false;
-        }else if($("#password").val() =="" || $("#password").val().length <= 8) {
+        }else if($("#password").val() =="" || $("#password").val().length < 8) {
             alert("비밀번호를 입력해주세요(길이는 8자 이상 입력해주세요!");
             return false;
         }else if(!$("#password").val().match(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/)) {
-            alert("비밀번호는 영문,숫자,특수문자(!@$%^&* 만 허용)를 사용하여 8자 이상사용해 주세요.");
+            alert("비밀번호는 영문,숫자,특수문자(!@$%^&* 만 허용)를 사용하여 8자 이상 사용해 주세요.");
             return false;
-        }else if($("#password2").val() =="" || $("#password2").val().length <= 8) {
+        }else if($("#password2").val() =="" || $("#password2").val().length < 8) {
             alert("비밀번호 확인을 입력해주세요(길이는 8자 이상 입력해주세요!");
             return false;
         }else if($("#password").val() != $("#password2").val()){
@@ -150,11 +151,11 @@
         }else if($("#user_name").val() =="" || $("#user_name").val().length <= 2) {
             alert("이름을 2자 이상 입력해주세요");
             return false;
-        }else if($("#shop_name").val() =="" || $("#shop_name").val().length <= 2) {
+        }else if($("#shop_name").val() =="" || $("#shop_name").val().length < 2) {
             alert("매장명을 2자 이상 입력해주세요");
             return false;
-        }else if($("#phone_num").val() =="" || $("#phone_num").val().length <= 11) {
-            alert("전화번호를 입력해주세요");
+        }else if($("#phone_num").val() =="" || $("#phone_num").val().length < 10) {
+            alert("정확한 전화번호를 입력해주세요");
             return false;
         }else if ($("#idchk").val() !="0") {
             alert("아이디 중복 체크 버튼을 눌러서 아이디 중복 확인을 진행해주세요.");

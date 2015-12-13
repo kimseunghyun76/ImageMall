@@ -66,3 +66,15 @@ select{width:100%;border:1px solid #cccccc;background-color:#ffffff;}
     opacity: 0;
     filter: alpha(opacity=0);
 }
+
+.popover{
+    max-width:600px;
+}
+/*.popover-title {*/
+    /*font-size: 15px;*/
+/*}*/
+.popover-content {
+    font-size: 12px;
+    background-color: #000;
+    color:white;
+}

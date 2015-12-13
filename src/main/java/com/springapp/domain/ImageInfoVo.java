@@ -24,6 +24,18 @@ public class ImageInfoVo extends UserVo {
     private String product_name;
     private String urlinfo;
     private String status;
+
+
+    private String category_now_name;
+    private String group_now_name;
+    private String shop_now_name;
+    private String product_type;
+    private String product_gubun;
+    private String direct_url;
+    private String direct_url2;
+
+
+
     //싱글로만
     private String image_name;
 
@@ -108,4 +120,61 @@ public class ImageInfoVo extends UserVo {
     public void setImage_name(String image_name) {
         this.image_name = image_name;
     }
+
+    public String getCategory_now_name() {
+        return category_now_name;
+    }
+
+    public void setCategory_now_name(String category_now_name) {
+        this.category_now_name = category_now_name;
+    }
+
+    public String getGroup_now_name() {
+        return group_now_name;
+    }
+
+    public void setGroup_now_name(String group_now_name) {
+        this.group_now_name = group_now_name;
+    }
+
+    public String getShop_now_name() {
+        return shop_now_name;
+    }
+
+    public void setShop_now_name(String shop_now_name) {
+        this.shop_now_name = shop_now_name;
+    }
+
+    public String getProduct_type() {
+        return product_type;
+    }
+
+    public void setProduct_type(String product_type) {
+        this.product_type = product_type;
+    }
+
+    public String getProduct_gubun() {
+        return product_gubun;
+    }
+
+    public void setProduct_gubun(String product_gubun) {
+        this.product_gubun = product_gubun;
+    }
+
+    public String getDirect_url() {
+        return direct_url;
+    }
+
+    public void setDirect_url(String direct_url) {
+        this.direct_url = direct_url;
+    }
+
+    public String getDirect_url2() {
+        return direct_url2;
+    }
+
+    public void setDirect_url2(String direct_url2) {
+        this.direct_url2 = direct_url2;
+    }
+
 }

@@ -59,6 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDecisionManager(getAccessDecisionManager())
                 .antMatchers("/login", "/login/**", "/logout", "/Access_Denied").permitAll()
                 .antMatchers("/imgManage/**").hasAnyRole("USER")
+                .antMatchers("/user/**").hasAnyRole("USER")
                 .antMatchers("/admin/**").hasAnyRole("ADMIN")
                 .antMatchers("/imgGrant/**").hasAnyRole("ADMIN")
                 .and().formLogin().loginPage("/login")

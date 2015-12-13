@@ -12,18 +12,72 @@
                 <div class="row" style="padding:5px">
                     <div class="col-md-6">
                         <label for="category_name">카테고리</label>
-                        <input type="text" class="form-control" id="category_name" name="category_name" placeholder="카테고리" value="${myUserinfo.category_name}">
+
+                        <c:if test="${my_user_role !='3'}">
+                            <select id="category_now_name" name="category_now_name" class="input-xlarge">
+                                <option value="all">전체</option>
+                                <option <c:if test="${my_category_name == '화장품'}">selected</c:if>>화장품</option>
+                                <option <c:if test="${my_category_name == '명품/잡화'}">selected</c:if>>명품/잡화</option>
+                                <option <c:if test="${my_category_name == '여성패션'}">selected</c:if>>여성패션</option>
+                                <option <c:if test="${my_category_name == '영캐쥬얼'}">selected</c:if>>영캐쥬얼</option>
+                                <option <c:if test="${my_category_name == '진,이지'}">selected</c:if>>진,이지</option>
+                                <option <c:if test="${my_category_name == '남성패션'}">selected</c:if>>남성패션</option>
+                                <option <c:if test="${my_category_name == '유아동/문화'}">selected</c:if>>유아동/문화</option>
+                                <option <c:if test="${my_category_name == '스포츠/레져'}">selected</c:if>>스포츠/레져</option>
+                                <option <c:if test="${my_category_name == '리빙/가전'}">selected</c:if>>리빙/가전</option>
+                                <option <c:if test="${my_category_name == '식품'}">selected</c:if>>식품</option>
+                                <option <c:if test="${my_category_name == '기타'}">selected</c:if>>기타</option>
+                            </select>
+                        </c:if>
+
+                        <c:if test="${my_user_role =='3'}">
+                            <select id="category_now_name" name="category_now_name" class="input-xlarge">
+                                <option value="all">전체</option>
+                                <option <c:if test="${paging.category_now_name == '화장품'}">selected</c:if>>화장품</option>
+                                <option <c:if test="${paging.category_now_name == '명품/잡화'}">selected</c:if>>명품/잡화</option>
+                                <option <c:if test="${paging.category_now_name == '여성패션'}">selected</c:if>>여성패션</option>
+                                <option <c:if test="${paging.category_now_name == '영캐쥬얼'}">selected</c:if>>영캐쥬얼</option>
+                                <option <c:if test="${paging.category_now_name == '진,이지'}">selected</c:if>>진,이지</option>
+                                <option <c:if test="${paging.category_now_name == '남성패션'}">selected</c:if>>남성패션</option>
+                                <option <c:if test="${paging.category_now_name == '유아동/문화'}">selected</c:if>>유아동/문화</option>
+                                <option <c:if test="${paging.category_now_name == '스포츠/레져'}">selected</c:if>>스포츠/레져</option>
+                                <option <c:if test="${paging.category_now_name == '리빙/가전'}">selected</c:if>>리빙/가전</option>
+                                <option <c:if test="${paging.category_now_name == '식품'}">selected</c:if>>식품</option>
+                                <option <c:if test="${paging.category_now_name == '기타'}">selected</c:if>>기타</option>
+                            </select>
+                        </c:if>
                     </div>
 
                     <div class="col-md-6">
-                        <label for="group_name">조직명</label>
-                        <input type="text" class="form-control" id="group_name" name="group_name" placeholder="조직명"  value="${myUserinfo.group_name}">
+                        <label for="group_now_name">조직명</label>
+
+
+                        <c:if test="${my_user_role !='3'}">
+                            <input type="text" class="form-control" id="group_now_name" name="group_now_name" placeholder="조직명" value="${my_group_name}" readonly >
+                        </c:if>
+                        <c:if test="${my_user_role =='3'}">
+                        <select id="group_now_name" name="group_now_name" class="input-xlarge">
+                            <option value="all">전체</option>
+                            <option <c:if test="${paging.group_now_name == '본사'}">selected</c:if>>본사</option>
+                            <option <c:if test="${paging.group_now_name == '압구정본점'}">selected</c:if>>압구정본점</option>
+                            <option <c:if test="${paging.group_now_name == '천호점'}">selected</c:if>>천호점</option>
+                            <option <c:if test="${paging.group_now_name == '신촌점'}">selected</c:if>>신촌점</option>
+                            <option <c:if test="${paging.group_now_name == '미아점'}">selected</c:if>>미아점</option>
+                            <option <c:if test="${paging.group_now_name == '중동점'}">selected</c:if>>중동점</option>
+                            <option <c:if test="${paging.group_now_name == '판교점'}">selected</c:if>>판교점</option>
+                            <option <c:if test="${paging.group_now_name == '부산점'}">selected</c:if>>부산점</option>
+                            <option <c:if test="${paging.group_now_name == '대구점'}">selected</c:if>>대구점</option>
+                            <option <c:if test="${paging.group_now_name == '울산점'}">selected</c:if>>울산점</option>
+                            <option <c:if test="${paging.group_now_name == '울산동구점'}">selected</c:if>>울산동구점</option>
+                            <option <c:if test="${paging.group_now_name == '기타'}">selected</c:if>>기타</option>
+                        </select>
+                        </c:if>
                     </div>
                 </div>
                 <div class="row" style="padding:10px">
                     <div class="col-md-6">
-                        <label for="shop_name">매장명</label>
-                        <input type="text" class="form-control" id="shop_name" name="shop_name" placeholder="매장명" value="${paging.shop_name}">
+                        <label for="shop_now_name">매장명</label>
+                        <input type="text" class="form-control" id="shop_now_name" name="shop_now_name" placeholder="매장명" value="${paging.shop_name}">
                     </div>
 
                     <div class="col-md-6">
@@ -33,18 +87,20 @@
                 </div>
                 <div class="row" style="padding:10px">
                     <div class="col-md-6">
-                        <label for="user_role"></label>
+                        <label for="user_role">권한</label>
                         <select id="user_role" name="user_role" class="input-xlarge">
-                            <option value="0">전체 권한</option>
+                            <option value="0">전체 </option>
+                            <c:if test="${my_user_role =='3'}">
                             <option value="3" <c:if test="${paging.user_role == '3'}">selected</c:if>>최고관리자</option>
+                            </c:if>
                             <option value="2" <c:if test="${paging.user_role == '2'}">selected</c:if>>관리자</option>
                             <option value="1" <c:if test="${paging.user_role == '1'}">selected</c:if>>사용자</option>
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <label for="image_type"></label>
+                        <label for="image_type">이미지구분</label>
                         <select id="image_type" name="image_type" class="input-xlarge">
-                            <option value="0">전체 이미지구분</option>
+                            <option value="all">전체 </option>
                             <option value="1" <c:if test="${paging.image_type == '1'}">selected</c:if>>로고</option>
                             <option value="2" <c:if test="${paging.image_type == '2'}">selected</c:if>>프로모션 이미지</option>
                             <option value="3" <c:if test="${paging.image_type == '3'}">selected</c:if>>마네킹 촬영 이미지</option>
@@ -61,7 +117,6 @@
                         </select>
                     </div>
                     <div class="col-md-6 text-right">
-                        <label for="image_type"></label>
                         <button type="submit" class="btn btn-primary">SEARCH</button>
                     </div>
                 </div>
@@ -116,9 +171,21 @@
                                     </c:if>
                                 </td>
                                 <td>
-                                    <h5 class="small">[name]<br/><span class="text-overflow" title="${info.product_name}"><h4><strong>${info.product_name}</strong></h4></span></h5>
-                                    <h5 class="small">[code]<br/><span class="text-overflow" title="${info.product_code}">${info.product_code}</span></h5>
-                                    <h5 class="small">[link]<br/><span class="text-overflow" title="${info.urlinfo}">${info.urlinfo}</span></h5>
+
+                                    <c:if test="${info.product_type  == '1' && info.product_gubun == '1'}">
+                                        <h5 class="small">[name]<br/><span class="text-overflow" title="${info.product_name}"><h4><strong>${info.product_name}</strong></h4></span></h5>
+                                        <h5 class="small">[code]<br/><span class="text-overflow" title="${info.product_code}">${info.product_code}</span></h5>
+                                        <h5 class="small">[link]<br/><span class="text-overflow" title="${info.urlinfo}">${info.urlinfo}</span></h5>
+                                    </c:if>
+
+                                    <c:if test="${info.product_type  == '1' && info.product_gubun == '2'}">
+                                        <h5 class="small">[link]<br/><span class="text-overflow" title="${info.direct_url2}">${info.direct_url2}</span></h5>
+                                    </c:if>
+
+                                    <c:if test="${info.product_type  == '2' && info.product_gubun == '2'}">
+                                        <h5 class="small">[link]<br/><span class="text-overflow" title="${info.direct_url}">${info.direct_url}</span></h5>
+                                    </c:if>
+
                                 </td>
                                 <td>
                                     <!--권한별-->

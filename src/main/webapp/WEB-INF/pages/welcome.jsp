@@ -31,9 +31,11 @@
                     <li>
                         <a href="/imgManage/write">이미지 관리</a>
                     </li>
+                    <c:if test="${my_user_role !='1'}">
                     <li>
                         <a href="/imgGrant/list">이미지 승인</a>
                     </li>
+                    </c:if>
                 </ul>
             </sec:authorize>
         </div>

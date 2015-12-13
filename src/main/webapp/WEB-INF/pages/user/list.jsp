@@ -10,17 +10,19 @@
         </div>
 
         <div class="row">
-            <div class="col-md-8"></div>
-            <div class="col-md-4">
-                <div class="row text-left">
+            <div class="col-md-8">
+                <div class="row">
                     <form method="POST" action="uploadFile?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
-                        <c:if test="${myUserinfo.user_role =='3'}">
-                        <input type="file" name="file">
-                        <button class="btn btn-default">대량회원등록</button>
+                        <c:if test="${my_user_role =='3'}">
+                            <a href="/resources/uploadexcel/sample.xlsx" target="_blank">Sample Excel</a>
+                            <input type="file" name="file">
+                            <button class="btn btn-default">대량회원등록</button>
                         </c:if>
                         <a class="btn btn-primary" href="/admin/write" role="button">회원등록</a>
                     </form>
                 </div>
+            </div>
+            <div class="col-md-4">
             </div>
         </div>
 
@@ -30,7 +32,7 @@
                     <div class="col-md-6">
                         <label for="category_name">카테고리</label>
                         <select id="category_name" name="category_name" class="input-xlarge">
-                            <option value="0">전체</option>
+                            <option value="all">전체</option>
                             <option <c:if test="${paging.category_name == '화장품'}">selected</c:if>>화장품</option>
                             <option <c:if test="${paging.category_name == '명품/잡화'}">selected</c:if>>명품/잡화</option>
                             <option <c:if test="${paging.category_name == '여성패션'}">selected</c:if>>여성패션</option>
@@ -40,7 +42,6 @@
                             <option <c:if test="${paging.category_name == '유아동/문화'}">selected</c:if>>유아동/문화</option>
                             <option <c:if test="${paging.category_name == '스포츠/레져'}">selected</c:if>>스포츠/레져</option>
                             <option <c:if test="${paging.category_name == '리빙/가전'}">selected</c:if>>리빙/가전</option>
-                            <option <c:if test="${paging.category_name == '리빙/가전'}">selected</c:if>>리빙/가전</option>
                             <option <c:if test="${paging.category_name == '식품'}">selected</c:if>>식품</option>
                             <option <c:if test="${paging.category_name == '기타'}">selected</c:if>>기타</option>
                         </select>
@@ -48,7 +49,7 @@
                     <div class="col-md-6">
                         <label for="group_name">조직명</label>
                         <select id="group_name" name="group_name" class="input-xlarge">
-                            <option value="0">전체</option>
+                            <option value="all">전체</option>
                             <option <c:if test="${paging.group_name == '본사'}">selected</c:if>>본사</option>
                             <option <c:if test="${paging.group_name == '압구정본점'}">selected</c:if>>압구정본점</option>
                             <option <c:if test="${paging.group_name == '천호점'}">selected</c:if>>천호점</option>
@@ -79,7 +80,7 @@
                     <div class="col-md-12">
                         <select id="user_role" name="user_role" class="input-xlarge">
                             <option value="0">전체 권한</option>
-                            <c:if test="${myUserinfo.user_role =='3'}">
+                            <c:if test="${my_user_role =='3'}">
                             <option value="3" <c:if test="${paging.user_role == '3'}">selected</c:if>>최고관리자</option>
                             </c:if>
                             <option value="2" <c:if test="${paging.user_role == '2'}">selected</c:if>>관리자</option>
@@ -132,7 +133,7 @@
                                 <td>
                                     <!--a class="btn btn-primary" href="/admin/edit?user_id=${info.user_id}" role="button">상세 보기</a-->
                                     <a class="btn btn-success" href="/admin/edit?user_id=${info.user_id}" role="button">수정</a>
-                                    <c:if test="${info.user_id != myid}">
+                                    <c:if test="${info.user_id != my_user_id}">
                                     <a class="btn btn-warning" href="/admin/delete?user_id=${info.user_id}" role="button">삭제</a>
                                     </c:if>
                                 </td>

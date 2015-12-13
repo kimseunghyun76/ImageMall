@@ -49,9 +49,6 @@ public class ManageController {
         if(imageInfoVo.getUser_role()== null || imageInfoVo.getUser_role().equals("0")){
             imageInfoVo.setUser_role("");
         }
-        if(imageInfoVo.getImage_type()== null || imageInfoVo.getImage_type().equals("0")){
-            imageInfoVo.setImage_type("");
-        }
 
         imageInfoVo.setUser_id(getSessionUserID());                               // 계정정보를 넣어 줍시다.
         imageInfoVo.setTotalCount(imageInfoService.selectListCount(imageInfoVo)); // 게시물 총 개수
@@ -76,7 +73,10 @@ public class ManageController {
 
         //file upload path
         final String saveDirectory = request.getSession().getServletContext().getRealPath("/") + "/resources/uploadimages/";
-
+        //이미지 구분이 없으면 무조건 2(URL)
+        if(imageInfoVo.getProduct_gubun() == null){
+            imageInfoVo.setProduct_gubun("2");
+        }
         //첫번째는 이미지 정보
         imageInfoVo.setUser_id(getSessionUserID());
         imageInfoService.insert(imageInfoVo);
@@ -147,6 +147,13 @@ public class ManageController {
     public String manageUpdate(RedirectAttributes redirectAttributes,@ModelAttribute("imageInfoVo") ImageInfoVo imageInfoVo,HttpServletRequest request,ModelMap model) throws Exception{
         final String saveDirectory = request.getSession().getServletContext().getRealPath("/") + "/resources/uploadimages/";
         int result;
+
+        //이미지 구분이 없으면 무조건 2(URL)
+        if(imageInfoVo.getProduct_gubun() == null){
+            imageInfoVo.setProduct_gubun("2");
+        }
+
+
         imageInfoVo.setUser_id(getSessionUserID());
         result = imageInfoService.update(imageInfoVo);
 
@@ -274,7 +281,7 @@ public class ManageController {
     public String productList(@ModelAttribute("imageInfoVo") ImageInfoVo imageInfoVo, @RequestParam(value = "pageNo", required = false) String pageNo,ModelMap model) throws Exception{
 
         //페이징 정보
-        imageInfoVo.setPageSize(200);        // 한 페이지에 보일 게시글 수
+        imageInfoVo.setPageSize(2000);        // 한 페이지에 보일 게시글 수
         imageInfoVo.setPageNo(1);           // 현재 페이지 번호
         if(StringUtils.isNotEmpty(pageNo)){
             imageInfoVo.setPageNo(Integer.parseInt(pageNo));
